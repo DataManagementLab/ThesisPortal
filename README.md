@@ -1,2 +1,2 @@
 # ThesisPortal
-Portal für Abschlussarbeiten - Bachelorpaktikum 2022/23
+Portal für Abschlussarbeiten - Bachelorpraktikum 2022/23
