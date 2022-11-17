@@ -24,6 +24,9 @@
 	"dependencies": {
 		"logical-cas-client": "^0.0.4",
 		"njwt": "^1.2.0",
+		"sass": "^1.56.1",
+		"svelte-check": "^2.9.2",
+		"svelte-preprocess": "^4.10.7",
 		"universal-cookie": "^4.0.4"
 	}
 }
