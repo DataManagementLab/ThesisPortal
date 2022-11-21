@@ -5,17 +5,23 @@
         {
             title: "Beispiel2",
             graduration: "Master",
-            supervisor: "Mustermann"
+            subject: "Fachgebiet1",
+            supervisor: "Mustermann",
+            deadline: "01.04.2023"
         },
         {
             title: "Beispiel3",
             graduration: "Bachelor",
-            supervisor: "Mustermann"
+            subject: "Fachgebiet2",
+            supervisor: "Mustermann",
+            deadline: "01.04.2023"
         },
         {
             title: "Beispiel4",
             graduration: "Bachelor",
-            supervisor: "Musterfrau"
+            subject: "Fachgebiet3",
+            supervisor: "Musterfrau",
+            deadline: "01.04.2023"
         },
     ];
 </script>
@@ -26,13 +32,17 @@
     <tr>
         <th>Titel</th>
         <th>Betreuer*in</th>
+        <th>Fachgebiet</th>
         <th>Abschluss</th>
+        <th>Deadline zur Anmeldung</th>
     </tr>
     {#each topics as topic}
         <tr>
-            <th>{topic.title}</th>
+            <a href="/topic_overview"><th>{topic.title}</th></a>
             <th>{topic.supervisor}</th>
+            <th>{topic.subject}</th>
             <th>{topic.graduration}</th>
+            <th>{topic.deadline}</th>
         </tr>
     {/each}
 </table>
