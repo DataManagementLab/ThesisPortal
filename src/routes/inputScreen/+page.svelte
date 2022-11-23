@@ -4,15 +4,18 @@
 		{ id: 2, text: `Master Thesis` },
         { id: 3, text: `Bachelor Thesis oder Master Thesis` }
 	];
-    let faculty = [
-		{ id: 1, text: `Informatik` },
-		{ id: 2, text: `Cognitive Science` },
-        { id: 3, text: `Wirtschaftsinformatik` },
-        { id: 4, text: `Alle Fachbereiche` }
+    
+    let areaOfExpertise = [
+		{ id: 1, text: `IT-Sicherheit` },
+		{ id: 2, text: `Netze und verteilte Systeme` },
+        { id: 3, text: `Robotik, Computational und Computer Engineering` },
+        { id: 4, text: `Software-Systeme und formale Grundlagen` },
+        { id: 5, text: `Visual & Interactive Computing` },
+        { id: 6, text: `Web, Wissens- und Informationsverarbeitung` }
 	];
 
 	let selected;
-    let selected2;
+    let selected3;
 
     let title = 'Titel';
     let topicArea = 'Fachgebiet';
@@ -35,10 +38,10 @@
 
     <br>
 
-    <select bind:value={selected2} >
-		{#each faculty as faculty}
-			<option value={faculty}>
-				{faculty.text}
+    <select bind:value={selected3} >
+		{#each areaOfExpertise as areaOfExpertise}
+			<option value={areaOfExpertise}>
+				{areaOfExpertise.text}
 			</option>
 		{/each}
 	</select>
