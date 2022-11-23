@@ -1,30 +1,37 @@
-import { CASClientV2 } from "logical-cas-client"
-import njwt from "njwt"
-import { JWT_SECRET, PBL_HOST, PBL_PORT, CAS_HOST, CAS_PORT, CAS_VERSION } from '$env/static/private';
+import { CASClientV2 } from 'logical-cas-client';
+import njwt from 'njwt';
+import {
+	JWT_SECRET,
+	PBL_HOST,
+	PBL_PORT,
+	CAS_HOST,
+	CAS_PORT,
+	CAS_VERSION
+} from '$env/static/private';
 const create = njwt.create,
-	verify = njwt.verify
+	verify = njwt.verify;
 
 const createJwt = (username) =>
 	create(
 		{
 			iss: 'sveltekit-cas',
-			sub: "cas/" + username,
-			scope: "user"
+			sub: 'cas/' + username,
+			scope: 'user'
 		},
 		JWT_SECRET
-	)
+	);
 
 const readJwt = (jwtString) => {
-	return verify(jwtString, JWT_SECRET)
-}
+	return verify(jwtString, JWT_SECRET);
+};
 export const getJwtUser = (jwtString) => {
 	try {
-		const jwt = readJwt(jwtString)
-		return jwt.body.toJSON()?.sub?.toString().substring(4)
+		const jwt = readJwt(jwtString);
+		return jwt.body.toJSON()?.sub?.toString().substring(4);
 	} catch (e) {
-		return null
+		return null;
 	}
-}
+};
 
 const createCas = (path, onSuccess, onFailure) => {
 	return new CASClientV2(
@@ -44,31 +51,27 @@ const createCas = (path, onSuccess, onFailure) => {
 		},
 		(req, res, user) => onSuccess(user),
 		(req, res, error) => onFailure(error, req)
-	)
-}
+	);
+};
 
-export const getCasUser = async (
-	session,
-	path,
-	ssoTicket
-) => {
+export const getCasUser = async (session, path, ssoTicket) => {
 	if (session) {
-		const jwtUser = getJwtUser(session)
+		const jwtUser = getJwtUser(session);
 		if (jwtUser) {
 			return {
 				session,
 				user: getJwtUser(session)
-			}
+			};
 		}
 	}
 
-	let ssoUser
-	let redirect
+	let ssoUser;
+	let redirect;
 	const cas = createCas(
 		path,
 		(user) => (ssoUser = user),
-		() => (redirect = "/")
-	)
+		() => (redirect = '/')
+	);
 
 	if (ssoTicket) {
 		await cas.verifyTicket(
@@ -77,25 +80,25 @@ export const getCasUser = async (
 				query: { ticket: ssoTicket }
 			},
 			{}
-		)
-		const jwt = createJwt(ssoUser)
+		);
+		const jwt = createJwt(ssoUser);
 		return {
 			redirect: path,
 			user: ssoUser,
 			session: jwt.compact()
-		}
+		};
 	}
 
 	await cas.redirectToCASLogin(
 		{},
 		{
 			redirect: (url) => {
-				redirect = url
+				redirect = url;
 			}
 		}
-	)
+	);
 	return {
 		redirect,
 		session
-	}
-}
+	};
+};
