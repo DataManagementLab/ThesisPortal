@@ -11,10 +11,20 @@
 	<span class="label-text">{label}</span>
 </label>
 <textarea
-	class="input input-bordered w-full mb-5 p-3 h-40 outline-0"
+	class="input w-full mb-5 p-3 h-40 outline-0 bg-base-200"
 	{placeholder}
 	{required}
 	{disabled}
 	{id}
 	name={id}>{value}</textarea
 >
+
+<style lang="scss">
+	textarea {
+		min-height: 50px;
+		&:hover,
+		&:focus {
+			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+		}
+	}
+</style>

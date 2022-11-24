@@ -17,7 +17,7 @@
 	];
 </script>
 
-<div id="createTopic" class="card shadow-xl bg-base-300 p-5 m-5">
+<div id="createTopic" class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mg-5">Thema erstellen</h2>
 
 	<div class="w-full flex justify-start">
@@ -62,7 +62,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	div#createTopic {
 		margin-left: calc(50% - 700px);
 		width: 1400px;

@@ -4,6 +4,23 @@ const config = {
 	theme: {
 		extend: {}
 	},
+	daisyui: {
+		themes: [
+			{
+				light: {
+					...require('daisyui/src/colors/themes')['[data-theme=light]'],
+					primary: '#427FED'
+				}
+			},
+			{
+				dark: {
+					...require('daisyui/src/colors/themes')['[data-theme=dark]'],
+					primary: '#427FED'
+				}
+			},
+			'night'
+		]
+	},
 
 	plugins: [require('daisyui')]
 };

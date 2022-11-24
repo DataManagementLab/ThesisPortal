@@ -11,7 +11,7 @@
 </label>
 <select
 	id="thesisType"
-	class="select select-bordered max-w-xs mb-5 font-normal outline-0"
+	class="select max-w-xs mb-5 font-normal outline-0 bg-base-200"
 	{disabled}
 	{required}
 >
@@ -21,3 +21,12 @@
 		</option>
 	{/each}
 </select>
+
+<style lang="scss">
+	select {
+		&:hover,
+		&:focus {
+			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+		}
+	}
+</style>

@@ -12,7 +12,7 @@
 	<span class="label-text">{label}</span>
 </label>
 <input
-	class="input input-bordered w-full mb-5 outline-0"
+	class="input w-full mb-5 outline-0 bg-base-200"
 	{type}
 	{placeholder}
 	{required}
@@ -21,3 +21,12 @@
 	name={id}
 	{value}
 />
+
+<style lang="scss">
+	input {
+		&:hover,
+		&:focus {
+			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+		}
+	}
+</style>
