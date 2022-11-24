@@ -2,8 +2,8 @@ import { CASClientV2 } from 'logical-cas-client';
 import njwt from 'njwt';
 import {
 	JWT_SECRET,
-	PBL_HOST,
-	PBL_PORT,
+	PUBLIC_HOST,
+	PUBLIC_PORT,
 	CAS_HOST,
 	CAS_PORT,
 	CAS_VERSION
@@ -36,9 +36,9 @@ export const getJwtUser = (jwtString) => {
 const createCas = (path, onSuccess, onFailure) => {
 	return new CASClientV2(
 		{
-			host: PBL_HOST,
+			host: PUBLIC_HOST,
 			secure: true,
-			port: PBL_PORT,
+			port: PUBLIC_PORT,
 			server: {
 				host: CAS_HOST,
 				port: CAS_PORT,

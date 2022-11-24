@@ -1,85 +1,71 @@
 <script>
-	let questions = [
-		{ id: 1, text: `Bachelor Thesis` },
-		{ id: 2, text: `Master Thesis` },
-		{ id: 3, text: `Bachelor Thesis oder Master Thesis` }
+	import { Input, Select, Textarea } from '$lib/components';
+
+	let thesisType = [
+		{ id: 1, text: 'Bachelor Thesis' },
+		{ id: 2, text: 'Master Thesis' },
+		{ id: 3, text: 'Bachelor Thesis oder Master Thesis' }
 	];
 
 	let areaOfExpertise = [
-		{ id: 1, text: `IT-Sicherheit` },
-		{ id: 2, text: `Netze und verteilte Systeme` },
-		{ id: 3, text: `Robotik, Computational und Computer Engineering` },
-		{ id: 4, text: `Software-Systeme und formale Grundlagen` },
-		{ id: 5, text: `Visual & Interactive Computing` },
-		{ id: 6, text: `Web, Wissens- und Informationsverarbeitung` }
+		{ id: 1, text: 'IT-Sicherheit' },
+		{ id: 2, text: 'Netze und verteilte Systeme' },
+		{ id: 3, text: 'Robotik, Computational und Computer Engineering' },
+		{ id: 4, text: 'Software-Systeme und formale Grundlagen' },
+		{ id: 5, text: 'Visual & Interactive Computing' },
+		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
 	];
-
-	let selected;
-	let selected3;
-
-	let title = 'Titel';
-	let topicArea = 'Fachgebiet';
-	let topicDescription = 'Themenbeschreibung';
-	let professor = 'Leitende(r) Professor*in';
-	let programmingLanguage = 'Verwendete Programmiersprache';
-	let contact = 'E-Mail Kontakt';
-	let moreInformation = 'Sonstiges';
 </script>
 
-<h2>Eingabemaske</h2>
+<div id="createTopic" class="card shadow-xl bg-base-300 p-5 m-5">
+	<h2 class="text-3xl font-bold mg-5">Thema erstellen</h2>
 
-<select bind:value={selected}>
-	{#each questions as question}
-		<option value={question}>
-			{question.text}
-		</option>
-	{/each}
-</select>
+	<div class="w-full flex justify-start">
+		<div class="mr-5">
+			<Select options={thesisType} id="thesisType" label="Thesistyp" />
+		</div>
+		<div class="mr-5">
+			<Select options={areaOfExpertise} id="areaOfExpertise" label="Fachgebiet" />
+		</div>
+		<div>
+			<Input id="specification" label="Fachgebiet" placeholder="Fachgebiet" />
+		</div>
+	</div>
 
-<br />
+	<Input id="title" label="Titel" placeholder="Titel" />
+	<Textarea id="description" label="Beschreibung" placeholder="Beschreibung des Themas" />
 
-<select bind:value={selected3}>
-	{#each areaOfExpertise as areaOfExpertise}
-		<option value={areaOfExpertise}>
-			{areaOfExpertise.text}
-		</option>
-	{/each}
-</select>
+	<div class="w-full flex justify-start">
+		<div class="mr-5">
+			<Input
+				id="professor"
+				label="Leitende(r) Professor*in"
+				placeholder="Leitende(r) Professor*in"
+			/>
+		</div>
+		<div class="mr-5">
+			<Input
+				id="technologies"
+				label="Zu verwendende Technologien"
+				placeholder="Java / Python / C++ ..."
+			/>
+		</div>
+		<div>
+			<Input id="email" label="E-Mail Kontakt" placeholder="me@tu-darmstadt.de" type="mail" />
+		</div>
+	</div>
 
-<input bind:value={title} />
-
-<div>
-	<textarea bind:value={topicDescription} />
+	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" />
+	<div class="flex justify-end">
+		<button type="submit" class="btn btn-outline mr-5">Entwurf speichern</button>
+		<button type="submit" class="btn btn-primary">Hochladen</button>
+	</div>
 </div>
-
-<input bind:value={topicArea} />
-<input bind:value={professor} />
-<input bind:value={programmingLanguage} />
-<input bind:value={contact} />
-
-<div>
-	<textarea bind:value={moreInformation} />
-</div>
-
-<button type="submit"> Entwurf speichern </button>
-
-<button type="submit"> Hochladen </button>
 
 <style>
-	select {
-		width: 500px;
-	}
-	input {
-		display: block;
-		width: 500px;
-		max-width: 100%;
-	}
-	div {
-		width: 35%;
+	div#createTopic {
+		margin-left: calc(50% - 700px);
+		width: 1400px;
 		text-align: left;
-	}
-	textarea {
-		width: 100%;
-		height: 100px;
 	}
 </style>

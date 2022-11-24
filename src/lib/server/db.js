@@ -1,11 +1,11 @@
-import Surreal from "surrealdb.js";
+import Surreal from 'surrealdb.js';
 import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAMESPACE, DB_DATABASE } from '$env/static/private';
 
 const database = new Surreal(DB_HOST);
 
 await database.signin({
-    user: DB_USER,
-    pass: DB_PASSWORD
+	user: DB_USER,
+	pass: DB_PASSWORD
 });
 
 await database.use(DB_NAMESPACE, DB_DATABASE);
