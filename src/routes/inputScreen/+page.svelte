@@ -18,7 +18,7 @@
 </script>
 
 <div id="createTopic" class="card shadow-xl bg-base-100 p-5 m-5">
-	<h2 class="text-3xl font-bold mg-5">Thema erstellen</h2>
+	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
