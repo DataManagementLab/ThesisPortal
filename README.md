@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/DataManagementLab/ThesisPortal/actions/workflows/node.js.yml/badge.svg)](https://github.com/DataManagementLab/ThesisPortal/actions/workflows/node.js.yml)
+
 # ThesisPortal
 
 Portal für Abschlussarbeiten - Bachelorpraktikum 2022/23
