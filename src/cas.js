@@ -1,13 +1,7 @@
 import { CASClientV2 } from 'logical-cas-client';
 import njwt from 'njwt';
-import {
-	JWT_SECRET,
-	PUBLIC_HOST,
-	PUBLIC_PORT,
-	CAS_HOST,
-	CAS_PORT,
-	CAS_VERSION
-} from '$env/static/private';
+import { JWT_SECRET, CAS_HOST, CAS_PORT, CAS_VERSION } from '$env/static/private';
+import { PUBLIC_HOST, PUBLIC_PORT } from '$env/static/public';
 const create = njwt.create,
 	verify = njwt.verify;
 
