@@ -2,9 +2,9 @@
 	import { Input, Select, Textarea } from '$lib/components';
 
 	let thesisType = [
-		{ id: 1, text: 'Bachelor Thesis' },
-		{ id: 2, text: 'Master Thesis' },
-		{ id: 3, text: 'Bachelor Thesis oder Master Thesis' }
+		{ id: 'Bachelor', text: 'Bachelor Thesis' },
+		{ id: 'Master', text: 'Master Thesis' },
+		{ id: 'Bachelor und Master', text: 'Bachelor Thesis oder Master Thesis' }
 	];
 
 	let areaOfExpertise = [
@@ -15,7 +15,6 @@
 		{ id: 5, text: 'Visual & Interactive Computing' },
 		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
 	];
-	export let form;
 </script>
 
 <form action="?/createTopic" method="POST" id="createTopic" class="card shadow-xl bg-base-100 p-5 m-5">
@@ -26,7 +25,7 @@
 			<Select options={thesisType} id="thesisType" label="Thesistyp" />
 		</div>
 		<div class="mr-5">
-			<Select options={areaOfExpertise} id="areaOfExpertise" label="Fachgebiet" />
+			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
 		<div>
 			<Input id="specification" label="Fachgebiet" placeholder="Fachgebiet" />

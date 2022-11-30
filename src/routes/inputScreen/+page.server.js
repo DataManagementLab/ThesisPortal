@@ -1,9 +1,8 @@
-import { redirect } from "@sveltejs/kit";
-
+import { db } from '$lib/server/db'
 
 export const actions = {
     createTopic: async ({ request }) => {
         const formData = Object.fromEntries(await request.formData());
-        console.log(formData.title);
+        db.create("topics", formData);
     }
 }
