@@ -14,6 +14,7 @@
 	class="select max-w-xs mb-5 font-normal outline-0 bg-base-200"
 	{disabled}
 	{required}
+	name={id}
 >
 	{#each options as option}
 		<option value={option.id}>
