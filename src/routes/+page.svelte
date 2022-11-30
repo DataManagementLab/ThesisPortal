@@ -1,6 +1,5 @@
 <script>
 	export let data;
-	$: console.log(data);
 </script>
 
 <div class="card shadow-xl bg-base-100 p-5 m-5">
