@@ -15,9 +15,10 @@
 		{ id: 5, text: 'Visual & Interactive Computing' },
 		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
 	];
+	export let form;
 </script>
 
-<div id="createTopic" class="card shadow-xl bg-base-100 p-5 m-5">
+<form action="?/createTopic" method="POST" id="createTopic" class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
 
 	<div class="w-full flex justify-start">
@@ -60,10 +61,10 @@
 		<button type="submit" class="btn btn-outline mr-5">Entwurf speichern</button>
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
-</div>
+</form>
 
 <style lang="scss">
-	div#createTopic {
+	form#createTopic {
 		margin-left: calc(50% - 700px);
 		width: 1400px;
 		text-align: left;
