@@ -17,8 +17,6 @@ jobs:
       run: npm ci
     - name: Install surrealdb
       run: curl -sSf https://install.surrealdb.com | sh
-    - name: Install screen
-      run: sudo apt install screen
     - name: Build project
       run: npm run build
     - name: Install Playwright Browsers
