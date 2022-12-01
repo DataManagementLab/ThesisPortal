@@ -19,7 +19,7 @@
 					<td><a href="/topic/{topic.id.split(':')[1]}">{topic.title}</a></td>
 					<td>{topic.professor}</td>
 					<td>{topic.specification}</td>
-					<td>{topic.areaOfExpertise==1?"Bachelor":"Master"}</td>
+					<td>{topic.areaOfExpertise == 1 ? 'Bachelor' : 'Master'}</td>
 				</tr>
 			{/each}
 		</tbody>

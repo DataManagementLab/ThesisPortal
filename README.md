@@ -34,10 +34,10 @@ Install [SurrealDB](https://surrealdb.com/install)
 
 Once you want to deploy the project make sure to follow the same steps as the development setup until `2.4`
 Now build the project using `npm run build`. This produces a `build` folder containing the compiled sources.
-If you have not cloned the repo on your target webserver, you can now upload the contents of the `build` folder to your webserver (make sure nodejs and surrealdb is installed on that one). You can now open the `build`-folder in the terminal (make sure you see a index.js file from here (e.g. via `ls -l`). If you see it you can now run `node index.js` and the server should start on port `3000`. If you want to change the port pass the port aswell es the HOST ip adress as environment variable `PORT=80 node index.js` 
-Done! 
+If you have not cloned the repo on your target webserver, you can now upload the contents of the `build` folder to your webserver (make sure nodejs and surrealdb is installed on that one). You can now open the `build`-folder in the terminal (make sure you see a index.js file from here (e.g. via `ls -l`). If you see it you can now run `node index.js` and the server should start on port `3000`. If you want to change the port pass the port aswell es the HOST ip adress as environment variable `PORT=80 node index.js`
+Done!
 
 ## Security
 
-If you want to secure the connection using HTTPS it is recommended to use a proxy webserver like `nginx` or `apache2`. 
-Additionally you should configure the firewall on the webserver so that only the port of the webserver is accessible publicly. Though no one should be able to access the database due to missing credentials the database should not be accessible from the internet to improve security. 
+If you want to secure the connection using HTTPS it is recommended to use a proxy webserver like `nginx` or `apache2`.
+Additionally you should configure the firewall on the webserver so that only the port of the webserver is accessible publicly. Though no one should be able to access the database due to missing credentials the database should not be accessible from the internet to improve security.
