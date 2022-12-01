@@ -19,6 +19,7 @@ jobs:
         run: screen -AmdS surreal surreal start --user root --pass pass
   build:
     runs-on: ubuntu-latest
+    needs: database
     strategy:
       matrix:
         node-version: [16.x, 18.x]
@@ -34,6 +35,7 @@ jobs:
       - run: npm run build --if-present
   test:
     runs-on: ubuntu-latest
+    needs: build
     timeout-minutes: 5
     steps:
       - name: Install Playwright Browsers
