@@ -17,13 +17,15 @@ jobs:
       run: npm ci
     - name: Install surrealdb
       run: curl -sSf https://install.surrealdb.com | sh
+    - name: Install screen
+      run: apt install screen
     - name: Build project
       run: npm run build
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: |
-        surreal start --user root --pass pass
+        screen -AmdS surreal surreal start --user root --pass pass
         npx playwright test
     - uses: actions/upload-artifact@v3
       if: always()
