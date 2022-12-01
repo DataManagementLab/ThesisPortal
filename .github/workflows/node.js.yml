@@ -10,14 +10,17 @@ on:
     branches: ['*']
 
 jobs:
-  build:
+  database:
     runs-on: ubuntu-latest
-
+    steps:
+      - name: Install surrealdb
+        run: curl -sSf https://install.surrealdb.com | sh
+      - name: Start Database
+        run: screen -AmdS surreal surreal start --user root --pass pass
+  build:
     strategy:
       matrix:
         node-version: [16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -25,26 +28,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install surrealdb
-        run: curl -sSf https://install.surrealdb.com | sh
+      
       - run: npm ci
-      - run: |
-          screen -AmdS surreal surreal start --user root --pass pass
-          npm run build --if-present
+      - run: npm run build --if-present
   test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install dependencies
-        run: npm ci
-      - name: Install surrealdb
-        run: curl -sSf https://install.surrealdb.com | sh
-      - name: Build project
-        run: npm run build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
