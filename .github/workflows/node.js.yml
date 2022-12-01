@@ -44,9 +44,7 @@ jobs:
       - name: Install surrealdb
         run: curl -sSf https://install.surrealdb.com | sh
       - name: Build project
-        run: |
-          screen -AmdS surreal surreal start --user root --pass pass
-          npm run build
+        run: npm run build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
