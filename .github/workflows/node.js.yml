@@ -25,8 +25,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - name: Install surrealdb
+        run: curl -sSf https://install.surrealdb.com | sh
       - run: npm ci
-      - run: npm run build --if-present
+      - run: |
+          screen -AmdS surreal surreal start --user root --pass pass
+          npm run build --if-present
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -40,13 +44,13 @@ jobs:
       - name: Install surrealdb
         run: curl -sSf https://install.surrealdb.com | sh
       - name: Build project
-        run: npm run build
+        run: |
+          screen -AmdS surreal surreal start --user root --pass pass
+          npm run build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: |
-          screen -AmdS surreal surreal start --user root --pass pass
-          npx playwright test
+        run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
         with:
