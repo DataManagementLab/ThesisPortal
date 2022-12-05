@@ -3,8 +3,7 @@
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
-		{ id: 'Master', text: 'Master Thesis' },
-		{ id: 'Bachelor und Master', text: 'Bachelor Thesis oder Master Thesis' }
+		{ id: 'Master', text: 'Master Thesis' }
 	];
 
 	let areaOfExpertise = [
@@ -27,7 +26,16 @@
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
-			<Select options={thesisType} id="thesisType" label="Thesistyp" />
+			<div>
+				{#each thesisType as tType}
+					<div class="form-control">
+						<label class="label justify-start cursor-pointer">
+							<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" />
+							<span class="label-text ml-2">{tType.text}</span>
+						</label>
+					</div>
+				{/each}
+			</div>
 		</div>
 		<div class="mr-5">
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />

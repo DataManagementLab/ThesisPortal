@@ -11,7 +11,7 @@
 	<span class="label-text">{label}</span>
 </label>
 <textarea
-	class="input w-full mb-5 p-3 h-40 outline-0 bg-base-200"
+	class="input w-full mb-5 p-3 h-36 outline-0 bg-base-200"
 	{placeholder}
 	{required}
 	{disabled}
@@ -21,7 +21,7 @@
 
 <style lang="scss">
 	textarea {
-		min-height: 50px;
+		min-height: 3rem;
 		&:hover,
 		&:focus {
 			border-color: hsl(var(--p) / var(--tw-bg-opacity));

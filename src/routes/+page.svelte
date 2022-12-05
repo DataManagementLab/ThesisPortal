@@ -1,23 +1,29 @@
 <script>
-	import { Input, Select, Textarea } from '$lib/components';
+	import { Select } from '$lib/components';
 
 	export let data;
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
-		{ id: 'Master', text: 'Master Thesis' },
-		{ id: 'Bachelor und Master', text: 'Bachelor Thesis oder Master Thesis' }
+		{ id: 'Master', text: 'Master Thesis' }
 	];
 </script>
 
-<form 
+<form
 	action="?/filterTopic"
 	method="POST"
 	id="filterTopic"
 	class="card shadow-xl bg-base-100 p-5 m-5"
 >
 	<div class="mr-5">
-		<Select options={thesisType} id="thesisType" label="Thesistyp" />
+		{#each thesisType as tType}
+			<div class="form-control">
+				<label class="label justify-start cursor-pointer">
+					<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" />
+					<span class="label-text ml-2">{tType.text}</span>
+				</label>
+			</div>
+		{/each}
 		<button type="submit" class="btn btn-primary">Suchen</button>
 	</div>
 </form>
@@ -39,7 +45,7 @@
 					<td><a href="/topic/{topic.id.split(':')[1]}">{topic.title}</a></td>
 					<td>{topic.professor}</td>
 					<td>{topic.specification}</td>
-					<td>{topic.thesisType}</td>
+					<td>{topic.thesisType.join(', ')}</td>
 				</tr>
 			{/each}
 		</tbody>
