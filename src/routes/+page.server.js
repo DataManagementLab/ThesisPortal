@@ -10,6 +10,7 @@ export const load = async () => {
     	query += (hasFilter)?' OR ':' WHERE ';
     	query += 'thesisType = $thesisType';
     	queryVars.thesisType = bachelorOrMaster;
+		hasFilter = true;
 	}
 
 	let data = await db.query(query, queryVars);
