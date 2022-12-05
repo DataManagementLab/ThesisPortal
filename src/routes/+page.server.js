@@ -3,11 +3,16 @@ import { db } from '$lib/server/db';
 let bachelorOrMaster;
 
 export const load = async () => {
-	let data = await db.query("SELECT * FROM topics");
-
-	if (bachelorOrMaster != undefined) {
-		data = await db.query('SELECT * FROM topics WHERE thesisType = $thesisType', {thesisType: bachelorOrMaster});
+	let query = 'SELECT * FROM topics';
+	let hasFilter = false;
+	let queryVars = {};
+	if(bachelorOrMaster != undefined){
+    	query += (hasFilter)?' OR ':' WHERE ';
+    	query += 'thesisType = $thesisType';
+    	queryVars.thesisType = bachelorOrMaster;
 	}
+
+	let data = await db.query(query, queryVars);
 
 	return {
 		topics: data[0].result
