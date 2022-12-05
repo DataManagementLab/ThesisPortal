@@ -12,7 +12,6 @@ export const load = async () => {
 		queryVars.thesisType = thesisType;
 		hasFilter = true;
 	}
-	console.log(query, queryVars);
 	let data = await db.query(query, queryVars);
 
 	return {
