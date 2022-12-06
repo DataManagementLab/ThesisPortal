@@ -1,6 +1,7 @@
 import { db } from '$lib/server/db';
 
 let thesisType;
+let specification;
 
 export const load = async () => {
 	let query = 'SELECT * FROM topics';
@@ -12,10 +13,19 @@ export const load = async () => {
 		queryVars.thesisType = thesisType;
 		hasFilter = true;
 	}
+	if (specification != undefined) {
+		query += hasFilter ? ' AND ' : ' WHERE ';
+		query += 'specification = $specification';
+		queryVars.specification = specification;
+		hasFilter = true;
+	}
 	let data = await db.query(query, queryVars);
 
+	let data2 = await db.query("SELECT specification FROM topics group by specification");
+
 	return {
-		topics: data[0].result
+		topics: data[0].result,
+		specifications: data2[0].result
 	};
 };
 
@@ -31,5 +41,6 @@ export const actions = {
 			}
 		}
 		thesisType = formData.thesisType;
+		specification = formData.specification;	
 	}
 };
