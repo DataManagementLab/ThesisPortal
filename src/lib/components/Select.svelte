@@ -3,6 +3,7 @@
 	export let label;
 	export let disabled = false;
 	export let required = false;
+	export let selected = '';
 	export let options;
 </script>
 
@@ -17,9 +18,15 @@
 	name={id}
 >
 	{#each options as option}
-		<option value={option.id}>
-			{option.text}
-		</option>
+		{#if selected == option.id}
+			<option value={option.id} selected>
+				{option.text}
+			</option>
+		{:else}
+			<option value={option.id}>
+				{option.text}
+			</option>
+		{/if}
 	{/each}
 </select>
 
