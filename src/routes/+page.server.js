@@ -4,18 +4,15 @@ let thesisType;
 let specification;
 
 export const load = async () => {
-	let query = 'SELECT * FROM topics';
-	let hasFilter = false;
+	let query = 'SELECT * FROM topics WHERE draft = false';
 	let queryVars = {};
 	if (thesisType != undefined) {
-		query += hasFilter ? ' AND ' : ' WHERE ';
-		query += 'thesisType CONTAINSANY $thesisType';
+		query += ' AND thesisType CONTAINSANY $thesisType';
 		queryVars.thesisType = thesisType;
 		hasFilter = true;
 	}
 	if (specification != undefined) {
-		query += hasFilter ? ' AND ' : ' WHERE ';
-		query += 'specification = $specification';
+		query += ' AND specification = $specification';
 		queryVars.specification = specification;
 		hasFilter = true;
 	}

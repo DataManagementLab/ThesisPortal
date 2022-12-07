@@ -1,5 +1,5 @@
 <script>
-	import { Select } from '$lib/components';
+	import { Select, TopicView } from '$lib/components';
 
 	export let data;
 
@@ -43,24 +43,5 @@
 
 <div class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
-	<table class="table table-zebra m-5">
-		<thead>
-			<tr>
-				<th>Titel</th>
-				<th>Betreuer*in</th>
-				<th>Fachgebiet</th>
-				<th>Abschluss</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each data.topics as topic}
-				<tr class="hover">
-					<td><a href="/topic/{topic.id.split(':')[1]}" class="underline text-primary">{topic.title}</a></td>
-					<td>{topic.professor}</td>
-					<td>{topic.specification}</td>
-					<td>{topic.thesisType.join(', ')}</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+	<TopicView data={data.topics}/>
 </div>

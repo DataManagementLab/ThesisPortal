@@ -1,4 +1,5 @@
 import { db } from '$lib/server/db';
+import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 	createTopic: async ({ request }) => {
@@ -14,5 +15,6 @@ export const actions = {
 		}
 		formData.draft = formData.draft === 'true';
 		db.create('topics', formData);
+		throw redirect(303, '/profile');
 	}
 };
