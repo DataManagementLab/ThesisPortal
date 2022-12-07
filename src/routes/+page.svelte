@@ -10,12 +10,11 @@
 
 	let specifications = [];
 
-	var element = {};
-	for (let i = 0; i < data.specifications.length; i++) {
-		element.id = data.specifications[i].specification;
-		element.text = data.specifications[i].specification;
-		specifications.push(element);
-		element = {};
+	for (let specification of data.specifications) {
+   		specifications.push({
+       		id: specification.specification,
+        	text: specification.specification
+    	});
 	}
 
 </script>
