@@ -7,6 +7,16 @@
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
 	];
+
+	let specifications = [];
+
+	for (let specification of data.specifications) {
+   		specifications.push({
+       		id: specification.specification,
+        	text: specification.specification
+    	});
+	}
+
 </script>
 
 <form
@@ -24,6 +34,9 @@
 				</label>
 			</div>
 		{/each}
+		<div class="mr-5">
+			<Select options={specifications} id="specification" label="Fachgebiet"/>
+		</div>
 		<button type="submit" class="btn btn-primary">Suchen</button>
 	</div>
 </form>
