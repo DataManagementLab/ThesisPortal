@@ -10,6 +10,7 @@
 		</div>
 		<a href="/" class="btn btn-ghost mr-3">Themenübersicht</a>
 		<a href="/create" class="btn btn-ghost mr-3">Thema erstellen</a>
+		<a href="/profile" class="btn btn-ghost mr-3">Profil</a>
 		<a
 			href="https://login.tu-darmstadt.de/idp/profile/cas/login?service={PUBLIC_HOST}:{PUBLIC_PORT}"
 			class="btn btn-primary mr-3 px-7">Login</a
