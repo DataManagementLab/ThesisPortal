@@ -54,8 +54,8 @@
 		</thead>
 		<tbody>
 			{#each data.topics as topic}
-				<tr>
-					<td><a href="/topic/{topic.id.split(':')[1]}">{topic.title}</a></td>
+				<tr class="hover">
+					<td><a href="/topic/{topic.id.split(':')[1]}" class="underline text-primary">{topic.title}</a></td>
 					<td>{topic.professor}</td>
 					<td>{topic.specification}</td>
 					<td>{topic.thesisType.join(', ')}</td>
