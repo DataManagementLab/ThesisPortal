@@ -2,11 +2,13 @@ import { db } from '$lib/server/db';
 
 let thesisType;
 let specification;
+let areaOfExpertise;
 
 export const load = async () => {
 	let query = 'SELECT * FROM topics';
 	let hasFilter = false;
 	let queryVars = {};
+	console.log(areaOfExpertise);
 	if (thesisType != undefined) {
 		query += hasFilter ? ' AND ' : ' WHERE ';
 		query += 'thesisType CONTAINSANY $thesisType';
@@ -19,13 +21,23 @@ export const load = async () => {
 		queryVars.specification = specification;
 		hasFilter = true;
 	}
+	
+	if (areaOfExpertise != undefined) {
+		query += hasFilter ? ' AND ' : ' WHERE ';
+		query += 'areaOfExpertise = $areaOfExpertise';
+		queryVars.areaOfExpertise = areaOfExpertise;
+		hasFilter = true;
+	}
+	
 	let data = await db.query(query, queryVars);
+
+	console.log(data[0].result);
 
 	let specifications = await db.query("SELECT specification FROM topics group by specification");
 
 	return {
 		topics: data[0].result,
-		specifications: specifications[0].result
+		specifications: specifications[0].result,
 	};
 };
 
@@ -42,5 +54,6 @@ export const actions = {
 		}
 		thesisType = formData.thesisType;
 		specification = formData.specification;	
+		areaOfExpertise = formData.areaOfExpertise;
 	}
 };
