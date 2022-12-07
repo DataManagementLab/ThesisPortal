@@ -12,7 +12,7 @@ export const actions = {
 				delete formData[key];
 			}
 		}
-
+		formData.draft = formData.draft === 'true';
 		db.create('topics', formData);
 	}
 };

@@ -70,7 +70,7 @@
 
 	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" />
 	<div class="flex justify-end">
-		<button type="submit" class="btn btn-outline mr-5">Entwurf speichern</button>
+		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">Entwurf speichern</button>
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
 </form>
