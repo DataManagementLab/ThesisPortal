@@ -2,17 +2,17 @@ import { db } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 
 export async function load({ params }) {
-    let data = await db.query("SELECT * FROM $topic",{
-        topic: `topics:${params.id}`
-    });
-    data = data[0].result;
-    if(data.length === 0){
-        throw error(404, 'Thema nicht gefunden');
-    }
-    if(data.draft === false){
-        throw error(409, 'Thema ist kein Entwurf');
-    }
-    return data[0];
+	let data = await db.query('SELECT * FROM $topic', {
+		topic: `topics:${params.id}`
+	});
+	data = data[0].result;
+	if (data.length === 0) {
+		throw error(404, 'Thema nicht gefunden');
+	}
+	if (data.draft === false) {
+		throw error(409, 'Thema ist kein Entwurf');
+	}
+	return data[0];
 }
 
 export const actions = {
@@ -29,6 +29,6 @@ export const actions = {
 		}
 		formData.draft = formData.draft === 'true';
 		db.update(`topics:${params.id}`, formData);
-        throw redirect(303, '/profile');
+		throw redirect(303, '/profile');
 	}
 };

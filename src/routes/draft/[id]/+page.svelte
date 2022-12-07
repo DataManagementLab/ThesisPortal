@@ -1,9 +1,9 @@
 <script>
-    import { Input, Textarea, Select } from '$lib/components';
+	import { Input, Textarea, Select } from '$lib/components';
 
-    export let data;
+	export let data;
 
-    let thesisType = [
+	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.thesisType.includes('Bachelor') },
 		{ id: 'Master', text: 'Master Thesis', checked: data.thesisType.includes('Master') }
 	];
@@ -32,7 +32,12 @@
 				{#each thesisType as tType}
 					<div class="form-control">
 						<label class="label justify-start cursor-pointer">
-							<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" checked={tType.checked?'checked':''}/>
+							<input
+								type="checkbox"
+								class="checkbox"
+								name="thesisType_{tType.id}"
+								checked={tType.checked ? 'checked' : ''}
+							/>
 							<span class="label-text ml-2">{tType.text}</span>
 						</label>
 					</div>
@@ -40,15 +45,30 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" selected={data.areaOfExpertise}/>
+			<Select
+				options={areaOfExpertise}
+				id="areaOfExpertise"
+				label="Spezialisierung"
+				selected={data.areaOfExpertise}
+			/>
 		</div>
 		<div>
-			<Input id="specification" label="Fachgebiet" placeholder="Fachgebiet" value={data.specification}/>
+			<Input
+				id="specification"
+				label="Fachgebiet"
+				placeholder="Fachgebiet"
+				value={data.specification}
+			/>
 		</div>
 	</div>
 
-	<Input id="title" label="Titel" placeholder="Titel" value={data.title}/>
-	<Textarea id="description" label="Beschreibung" placeholder="Beschreibung des Themas" value={data.description}/>
+	<Input id="title" label="Titel" placeholder="Titel" value={data.title} />
+	<Textarea
+		id="description"
+		label="Beschreibung"
+		placeholder="Beschreibung des Themas"
+		value={data.description}
+	/>
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -56,7 +76,7 @@
 				id="professor"
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
-                value={data.professor}
+				value={data.professor}
 			/>
 		</div>
 		<div class="mr-5">
@@ -64,17 +84,25 @@
 				id="technologies"
 				label="Zu verwendende Technologien"
 				placeholder="Java / Python / C++ ..."
-                value={data.technologies}
+				value={data.technologies}
 			/>
 		</div>
 		<div>
-			<Input id="email" label="E-Mail Kontakt" placeholder="me@tu-darmstadt.de" type="mail" value={data.email}/>
+			<Input
+				id="email"
+				label="E-Mail Kontakt"
+				placeholder="me@tu-darmstadt.de"
+				type="mail"
+				value={data.email}
+			/>
 		</div>
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other}/>
+	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other} />
 	<div class="flex justify-end">
-		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">Entwurf speichern</button>
+		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true"
+			>Entwurf speichern</button
+		>
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
 </form>

@@ -18,7 +18,7 @@ export const load = async () => {
 	}
 	let data = await db.query(query, queryVars);
 
-	let specifications = await db.query("SELECT specification FROM topics group by specification");
+	let specifications = await db.query('SELECT specification FROM topics group by specification');
 
 	return {
 		topics: data[0].result,
@@ -38,6 +38,6 @@ export const actions = {
 			}
 		}
 		thesisType = formData.thesisType;
-		specification = formData.specification;	
+		specification = formData.specification;
 	}
 };

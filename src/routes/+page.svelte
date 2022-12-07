@@ -11,12 +11,11 @@
 	let specifications = [];
 
 	for (let specification of data.specifications) {
-   		specifications.push({
-       		id: specification.specification,
-        	text: specification.specification
-    	});
+		specifications.push({
+			id: specification.specification,
+			text: specification.specification
+		});
 	}
-
 </script>
 
 <form
@@ -35,7 +34,7 @@
 			</div>
 		{/each}
 		<div class="mr-5">
-			<Select options={specifications} id="specification" label="Fachgebiet"/>
+			<Select options={specifications} id="specification" label="Fachgebiet" />
 		</div>
 		<button type="submit" class="btn btn-primary">Suchen</button>
 	</div>
@@ -43,5 +42,5 @@
 
 <div class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
-	<TopicView data={data.topics}/>
+	<TopicView data={data.topics} />
 </div>
