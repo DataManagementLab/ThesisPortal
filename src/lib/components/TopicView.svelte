@@ -1,5 +1,6 @@
 <script>
     export let data;
+    export let draft = false;
 </script>
 
 <table class="table table-zebra table-compact m-5">
@@ -14,7 +15,7 @@
     <tbody>
         {#each data as topic}
             <tr class="hover">
-                <td><a href="/topic/{topic.id.split(':')[1]}" class="underline text-primary">{topic.title}</a></td>
+                <td><a href="/{draft?'draft':'topic'}/{topic.id.split(':')[1]}" class="underline text-primary">{topic.title}</a></td>
                 <td>{topic.professor}</td>
                 <td>{topic.specification}</td>
                 <td>{topic.thesisType.join(', ')}</td>
@@ -22,7 +23,7 @@
         {/each}
         {#if data.length == 0}
             <tr>
-                <td colspan="4" class="text-center">Keine Themen gefunden</td>
+                <td colspan="4" class="text-center">Keine {draft?'Entwürfe':'Themen'} gefunden</td>
             </tr>
         {/if}
     </tbody>
