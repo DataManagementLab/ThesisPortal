@@ -8,7 +8,6 @@ export const load = async () => {
 	let query = 'SELECT * FROM topics';
 	let hasFilter = false;
 	let queryVars = {};
-	console.log(areaOfExpertise);
 	if (thesisType != undefined) {
 		query += hasFilter ? ' AND ' : ' WHERE ';
 		query += 'thesisType CONTAINSANY $thesisType';
