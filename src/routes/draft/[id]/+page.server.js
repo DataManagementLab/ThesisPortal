@@ -1,8 +1,22 @@
 import { db } from '$lib/server/db';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+
+export async function load({ params }) {
+	let data = await db.query('SELECT * FROM $topic', {
+		topic: `topics:${params.id}`
+	});
+	data = data[0].result;
+	if (data.length === 0) {
+		throw error(404, 'Thema nicht gefunden');
+	}
+	if (data.draft === false) {
+		throw error(409, 'Thema ist kein Entwurf');
+	}
+	return data[0];
+}
 
 export const actions = {
-	createTopic: async ({ request }) => {
+	updateTopic: async ({ request, params }) => {
 		const formData = Object.fromEntries(await request.formData());
 
 		// Convert thesisType_* fields to single array 'thesisType: []'
@@ -14,7 +28,7 @@ export const actions = {
 			}
 		}
 		formData.draft = formData.draft === 'true';
-		db.create('topics', formData);
+		db.update(`topics:${params.id}`, formData);
 		throw redirect(303, '/profile');
 	}
 };
