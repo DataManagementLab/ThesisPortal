@@ -1,5 +1,5 @@
 <script>
-	import { Select, TopicView } from '$lib/components';
+	import { Input, Select, TopicView } from '$lib/components';
 
 	export let data;
 
@@ -47,6 +47,13 @@
 		</div>
 		<div class="mr-5">
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
+		</div>
+		<div class="mr-5">
+			<Input
+				id="technologies"
+				label="Zu verwendende Technologien"
+				placeholder="Java / Python / C++ ..."
+			/>
 		</div>
 		<button type="submit" class="btn btn-primary">Suchen</button>
 	</div>

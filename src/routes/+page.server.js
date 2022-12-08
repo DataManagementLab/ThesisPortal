@@ -3,6 +3,7 @@ import { db } from '$lib/server/db';
 let thesisType;
 let specification;
 let areaOfExpertise;
+let technologies;
 
 export const load = async () => {
 	let query = 'SELECT * FROM topics WHERE draft = false';
@@ -10,19 +11,19 @@ export const load = async () => {
 	if (thesisType != undefined) {
 		query += ' AND thesisType CONTAINSANY $thesisType';
 		queryVars.thesisType = thesisType;
-		hasFilter = true;
 	}
 	if (specification != undefined) {
 		query += ' AND specification = $specification';
 		queryVars.specification = specification;
-		hasFilter = true;
+	}
+	if (areaOfExpertise != undefined) {
+		query += ' AND areaOfExpertise = $areaOfExpertise';
+		queryVars.areaOfExpertise = areaOfExpertise;
 	}
 	
-	if (areaOfExpertise != undefined) {
-		query += hasFilter ? ' AND ' : ' WHERE ';
-		query += 'areaOfExpertise = $areaOfExpertise';
-		queryVars.areaOfExpertise = areaOfExpertise;
-		hasFilter = true;
+	if (technologies != undefined) {
+		query += ' AND string::lowercase(technologies) INSIDE string::lowercase($technologies)';
+		queryVars.technologies = technologies;
 	}
 	
 	let data = await db.query(query, queryVars);
@@ -49,6 +50,6 @@ export const actions = {
 		thesisType = formData.thesisType;
 		specification = formData.specification;	
 		areaOfExpertise = formData.areaOfExpertise;
-
+		technologies = formData.technologies;
 	}
 };
