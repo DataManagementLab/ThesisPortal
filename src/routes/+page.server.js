@@ -30,7 +30,6 @@ export const load = async () => {
 	
 	let data = await db.query(query, queryVars);
 
-	console.log(data[0].result);
 
 	let specifications = await db.query("SELECT specification FROM topics group by specification");
 
