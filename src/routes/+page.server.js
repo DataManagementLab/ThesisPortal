@@ -35,7 +35,7 @@ export const load = async () => {
 
 	return {
 		topics: data[0].result,
-		specifications: specifications[0].result,
+		specifications: specifications[0].result
 	};
 };
 
