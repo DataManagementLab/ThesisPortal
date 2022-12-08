@@ -2,6 +2,7 @@ import { db } from '$lib/server/db';
 
 let thesisType;
 let specification;
+let areaOfExpertise;
 
 export const load = async () => {
 	let query = 'SELECT * FROM topics WHERE draft = false';
@@ -16,6 +17,14 @@ export const load = async () => {
 		queryVars.specification = specification;
 		hasFilter = true;
 	}
+	
+	if (areaOfExpertise != undefined) {
+		query += hasFilter ? ' AND ' : ' WHERE ';
+		query += 'areaOfExpertise = $areaOfExpertise';
+		queryVars.areaOfExpertise = areaOfExpertise;
+		hasFilter = true;
+	}
+	
 	let data = await db.query(query, queryVars);
 
 	let specifications = await db.query('SELECT specification FROM topics group by specification');
@@ -38,6 +47,8 @@ export const actions = {
 			}
 		}
 		thesisType = formData.thesisType;
-		specification = formData.specification;
+		specification = formData.specification;	
+		areaOfExpertise = formData.areaOfExpertise;
+
 	}
 };

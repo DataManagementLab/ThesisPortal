@@ -10,6 +10,15 @@
 
 	let specifications = [];
 
+	let areaOfExpertise = [
+		{ id: 1, text: 'IT-Sicherheit' },
+		{ id: 2, text: 'Netze und verteilte Systeme' },
+		{ id: 3, text: 'Robotik, Computational und Computer Engineering' },
+		{ id: 4, text: 'Software-Systeme und formale Grundlagen' },
+		{ id: 5, text: 'Visual & Interactive Computing' },
+		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
+	];
+
 	for (let specification of data.specifications) {
 		specifications.push({
 			id: specification.specification,
@@ -35,6 +44,9 @@
 		{/each}
 		<div class="mr-5">
 			<Select options={specifications} id="specification" label="Fachgebiet" />
+		</div>
+		<div class="mr-5">
+			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
 		<button type="submit" class="btn btn-primary">Suchen</button>
 	</div>
