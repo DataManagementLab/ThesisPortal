@@ -48,6 +48,12 @@
 		<div class="mr-5">
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
+		<div class="mr-5"> 
+			<Input 
+        id="professor" 
+        label="Leitende(r) Professor*in" 
+        placeholder="Leitende(r) Professor*in"
+      />
 		<div class="mr-5">
 			<Input
 				id="technologies"

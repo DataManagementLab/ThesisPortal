@@ -3,6 +3,7 @@ import { db } from '$lib/server/db';
 let thesisType;
 let specification;
 let areaOfExpertise;
+let professor;
 let technologies;
 
 export const load = async () => {
@@ -20,7 +21,10 @@ export const load = async () => {
 		query += ' AND areaOfExpertise = $areaOfExpertise';
 		queryVars.areaOfExpertise = areaOfExpertise;
 	}
-	
+	if (professor != undefined) {
+		query += ' AND string::lowercase(professor) INSIDE string::lowercase($professor)';
+		queryVars.professor = professor;
+	}
 	if (technologies != undefined) {
 		query += ' AND string::lowercase(technologies) INSIDE string::lowercase($technologies)';
 		queryVars.technologies = technologies;
@@ -50,6 +54,7 @@ export const actions = {
 		thesisType = formData.thesisType;
 		specification = formData.specification;	
 		areaOfExpertise = formData.areaOfExpertise;
+		professor = formData.professor;
 		technologies = formData.technologies;
 	}
 };
