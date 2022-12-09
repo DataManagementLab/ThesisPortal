@@ -4,6 +4,7 @@ let thesisType;
 let specification;
 let areaOfExpertise;
 let professor;
+let technologies;
 
 export const load = async () => {
 	let query = 'SELECT * FROM topics WHERE draft = false';
@@ -15,18 +16,18 @@ export const load = async () => {
 	if (specification != undefined) {
 		query += ' AND specification = $specification';
 		queryVars.specification = specification;
-		
 	}
-	
 	if (areaOfExpertise != undefined) {
 		query += ' AND areaOfExpertise = $areaOfExpertise';
 		queryVars.areaOfExpertise = areaOfExpertise;
-		
 	}
-
 	if (professor != undefined) {
 		query += ' AND string::lowercase(professor) INSIDE string::lowercase($professor)';
 		queryVars.professor = professor;
+	}
+	if (technologies != undefined) {
+		query += ' AND string::lowercase(technologies) INSIDE string::lowercase($technologies)';
+		queryVars.technologies = technologies;
 	}
 	
 	let data = await db.query(query, queryVars);
@@ -54,6 +55,6 @@ export const actions = {
 		specification = formData.specification;	
 		areaOfExpertise = formData.areaOfExpertise;
 		professor = formData.professor;
-
+		technologies = formData.technologies;
 	}
 };
