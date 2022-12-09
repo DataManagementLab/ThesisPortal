@@ -1,5 +1,5 @@
 <script>
-	import { Input, Select, TopicView } from '$lib/components';
+	import { Input, Select, TopicView, MultiSelect } from '$lib/components';
 
 	export let data;
 
@@ -45,15 +45,24 @@
 		<div class="mr-5">
 			<Select options={specifications} id="specification" label="Fachgebiet" />
 		</div>
+		<!--
 		<div class="mr-5">
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
+		-->
+		<div class="mr-5">
+			<MultiSelect id="areaOfExpertise">
+				{#each areaOfExpertise as areaOfExpertise}
+					<option value={areaOfExpertise.id}>{areaOfExpertise.text}</option>
+				{/each}
+			</MultiSelect>
+		</div>
 		<div class="mr-5"> 
 			<Input 
-        id="professor" 
-        label="Leitende(r) Professor*in" 
-        placeholder="Leitende(r) Professor*in"
-      />
+        		id="professor" 
+       		 	label="Leitende(r) Professor*in" 
+        		placeholder="Leitende(r) Professor*in"
+      		/>
 		<div class="mr-5">
 			<Input
 				id="technologies"
