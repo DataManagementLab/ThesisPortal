@@ -42,20 +42,20 @@
 				</label>
 			</div>
 		{/each}
-		<div class="mr-5">
-			<Select options={specifications} id="specification" label="Fachgebiet" />
-		</div>
 		<!--
 		<div class="mr-5">
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
 		-->
 		<div class="mr-5">
-			<MultiSelect id="areaOfExpertise">
+			<MultiSelect id="areaOfExpertise" label="Spezialisierung">
 				{#each areaOfExpertise as areaOfExpertise}
 					<option value={areaOfExpertise.id}>{areaOfExpertise.text}</option>
 				{/each}
 			</MultiSelect>
+		</div>
+		<div class="mr-5">
+			<Select options={specifications} id="specification" label="Fachgebiet" />
 		</div>
 		<div class="mr-5"> 
 			<Input 

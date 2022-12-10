@@ -5,6 +5,7 @@
   export let value = [];
   export let readonly = false;
   export let placeholder = '';
+  export let label;
 
   let input, 
     inputValue, 
@@ -95,14 +96,14 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .multiselect {
-    background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
+    background-color: white;
     border-bottom: 1px solid hsl(0, 0%, 70%);
     position: relative;
   }
   .multiselect:not(.readonly):hover {
-    border-bottom-color: hsl(0, 0%, 50%);
+    border-bottom-color: hsl(var(--p) / var(--tw-bg-opacity));
   }
 
   .tokens {
@@ -119,7 +120,7 @@
     height: 2px;
     left: 50%;
     position: absolute;
-    background: hsl(45, 100%, 51%);
+    background: hsl(var(--p) / var(--tw-bg-opacity));
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
   }
@@ -214,7 +215,7 @@
     background-color: hsl(214, 17%, 92%);
   }
   li.selected {
-    background-color: hsl(232, 54%, 41%);
+    background-color: hsl(var(--p) / var(--tw-bg-opacity));
     color: white;
   }
   li.selected:nth-child(even) {
@@ -227,11 +228,15 @@
   li.selected.active, li.selected:hover {
     background-color: hsl(232, 48%, 50%);
   }
-
   .hidden {
     display: none;
   }
 </style>
+
+
+<label class="label font-medium pb-1" for={id}>
+  <span class="label-text">{label}</span>
+</label>
 
 <div class="multiselect" class:readonly>
   <div class="tokens" class:showOptions on:click={handleTokenClick}>
