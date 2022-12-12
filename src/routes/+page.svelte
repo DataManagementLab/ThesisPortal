@@ -8,15 +8,15 @@
 		{ id: 'Master', text: 'Master Thesis' }
 	];
 
-	let specifications = [];
+	let specifications = [ { id: '', text: 'Egal'} ];
 
 	let areaOfExpertise = [
-		{ id: 1, text: 'IT-Sicherheit' },
-		{ id: 2, text: 'Netze und verteilte Systeme' },
-		{ id: 3, text: 'Robotik, Computational und Computer Engineering' },
-		{ id: 4, text: 'Software-Systeme und formale Grundlagen' },
-		{ id: 5, text: 'Visual & Interactive Computing' },
-		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
+		{ id: 'IT-Sicherheit', text: 'IT-Sicherheit' },
+		{ id: 'Netze und verteilte Systeme', text: 'Netze und verteilte Systeme' },
+		{ id: 'Robotik, Computational und Computer Engineering', text: 'Robotik, Computational und Computer Engineering' },
+		{ id: 'Software-Systeme und formale Grundlagen', text: 'Software-Systeme und formale Grundlagen' },
+		{ id: 'Visual & Interactive Computing', text: 'Visual & Interactive Computing' },
+		{ id: 'Web, Wissens- und Informationsverarbeitung', text: 'Web, Wissens- und Informationsverarbeitung' }
 	];
 
 	for (let specification of data.specifications) {
@@ -33,7 +33,7 @@
 	id="filterTopic"
 	class="card shadow-xl bg-base-100 p-5 m-5"
 >
-	<div class="mr-5">
+	<div class="mr-5 flex">
 		{#each thesisType as tType}
 			<div class="form-control">
 				<label class="label justify-start cursor-pointer">
@@ -48,21 +48,18 @@
 		</div>
 		-->
 		<div class="mr-5">
-			<MultiSelect id="areaOfExpertise" label="Spezialisierung">
-				{#each areaOfExpertise as areaOfExpertise}
-					<option value={areaOfExpertise.id}>{areaOfExpertise.text}</option>
-				{/each}
-			</MultiSelect>
+			<MultiSelect id="areaOfExpertise" label="Spezialisierung" data={areaOfExpertise} />
 		</div>
 		<div class="mr-5">
 			<Select options={specifications} id="specification" label="Fachgebiet" />
 		</div>
-		<div class="mr-5"> 
-			<Input 
-        		id="professor" 
-       		 	label="Leitende(r) Professor*in" 
-        		placeholder="Leitende(r) Professor*in"
-      		/>
+		<div class="mr-5">
+			<Input
+				id="professor"
+				label="Leitende(r) Professor*in"
+				placeholder="Leitende(r) Professor*in"
+			/>
+		</div>
 		<div class="mr-5">
 			<Input
 				id="technologies"
