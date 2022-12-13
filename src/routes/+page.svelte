@@ -42,11 +42,6 @@
 				</label>
 			</div>
 		{/each}
-		<!--
-		<div class="mr-5">
-			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
-		</div>
-		-->
 		<div class="mr-5">
 			<MultiSelect id="areaOfExpertise" label="Spezialisierung" data={areaOfExpertise} />
 		</div>
