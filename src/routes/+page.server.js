@@ -9,27 +9,27 @@ let technologies;
 export const load = async () => {
 	let query = 'SELECT * FROM topics WHERE draft = false';
 	let queryVars = {};
-	if (thesisType != undefined) {
+	if (thesisType !== undefined && thesisType.length > 0) {
 		query += ' AND thesisType CONTAINSANY $thesisType';
 		queryVars.thesisType = thesisType;
 	}
-	if (specification != undefined) {
+	if (specification !== undefined && specification !== '') {
 		query += ' AND specification = $specification';
 		queryVars.specification = specification;
 	}
-	if (areaOfExpertise != undefined) {
-		query += ' AND areaOfExpertise = $areaOfExpertise';
-		queryVars.areaOfExpertise = areaOfExpertise;
+	if (areaOfExpertise !== undefined && areaOfExpertise !== '') {
+		query += ' AND $areaOfExpertise CONTAINS areaOfExpertise';
+		queryVars.areaOfExpertise = areaOfExpertise.split(',');
 	}
-	if (professor != undefined) {
+	if (professor !== undefined && professor !== '') {
 		query += ' AND string::lowercase(professor) INSIDE string::lowercase($professor)';
 		queryVars.professor = professor;
 	}
-	if (technologies != undefined) {
+	if (technologies !== undefined && technologies !== '') {
 		query += ' AND string::lowercase(technologies) INSIDE string::lowercase($technologies)';
 		queryVars.technologies = technologies;
 	}
-	
+
 	let data = await db.query(query, queryVars);
 
 	let specifications = await db.query('SELECT specification FROM topics group by specification');
@@ -52,7 +52,7 @@ export const actions = {
 			}
 		}
 		thesisType = formData.thesisType;
-		specification = formData.specification;	
+		specification = formData.specification;
 		areaOfExpertise = formData.areaOfExpertise;
 		professor = formData.professor;
 		technologies = formData.technologies;

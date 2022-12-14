@@ -9,3 +9,12 @@
 * {
 	outline: none !important;
 }
+::-webkit-scrollbar{
+	border-radius: 0 var(--rounded-btn) var(--rounded-btn) 0;
+	overflow: hidden;
+	cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+	@apply bg-primary;
+	border-radius: var(--rounded-btn);
+}
