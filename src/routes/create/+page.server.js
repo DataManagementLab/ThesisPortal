@@ -14,6 +14,7 @@ export const actions = {
 			}
 		}
 		formData.draft = formData.draft === 'true';
+		formData.technologies = formData.technologies.split(',').map(s => s.trim());
 		db.create('topics', formData);
 		throw redirect(303, '/profile');
 	}
