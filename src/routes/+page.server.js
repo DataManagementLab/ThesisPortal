@@ -59,6 +59,6 @@ export const actions = {
 		areaOfExpertise = formData.areaOfExpertise;
 		professor = formData.professor;
 		technologies = formData.technologies;
-		button = formData.button;
+		button = formData.action;
 	}
 };

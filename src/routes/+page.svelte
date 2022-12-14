@@ -61,8 +61,8 @@
 				placeholder="Java / Python / C++ ..."
 			/>
 		</div>
-		<button type="submit" class="btn btn-primary" name="button" value="filter">Suchen</button>
-		<button type="submit" class="btn btn-primary" name="button" value="showAll">Alle anzeigen</button>
+		<button type="submit" class="btn btn-primary" name="action" value="filter">Suchen</button>
+		<button type="submit" class="btn btn-primary" name="action" value="showAll">Alle anzeigen</button>
 	</div>
 </form>
 
