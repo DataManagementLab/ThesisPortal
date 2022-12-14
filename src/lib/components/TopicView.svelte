@@ -19,7 +19,8 @@
 					><a
 						href="/{draft ? 'draft' : 'topic'}/{topic.id.split(':')[1]}"
 						class="underline text-primary">{topic.title}</a
-					></td>
+					></td
+				>
 				<td>{topic.professor}</td>
 				<td>{topic.specification}</td>
 				<td>{topic.thesisType.join(', ')}</td>
