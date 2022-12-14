@@ -8,15 +8,24 @@
 		{ id: 'Master', text: 'Master Thesis' }
 	];
 
-	let specifications = [ { id: '', text: 'Egal'} ];
+	let specifications = [{ id: '', text: 'Egal' }];
 
 	let areaOfExpertise = [
 		{ id: 'IT-Sicherheit', text: 'IT-Sicherheit' },
 		{ id: 'Netze und verteilte Systeme', text: 'Netze und verteilte Systeme' },
-		{ id: 'Robotik, Computational und Computer Engineering', text: 'Robotik, Computational und Computer Engineering' },
-		{ id: 'Software-Systeme und formale Grundlagen', text: 'Software-Systeme und formale Grundlagen' },
+		{
+			id: 'Robotik, Computational und Computer Engineering',
+			text: 'Robotik, Computational und Computer Engineering'
+		},
+		{
+			id: 'Software-Systeme und formale Grundlagen',
+			text: 'Software-Systeme und formale Grundlagen'
+		},
 		{ id: 'Visual & Interactive Computing', text: 'Visual & Interactive Computing' },
-		{ id: 'Web, Wissens- und Informationsverarbeitung', text: 'Web, Wissens- und Informationsverarbeitung' }
+		{
+			id: 'Web, Wissens- und Informationsverarbeitung',
+			text: 'Web, Wissens- und Informationsverarbeitung'
+		}
 	];
 
 	for (let specification of data.specifications) {
@@ -62,7 +71,10 @@
 				placeholder="Java / Python / C++ ..."
 			/>
 		</div>
-		<button type="submit" class="btn btn-primary">Suchen</button>
+		<button type="submit" class="btn btn-primary" name="action" value="filter">Suchen</button>
+		<button type="submit" class="btn btn-primary" name="action" value="showAll"
+			>Alle anzeigen</button
+		>
 	</div>
 </form>
 
