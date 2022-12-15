@@ -22,3 +22,20 @@ test('homepage has title and links to login page', async ({ page }) => {
 	// Expects the URL to contain intro.
 	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);*/
 });
+
+test('homepage has links to homepage', async ({ page }) => {
+	await page.goto('/');
+
+	await expect(page).toHaveTitle(/Thesisfinder/);
+
+	const getStarted = page.getByRole('link', { name : 'Themenübersicht' });
+
+	await expect(getStarted).toHaveAttribute(
+		'href',
+		'/'
+	);
+
+	await getStarted.click();
+
+	await expect(page).toHaveURL('/');
+});
