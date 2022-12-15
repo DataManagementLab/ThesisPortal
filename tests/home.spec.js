@@ -7,6 +7,8 @@ test.describe('navigation', () => {
 
 		// Expect a title "to contain" a substring.
 		await expect(page).toHaveTitle(/Thesisfinder/);
+
+		//await expect(page.getByText('Themenübersicht')).toBeVisible();
 	});
 
 	test('homepage has title and links to login page', async ({ page }) => {	
@@ -37,5 +39,18 @@ test.describe('navigation', () => {
 		await getStarted.click();
 	
 		await expect(page).toHaveURL('/');
+	});
+});
+
+test.describe('labels test', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/');
+
+		// Expect a title "to contain" a substring.
+		await expect(page).toHaveTitle(/Thesisfinder/);
+	});
+
+	test('topic overview has correct heading', async ({ page }) => {
+		await expect(page.getByRole('heading', { name: 'Themenübersicht' })).toBeVisible();
 	});
 });
