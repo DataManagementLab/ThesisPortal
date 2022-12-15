@@ -65,11 +65,11 @@
 		on:keypress|preventDefault={update}
 	/>
 	{#if suggestions !== undefined && loadedSuggestions.length > 0}
-		<datalist class="bg-base-200 w-full">
+		<div class="bg-base-200 w-full datalist">
 			{#each loadedSuggestions as suggestion}
 				<option value={suggestion} on:click={() => value = suggestion}>{suggestion}</option>
 			{/each}
-		</datalist>
+		</div>
 	{/if}
 </div>
 
@@ -91,22 +91,22 @@
 					border-bottom: 0;
 					border-radius: var(--rounded-btn) var(--rounded-btn) 0 0;
 				}
-				& + datalist {
+				& + .datalist {
 					max-height: 200px;
 					overflow-y: scroll;
 					border-width: 1px;
 				}
 			}
-			& + datalist:hover,
-			datalist:active,
-			datalist:focus {
+			& + .datalist:hover,
+			.datalist:active,
+			.datalist:focus {
 				max-height: 200px;
 				overflow-y: scroll;
 				border-width: 1px;
 			}
 		}
 	}
-	datalist {
+	.datalist {
 		display: block;
 		position: absolute;
 		z-index: 100;
