@@ -12,6 +12,7 @@
 		"test": "playwright test"
 	},
 	"devDependencies": {
+		"@macfja/sveltekit-cas": "^2.0.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "next",
@@ -34,10 +35,5 @@
 		"tailwindcss": "^3.2.4",
 		"vite": "^3.2.5"
 	},
-	"type": "module",
-	"dependencies": {
-		"logical-cas-client": "^0.0.4",
-		"njwt": "^1.2.0",
-		"universal-cookie": "^4.0.4"
-	}
+	"type": "module"
 }
