@@ -37,6 +37,10 @@
 			})
 		}).then(async data => {
 			data = await data.json();
+			if(value === ''){
+				loadedSuggestions = data;
+				return;
+			}
 			let s = Symbol();
 			loadedSuggestions = fuzzysort.go(value, data.map(v => ({target: v, [s]: fuzzysort.prepare(v)})), {key: s}).map(x => x.target);
 		})
