@@ -49,12 +49,20 @@
 				suggestions
 			/>
 		</div>
+		<div class="mr-5">
+			<Input
+				id="betreuer"
+				label="Betreuende Personen"
+				placeholder="Betreuende Personen"
+				suggestions
+			/>
+		</div>
 
 		<div class="mr-5">
 			<Input
 				id="technologies"
 				label="Zu verwendende Technologien"
-				placeholder="Java / Python / C++ ..."
+				placeholder="Java, Python, C++ ..."
 				suggestions
 			/>
 		</div>

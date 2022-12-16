@@ -71,7 +71,7 @@
 	{#if suggestions !== undefined && loadedSuggestions.length > 0}
 		<div class="bg-base-200 w-full datalist">
 			{#each loadedSuggestions as suggestion}
-				<option value={suggestion} on:click={() => value = suggestion}>{suggestion}</option>
+				<button class="option" on:click|preventDefault={() => value = suggestion}>{suggestion}</button>
 			{/each}
 		</div>
 	{/if}
@@ -121,9 +121,12 @@
 		border-color: hsl(var(--p) / var(--tw-bg-opacity));
 		margin-top: -1px;
 
-		option {
+		.option {
 			cursor: pointer;
+			display: block;
+			width: 100%;
 			padding: 1rem;
+			text-align: start;
 			&:hover {
 				background-color: hsl(var(--b1) / var(--tw-bg-opacity));
 			}
