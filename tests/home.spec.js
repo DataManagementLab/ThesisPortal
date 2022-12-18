@@ -7,8 +7,6 @@ test.describe('navigation', () => {
 
 		// Expect a title "to contain" a substring.
 		await expect(page).toHaveTitle(/Thesisfinder/);
-
-		//await expect(page.getByText('Themenübersicht')).toBeVisible();
 	});
 
 	test('homepage has title and links to login page', async ({ page }) => {	
@@ -42,9 +40,9 @@ test.describe('navigation', () => {
 	});
 });
 
-test.describe('labels test', () => {
+test.describe('test labels', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/');
+		await page.goto('http://localhost:5173/');
 
 		// Expect a title "to contain" a substring.
 		await expect(page).toHaveTitle(/Thesisfinder/);
@@ -52,5 +50,17 @@ test.describe('labels test', () => {
 
 	test('topic overview has correct heading', async ({ page }) => {
 		await expect(page.getByRole('heading', { name: 'Themenübersicht' })).toBeVisible();
+	});
+
+	test('test checkboxes', async({ page }) => {
+		const checkbox = page.getByRole('checkbox', { name : 'Bachelor Thesis'});
+		await expect(checkbox).toBeVisible();
+		await checkbox.check();
+		await expect(checkbox).toBeChecked();
+
+		page.getByRole('checkbox', { name : 'Master Thesis'});
+		await expect(checkbox).toBeVisible();
+		await checkbox.check();
+		await expect(checkbox).toBeChecked();
 	});
 });
