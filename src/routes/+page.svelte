@@ -52,23 +52,25 @@
 			</div>
 		{/each}
 		<div class="mr-5">
-			<MultiSelect id="areaOfExpertise" label="Spezialisierung" data={areaOfExpertise} />
+			<Input id="areaOfExpertise" label="Spezialisierung" suggestions />
 		</div>
 		<div class="mr-5">
-			<Select options={specifications} id="specification" label="Fachgebiet" />
+			<Input id="specification" label="Fachgebiet" suggestions/>
 		</div>
 		<div class="mr-5">
 			<Input
 				id="professor"
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
+				suggestions
 			/>
 		</div>
 		<div class="mr-5">
 			<Input
 				id="technologies"
 				label="Zu verwendende Technologien"
-				placeholder="Java / Python / C++ ..."
+				placeholder="Java, Python, C++ ..."
+				suggestions
 			/>
 		</div>
 		<button type="submit" class="btn btn-primary" name="action" value="filter">Suchen</button>
