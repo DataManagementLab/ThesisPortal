@@ -28,6 +28,9 @@ export const actions = {
 			}
 		}
 		formData.draft = formData.draft === 'true';
+		formData.technologies = formData.technologies.split(',').filter(item => item.length > 0);
+		formData.supervisor = formData.supervisor.split(',').filter(item => item.length > 0);
+		console.log(formData);
 		db.update(`topics:${params.id}`, formData);
 		throw redirect(303, '/profile');
 	}

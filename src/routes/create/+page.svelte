@@ -55,6 +55,7 @@
 				label="Betreuende Personen"
 				placeholder="Betreuende Personen"
 				suggestions
+				csv
 			/>
 		</div>
 
@@ -64,6 +65,7 @@
 				label="Zu verwendende Technologien"
 				placeholder="Java, Python, C++ ..."
 				suggestions
+				csv
 			/>
 		</div>
 		<div>

@@ -3,7 +3,11 @@ import { db } from '$lib/server/db';
 export async function POST({ request }){
     let { field, query } = await request.json();
     let results = new Set();
-    for(let sub of query.toLowerCase().replaceAll(/[,.-]/g, ' ').split(' ')){
+    if(Array.isArray(query))
+        query = query.map(i => i.toLowerCase());
+    else
+        query = query.toLowerCase().replaceAll(/[,.-]/g, ' ').split(' ');
+    for(let sub of query){
         if(sub.length == 0 && query != '')
             continue;
         let result = await db.query(`SELECT * FROM topics WHERE string::lowercase($value) INSIDE string::lowercase(${field}) LIMIT 5`,{

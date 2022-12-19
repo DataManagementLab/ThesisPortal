@@ -34,12 +34,8 @@ export const load = async () => {
 	}
 
 	let data = await db.query(query, queryVars);
-
-	let specifications = await db.query('SELECT specification FROM topics group by specification');
-
 	return {
-		topics: data[0].result,
-		specifications: specifications[0].result
+		topics: data[0].result
 	};
 };
 

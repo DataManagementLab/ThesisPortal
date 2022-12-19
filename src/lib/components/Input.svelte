@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import Close from 'svelte-material-icons/Close.svelte';
 	import fuzzysort from 'fuzzysort';
 
 	export let id;
@@ -10,20 +11,42 @@
 	export let disabled = false;
 	export let required = false;
 	export let suggestions = undefined;
+	export let csv = undefined;
 
 	let loadedSuggestions = [];
+	let inputValue = '';
 
 	onMount(()=>{
 		loadSuggestions();
+		if(csv !== undefined){
+			if(Array.isArray(value)){
+				value = value.join(',')+',';
+			}
+		}
+		inputValue = value;
+		if(csv !== undefined)
+			value = '';
 	})
 
 	function update(e){
-		if (e.charCode === 13) {
+		if((e.charCode === 13 || e.charCode === ','.charCodeAt(0)) && csv !== undefined) {
 			e.preventDefault();
+			appendValue();
 		} else {
 			value += String.fromCharCode(e.charCode);
+			if(csv === undefined)
+				inputValue = value;
 		}
 		loadSuggestions();
+	}
+
+	function appendValue(){
+		if(csv === undefined){
+			inputValue = value;
+			return;
+		}
+		inputValue += `${value},`;
+		value = '';
 	}
 
 	function loadSuggestions(){
@@ -45,7 +68,13 @@
 			loadedSuggestions = fuzzysort.go(value, data.map(v => ({target: v, [s]: fuzzysort.prepare(v)})), {key: s}).map(x => x.target);
 		})
 	}
-	function typeAction(node){
+
+	function removeTag(item){
+		inputValue = inputValue.replace(`${item},`,'');
+	}
+
+	//workaround to allow dynamic type for inputs
+	function addType(node){
 		node.type = type;
 	}
 </script>
@@ -54,16 +83,28 @@
 	<label class="label font-medium pb-1" for={id}>
 		<span class="label-text">{label}</span>
 	</label>
+	<input type="hidden" name={id} value={inputValue}>
+	{#if csv !== undefined && inputValue.length > 0}
+		<div>
+			{#each inputValue.substring(0, inputValue.length - 1).split(',') as item}
+				<div class="tag bg-base-200">
+					<span>{item}</span>
+					<button class="btn btn-circle btn-xs" on:click|preventDefault={() => removeTag(item)}
+						><Close /></button
+					>
+				</div>
+			{/each}
+		</div>
+	{/if}
 	<input
 		class="input w-full outline-0 bg-base-200"
 		class:mb-5={suggestions === undefined}
 		class:hasResults={loadedSuggestions.length > 0}
-		use:typeAction
+		use:addType
 		{placeholder}
 		{required}
 		{disabled}
 		{id}
-		name={id}
 		autocomplete="off"
 		bind:value={value}
 		on:keypress|preventDefault={update}
@@ -71,7 +112,7 @@
 	{#if suggestions !== undefined && loadedSuggestions.length > 0}
 		<div class="bg-base-200 w-full datalist">
 			{#each loadedSuggestions as suggestion}
-				<button class="option" on:click|preventDefault={() => value = suggestion}>{suggestion}</button>
+				<button class="option" on:click|preventDefault={() => {value = suggestion; appendValue()}}>{suggestion}</button>
 			{/each}
 		</div>
 	{/if}
@@ -129,6 +170,32 @@
 			text-align: start;
 			&:hover {
 				background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+			}
+		}
+	}
+
+	.tag {
+		display: inline-block;
+		border-radius: 5px;
+		padding: 3px 1px 3px 5px;
+		font-size: 1rem;
+		margin: 0px 0px 5px 5px;
+		border: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+
+		&:hover {
+			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+		}
+		button{
+			height: 1rem;
+			width: 1rem;
+			min-height: 1rem;
+			min-width: 1rem;
+			vertical-align: middle;
+			background-color: transparent;
+			border: none;
+			&:hover{
+				color: hsl(var(--p) / var(--tw-bg-opacity));
+				background-color: hsl(var(--b3) / var(--tw-bg-opacity));
 			}
 		}
 	}
