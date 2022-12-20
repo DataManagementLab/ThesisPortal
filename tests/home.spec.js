@@ -42,7 +42,7 @@ test.describe('navigation', () => {
 
 test.describe('test labels', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('http://localhost:5173/');
+		await page.goto('/');
 
 		// Expect a title "to contain" a substring.
 		await expect(page).toHaveTitle(/Thesisfinder/);
