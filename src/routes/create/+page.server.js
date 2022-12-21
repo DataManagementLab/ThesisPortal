@@ -3,14 +3,20 @@ import { redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const filterSchema = z.object({
-	specification: z
+	subjectArea: z
+		.string({ required_error: 'Ein Fachbereich wird benötigt' })
+		.min(1, { message: 'Ein Fachbereich wird benötigt' })
+		.trim(),
+	areaOfExpertise: z
 		.string({ required_error: 'Ein Fachgebiet wird benötigt' })
 		.min(1, { message: 'Ein Fachgebiet wird benötigt' })
-		.max(64)
 		.trim(),
+	specialization: z
+		.array(z.string({ required_error: 'Eine Spezifikation wird benötigt' }).trim())
+		.min(1, { message: 'Eine Spezifikation wird benötigt' }),
 	thesisType: z
-		.array(z.string({ required_error: 'Thesistyp wird benötigt'}))
-		.min(1, { message: 'Thesistyp wird benötigt' })
+		.array(z.string({ required_error: 'Thesistyp(en) wird benötigt'}))
+		.min(1, { message: 'Thesistyp(en) wird benötigt' })
 		.max(2),
 	title: z
 		.string({ required_error: 'Ein Titel wird benötigt'})
@@ -21,12 +27,14 @@ const filterSchema = z.object({
 		.min(1, { message: 'Eine Beschreibung wird benötigt' })
 		.trim(),
 	professor: z
-		.string({ required_error: 'Der/die Professor:in wird benötigt' })
-		.min(1, { message: 'Der/die Professor:in wird benötigt' }),
+		.string({ required_error: 'Ein(e) Professor:in wird benötigt' })
+		.min(1, { message: 'Ein(e) Professor:in wird benötigt' }),
+	supervisor: z
+		.array(z.string({ required_error: 'Eine oder mehrere betreunde Personen werden benötigt' }).trim())
+		.min(1, { message: 'Eine oder mehrere betreunde Personen werden benötigt' }),
 	technologies: z
-		.string({ required_error: 'Technologien werden benötigt' })
-		.min(1, { message: 'Technologien werden benötigt' })
-		.trim(),
+		.array(z.string({ required_error: 'Technologien werden benötigt' }).trim())
+		.min(1, { message: 'Technologien werden benötigt' }),
 	email: z
 		.string({ required_error: 'Eine Emailadresse wird benötigt' })
 		.email({ message: 'Eine Emailadresse wird benötigt' }),
@@ -46,30 +54,26 @@ export const actions = {
 		}
 		formData.draft = formData.draft === 'true';
 		formData.technologies = parseCSV(formData.technologies);
-		formData.specialization = parseCsv(
+		formData.specialization = parseCSV(
 			formData.specialization
-				.split(',')
+				/*.split(',')
 				.map((s) => s.trim())
-				.filter((x) => x.length > 0)
+				.filter((x) => x.length > 0)*/
 		);
-		formData.supervisor = parseCsv(
+		formData.supervisor = parseCSV(
 			formData.supervisor
-				.split(',')
+				/*.split(',')
 				.map((s) => s.trim())
-				.filter((x) => x.length > 0)
+				.filter((x) => x.length > 0)*/
 		);
 		formData.createdAt = Date.now();
 		formData.lastUpdatedAt = Date.now();
 
-		//console.log(formData);
 		try {
 			
 			const result = filterSchema.parse(formData);
 			db.create('topics', formData);
-			throw redirect(303, '/profile');
-			//console.log('ERFOLG');
-			//console.log(result);
-			
+			throw redirect(303, '/profile');			
 		} catch (error) {
 			const { fieldErrors: errors} = error.flatten();
 			return {
