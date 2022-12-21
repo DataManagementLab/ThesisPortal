@@ -1,4 +1,5 @@
 <script>
+	export let form;
 	import { Input, Textarea } from '$lib/components';
 
 	let thesisType = [
@@ -42,7 +43,9 @@
 				suggestions
 				csv
 				placeholder="Spezialisierung"
-			/>
+				value={form?.formData?.specification ?? ""}
+				errorMessage={form?.errors?.specification[0] ?? ""}
+				/>
 		</div>
 	</div>
 
