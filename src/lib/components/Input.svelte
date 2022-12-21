@@ -36,6 +36,7 @@
 			if (csv === undefined) inputValue = value;
 		}
 		loadSuggestions();
+		e.target.scrollLeft = e.target.scrollWidth;
 	}
 
 	function appendValue() {
@@ -84,7 +85,9 @@
 
 <div class:suggestions={suggestions !== undefined}>
 	<label class="label font-medium pb-1" for={id}>
-		<span class="label-text">{label}</span>
+		<span class="label-text">{label} {#if csv !== undefined}
+			(Komma separiert)
+		{/if}</span>
 	</label>
 	<input type="hidden" name={id} value={inputValue} />
 	{#if csv !== undefined && inputValue.length > 0}
@@ -128,6 +131,11 @@
 </div>
 
 <style lang="scss">
+
+	::placeholder {
+		color: hsl(var(--nc) / var(--tw-bg-opacity));
+		opacity: .3;
+	}
 	input {
 		&:hover,
 		&:focus {
