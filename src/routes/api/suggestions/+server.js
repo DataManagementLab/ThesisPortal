@@ -23,5 +23,5 @@ export async function POST({ request }) {
 			}
 		}
 	}
-	return new Response(JSON.stringify(Array.from(results).filter(x => x !== undefined).slice(0, 5)));
+	return new Response(JSON.stringify(Array.from(results).filter(x => x !== undefined && x.length > 0).slice(0, 5)));
 }

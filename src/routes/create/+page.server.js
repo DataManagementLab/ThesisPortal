@@ -14,8 +14,16 @@ export const actions = {
 			}
 		}
 		formData.draft = formData.draft === 'true';
-		formData.technologies = formData.technologies.split(',').map((s) => s.trim());
+		formData.technologies = parseCSV(formData.technologies);
+		formData.specialization = parseCsv(formData.specialization.split(',').map((s) => s.trim()).filter(x => x.length > 0));
+		formData.supervisor = parseCsv(formData.supervisor.split(',').map((s) => s.trim()).filter(x => x.length > 0));
+		formData.createdAt = Date.now();
+		formData.lastUpdatedAt = Date.now();
 		db.create('topics', formData);
 		throw redirect(303, '/profile');
 	}
 };
+
+function parseCSV(text){
+	return text.split(',').map((s) => s.trim()).filter(x => x.length > 0);
+}

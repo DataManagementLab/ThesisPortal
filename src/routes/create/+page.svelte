@@ -29,16 +29,20 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
-			<Input
-				id="areaOfExpertise"
-				label="Spezialisierung"
-				suggestions
-				placeholder="Spezialisierung"
-			/>
+			<Input id="subjectArea" label="Fachbereich" suggestions placeholder="Fachbereich" />
+		</div>
+		<div class="mr-5">
+			<Input id="areaOfExpertise" label="Fachgebiet" suggestions placeholder="Fachgebiet" />
 		</div>
 		<div>
-			<Input id="specification" label="Fachgebiet" suggestions placeholder="Fachgebiet" />
+			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
+			<Input
+				id="specialization"
+				label="Spezialisierung"
+				suggestions
+				csv
+				placeholder="Spezialisierung"
+			/>
 		</div>
 	</div>
 
@@ -56,7 +60,7 @@
 		</div>
 		<div class="mr-5">
 			<Input
-				id="betreuer"
+				id="supervisor"
 				label="Betreuende Personen"
 				placeholder="Betreuende Personen"
 				suggestions
@@ -67,7 +71,7 @@
 		<div class="mr-5">
 			<Input
 				id="technologies"
-				label="Zu verwendende Technologien"
+				label="Technologien"
 				placeholder="Java, Python, C++ ..."
 				suggestions
 				csv

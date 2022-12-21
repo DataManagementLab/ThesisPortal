@@ -9,9 +9,6 @@ export async function load({ params }) {
 	if (data.length === 0) {
 		throw error(404, 'Thema nicht gefunden');
 	}
-	if (data.draft === false) {
-		throw error(409, 'Thema ist kein Entwurf');
-	}
 	return data[0];
 }
 
@@ -28,10 +25,16 @@ export const actions = {
 			}
 		}
 		formData.draft = formData.draft === 'true';
-		formData.technologies = formData.technologies.split(',').filter((item) => item.length > 0);
-		formData.supervisor = formData.supervisor.split(',').filter((item) => item.length > 0);
-		console.log(formData);
+		formData.technologies = parseCSV(formData.technologies);
+		formData.specialization = parseCSV(formData.specialization);
+		formData.supervisor = parseCSV(formData.supervisor);
+		formData.createdAt = formData.createdAt;
+		formData.lastUpdatedAt = Date.now();
 		db.update(`topics:${params.id}`, formData);
 		throw redirect(303, '/profile');
 	}
 };
+
+function parseCSV(text){
+	return text.split(',').map((s) => s.trim()).filter(x => x.length > 0);
+}
