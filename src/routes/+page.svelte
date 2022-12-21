@@ -28,7 +28,7 @@
 			<Input id="areaOfExpertise" label="Spezialisierung" suggestions />
 		</div>
 		<div class="mr-5">
-			<Input id="specification" label="Fachgebiet" suggestions/>
+			<Input id="specification" label="Fachgebiet" suggestions />
 		</div>
 		<div class="mr-5">
 			<Input

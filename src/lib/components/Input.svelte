@@ -16,32 +16,30 @@
 	let loadedSuggestions = [];
 	let inputValue = '';
 
-	onMount(()=>{
+	onMount(() => {
 		loadSuggestions();
-		if(csv !== undefined){
-			if(Array.isArray(value)){
-				value = value.join(',')+',';
+		if (csv !== undefined) {
+			if (Array.isArray(value)) {
+				value = value.join(',') + ',';
 			}
 		}
 		inputValue = value;
-		if(csv !== undefined)
-			value = '';
-	})
+		if (csv !== undefined) value = '';
+	});
 
-	function update(e){
-		if((e.charCode === 13 || e.charCode === ','.charCodeAt(0)) && csv !== undefined) {
+	function update(e) {
+		if ((e.charCode === 13 || e.charCode === ','.charCodeAt(0)) && csv !== undefined) {
 			e.preventDefault();
 			appendValue();
 		} else {
 			value += String.fromCharCode(e.charCode);
-			if(csv === undefined)
-				inputValue = value;
+			if (csv === undefined) inputValue = value;
 		}
 		loadSuggestions();
 	}
 
-	function appendValue(){
-		if(csv === undefined){
+	function appendValue() {
+		if (csv === undefined) {
 			inputValue = value;
 			return;
 		}
@@ -49,32 +47,37 @@
 		value = '';
 	}
 
-	function loadSuggestions(){
-		if(suggestions === undefined)
-			return;
-		fetch("/api/suggestions", {
+	function loadSuggestions() {
+		if (suggestions === undefined) return;
+		fetch('/api/suggestions', {
 			method: 'POST',
 			body: JSON.stringify({
 				field: id,
 				query: value
 			})
-		}).then(async data => {
+		}).then(async (data) => {
 			data = await data.json();
-			if(value === ''){
+			if (value === '') {
 				loadedSuggestions = data;
 				return;
 			}
 			let s = Symbol();
-			loadedSuggestions = fuzzysort.go(value, data.map(v => ({target: v, [s]: fuzzysort.prepare(v)})), {key: s}).map(x => x.target);
-		})
+			loadedSuggestions = fuzzysort
+				.go(
+					value,
+					data.map((v) => ({ target: v, [s]: fuzzysort.prepare(v) })),
+					{ key: s }
+				)
+				.map((x) => x.target);
+		});
 	}
 
-	function removeTag(item){
-		inputValue = inputValue.replace(`${item},`,'');
+	function removeTag(item) {
+		inputValue = inputValue.replace(`${item},`, '');
 	}
 
 	//workaround to allow dynamic type for inputs
-	function addType(node){
+	function addType(node) {
 		node.type = type;
 	}
 </script>
@@ -83,7 +86,7 @@
 	<label class="label font-medium pb-1" for={id}>
 		<span class="label-text">{label}</span>
 	</label>
-	<input type="hidden" name={id} value={inputValue}>
+	<input type="hidden" name={id} value={inputValue} />
 	{#if csv !== undefined && inputValue.length > 0}
 		<div>
 			{#each inputValue.substring(0, inputValue.length - 1).split(',') as item}
@@ -106,13 +109,19 @@
 		{disabled}
 		{id}
 		autocomplete="off"
-		bind:value={value}
+		bind:value
 		on:keypress|preventDefault={update}
 	/>
 	{#if suggestions !== undefined && loadedSuggestions.length > 0}
 		<div class="bg-base-200 w-full datalist">
 			{#each loadedSuggestions as suggestion}
-				<button class="option" on:click|preventDefault={() => {value = suggestion; appendValue()}}>{suggestion}</button>
+				<button
+					class="option"
+					on:click|preventDefault={() => {
+						value = suggestion;
+						appendValue();
+					}}>{suggestion}</button
+				>
 			{/each}
 		</div>
 	{/if}
@@ -120,7 +129,8 @@
 
 <style lang="scss">
 	input {
-		&:hover, &:focus{
+		&:hover,
+		&:focus {
 			border-color: hsl(var(--p) / var(--tw-bg-opacity));
 		}
 	}
@@ -132,7 +142,7 @@
 				border-color: hsl(var(--p) / var(--tw-bg-opacity));
 				z-index: 101;
 				position: relative;
-				&:is(input.hasResults){
+				&:is(input.hasResults) {
 					border-bottom: 0;
 					border-radius: var(--rounded-btn) var(--rounded-btn) 0 0;
 				}
@@ -185,7 +195,7 @@
 		&:hover {
 			border-color: hsl(var(--p) / var(--tw-bg-opacity));
 		}
-		button{
+		button {
 			height: 1rem;
 			width: 1rem;
 			min-height: 1rem;
@@ -193,7 +203,7 @@
 			vertical-align: middle;
 			background-color: transparent;
 			border: none;
-			&:hover{
+			&:hover {
 				color: hsl(var(--p) / var(--tw-bg-opacity));
 				background-color: hsl(var(--b3) / var(--tw-bg-opacity));
 			}

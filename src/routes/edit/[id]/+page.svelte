@@ -23,7 +23,12 @@
 				{#each thesisType as tType}
 					<div class="form-control">
 						<label class="label justify-start cursor-pointer">
-							<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" checked={tType.checked ? 'checked' : ''}/>
+							<input
+								type="checkbox"
+								class="checkbox"
+								name="thesisType_{tType.id}"
+								checked={tType.checked ? 'checked' : ''}
+							/>
 							<span class="label-text ml-2">{tType.text}</span>
 						</label>
 					</div>
@@ -31,15 +36,32 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<Input id="areaOfExpertise" value={data.areaOfExpertise} label="Spezialisierung" suggestions placeholder="Spezialisierung"/>
+			<Input
+				id="areaOfExpertise"
+				value={data.areaOfExpertise}
+				label="Spezialisierung"
+				suggestions
+				placeholder="Spezialisierung"
+			/>
 		</div>
 		<div>
-			<Input id="specification"  value={data.specification} label="Fachgebiet" suggestions placeholder="Fachgebiet" />
+			<Input
+				id="specification"
+				value={data.specification}
+				label="Fachgebiet"
+				suggestions
+				placeholder="Fachgebiet"
+			/>
 		</div>
 	</div>
 
-	<Input id="title" label="Titel" placeholder="Titel" value={data.title}/>
-	<Textarea id="description" label="Beschreibung" placeholder="Beschreibung des Themas" value={data.description}/>
+	<Input id="title" label="Titel" placeholder="Titel" value={data.title} />
+	<Textarea
+		id="description"
+		label="Beschreibung"
+		placeholder="Beschreibung des Themas"
+		value={data.description}
+	/>
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -73,11 +95,18 @@
 			/>
 		</div>
 		<div>
-			<Input id="email" label="E-Mail Kontakt" placeholder="me@tu-darmstadt.de" type="mail" value={data.email} suggestions/>
+			<Input
+				id="email"
+				label="E-Mail Kontakt"
+				placeholder="me@tu-darmstadt.de"
+				type="mail"
+				value={data.email}
+				suggestions
+			/>
 		</div>
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other}/>
+	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other} />
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true"
 			>Entwurf speichern</button

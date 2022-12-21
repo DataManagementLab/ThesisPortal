@@ -30,7 +30,12 @@
 		</div>
 		<div class="mr-5">
 			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
-			<Input id="areaOfExpertise" label="Spezialisierung" suggestions placeholder="Spezialisierung"/>
+			<Input
+				id="areaOfExpertise"
+				label="Spezialisierung"
+				suggestions
+				placeholder="Spezialisierung"
+			/>
 		</div>
 		<div>
 			<Input id="specification" label="Fachgebiet" suggestions placeholder="Fachgebiet" />
@@ -69,7 +74,13 @@
 			/>
 		</div>
 		<div>
-			<Input id="email" label="E-Mail Kontakt" placeholder="me@tu-darmstadt.de" type="mail" suggestions/>
+			<Input
+				id="email"
+				label="E-Mail Kontakt"
+				placeholder="me@tu-darmstadt.de"
+				type="mail"
+				suggestions
+			/>
 		</div>
 	</div>
 
