@@ -1,4 +1,5 @@
 <script>
+	export let form;
 	import { Input, Select, Textarea } from '$lib/components';
 
 	let thesisType = [
@@ -50,7 +51,14 @@
 			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
 		</div>
 		<div>
-			<Input id="specification" label="Fachgebiet" placeholder="Fachgebiet" />
+			<Input 
+				id="specification" 
+				label="Fachgebiet" 
+				placeholder="Fachgebiet" 
+				value={form?.formData?.specification ?? ""}
+				required=true
+				errorMessage={form?.errors?.specification[0] ?? ""}
+				/>
 		</div>
 	</div>
 

@@ -6,6 +6,7 @@
 	export let type = 'text';
 	export let disabled = false;
 	export let required = false;
+	export let errorMessage = '';
 </script>
 
 <label class="label font-medium pb-1" for={id}>
@@ -21,6 +22,11 @@
 	name={id}
 	{value}
 />
+<label class="label font-medium pb-1" for={id}>
+	{#if errorMessage}
+		<span class="label-text-alt text-error">{errorMessage}</span>
+	{/if}
+</label>
 
 <style lang="scss">
 	input {
