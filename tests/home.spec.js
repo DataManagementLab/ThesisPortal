@@ -13,12 +13,12 @@ test('homepage has title and links to login page', async ({ page }) => {
 	// Expect an attribute "to be strictly equal" to the value.
 	await expect(getStarted).toHaveAttribute(
 		'href',
-		'https://login.tu-darmstadt.de/idp/profile/cas/login?service=http://thesisfinder-local.tu-darmstadt.de.test:5173'
+		'https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/login?service=http://thesisfinder-local.tu-darmstadt.de.test:5173'
 	);
 
 	// Click the get started link.
 	await getStarted.click();
 
 	// Expects the URL to contain intro.
-	await expect(page).toHaveURL(/.*login.tu-darmstadt.de/);
+	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
 });
