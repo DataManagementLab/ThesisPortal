@@ -1,27 +1,9 @@
 <script>
-	import { Input, Select, Textarea } from '$lib/components';
+	import { Input, Textarea } from '$lib/components';
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
-	];
-
-	let areaOfExpertise = [
-		{ id: 'IT-Sicherheit', text: 'IT-Sicherheit' },
-		{ id: 'Netze und verteilte Systeme', text: 'Netze und verteilte Systeme' },
-		{
-			id: 'Robotik, Computational und Computer Engineering',
-			text: 'Robotik, Computational und Computer Engineering'
-		},
-		{
-			id: 'Software-Systeme und formale Grundlagen',
-			text: 'Software-Systeme und formale Grundlagen'
-		},
-		{ id: 'Visual & Interactive Computing', text: 'Visual & Interactive Computing' },
-		{
-			id: 'Web, Wissens- und Informationsverarbeitung',
-			text: 'Web, Wissens- und Informationsverarbeitung'
-		}
 	];
 </script>
 
@@ -47,10 +29,16 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<Select options={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung" />
+			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
+			<Input
+				id="areaOfExpertise"
+				label="Spezialisierung"
+				suggestions
+				placeholder="Spezialisierung"
+			/>
 		</div>
 		<div>
-			<Input id="specification" label="Fachgebiet" placeholder="Fachgebiet" />
+			<Input id="specification" label="Fachgebiet" suggestions placeholder="Fachgebiet" />
 		</div>
 	</div>
 
@@ -63,6 +51,16 @@
 				id="professor"
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
+				suggestions
+			/>
+		</div>
+		<div class="mr-5">
+			<Input
+				id="betreuer"
+				label="Betreuende Personen"
+				placeholder="Betreuende Personen"
+				suggestions
+				csv
 			/>
 		</div>
 
@@ -70,11 +68,19 @@
 			<Input
 				id="technologies"
 				label="Zu verwendende Technologien"
-				placeholder="Java / Python / C++ ..."
+				placeholder="Java, Python, C++ ..."
+				suggestions
+				csv
 			/>
 		</div>
 		<div>
-			<Input id="email" label="E-Mail Kontakt" placeholder="me@tu-darmstadt.de" type="mail" />
+			<Input
+				id="email"
+				label="E-Mail Kontakt"
+				placeholder="me@tu-darmstadt.de"
+				type="mail"
+				suggestions
+			/>
 		</div>
 	</div>
 

@@ -1,20 +1,11 @@
 <script>
-	import { Input, Textarea, Select } from '$lib/components';
+	import { Input, Textarea } from '$lib/components';
 
 	export let data;
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.thesisType.includes('Bachelor') },
 		{ id: 'Master', text: 'Master Thesis', checked: data.thesisType.includes('Master') }
-	];
-
-	let areaOfExpertise = [
-		{ id: 1, text: 'IT-Sicherheit' },
-		{ id: 2, text: 'Netze und verteilte Systeme' },
-		{ id: 3, text: 'Robotik, Computational und Computer Engineering' },
-		{ id: 4, text: 'Software-Systeme und formale Grundlagen' },
-		{ id: 5, text: 'Visual & Interactive Computing' },
-		{ id: 6, text: 'Web, Wissens- und Informationsverarbeitung' }
 	];
 </script>
 
@@ -45,19 +36,21 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<Select
-				options={areaOfExpertise}
+			<Input
 				id="areaOfExpertise"
+				value={data.areaOfExpertise}
 				label="Spezialisierung"
-				selected={data.areaOfExpertise}
+				suggestions
+				placeholder="Spezialisierung"
 			/>
 		</div>
 		<div>
 			<Input
 				id="specification"
-				label="Fachgebiet"
-				placeholder="Fachgebiet"
 				value={data.specification}
+				label="Fachgebiet"
+				suggestions
+				placeholder="Fachgebiet"
 			/>
 		</div>
 	</div>
@@ -77,14 +70,28 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				value={data.professor}
+				suggestions
 			/>
 		</div>
 		<div class="mr-5">
 			<Input
+				id="supervisor"
+				label="Betreuende Personen"
+				placeholder="Betreuende Personen"
+				value={data.supervisor}
+				suggestions
+				csv
+			/>
+		</div>
+
+		<div class="mr-5">
+			<Input
 				id="technologies"
 				label="Zu verwendende Technologien"
-				placeholder="Java / Python / C++ ..."
+				placeholder="Java, Python, C++ ..."
 				value={data.technologies}
+				suggestions
+				csv
 			/>
 		</div>
 		<div>
@@ -94,6 +101,7 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				value={data.email}
+				suggestions
 			/>
 		</div>
 	</div>
