@@ -36,10 +36,22 @@
 			</div>
 		</div>
 		<div class="mr-5">
-			<Input id="subjectArea" value={data.subjectArea} label="Fachbereich" suggestions placeholder="Fachbereich" />
+			<Input
+				id="subjectArea"
+				value={data.subjectArea}
+				label="Fachbereich"
+				suggestions
+				placeholder="Fachbereich"
+			/>
 		</div>
 		<div class="mr-5">
-			<Input id="areaOfExpertise" value={data.areaOfExpertise} label="Fachgebiet" suggestions placeholder="Fachgebiet" />
+			<Input
+				id="areaOfExpertise"
+				value={data.areaOfExpertise}
+				label="Fachgebiet"
+				suggestions
+				placeholder="Fachgebiet"
+			/>
 		</div>
 		<div>
 			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
@@ -107,7 +119,7 @@
 
 	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other} />
 	<input type="hidden" name="createdAt" value={data.createdAt} />
-	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt}>
+	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt} />
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true"
 			>Entwurf speichern</button

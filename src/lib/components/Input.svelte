@@ -36,12 +36,12 @@
 			if (csv === undefined) inputValue = value;
 		}
 		loadSuggestions();
-		setTimeout(()=>e.target.scrollLeft = e.target.scrollWidth,0);
+		setTimeout(() => (e.target.scrollLeft = e.target.scrollWidth), 0);
 	}
 
-	function handleDelete(e){
-		if(e.key === 'Backspace' || e.key === 'Delete'){
-			setTimeout(()=>loadSuggestions(), 0);
+	function handleDelete(e) {
+		if (e.key === 'Backspace' || e.key === 'Delete') {
+			setTimeout(() => loadSuggestions(), 0);
 		}
 	}
 
@@ -50,7 +50,7 @@
 			inputValue = value;
 			return;
 		}
-		if(value.length == 0){
+		if (value.length == 0) {
 			return;
 		}
 		inputValue += `${value},`;
@@ -94,14 +94,17 @@
 
 <div class:suggestions={suggestions !== undefined}>
 	<label class="label font-medium pb-1" for={id}>
-		<span class="label-text">{label} {#if csv !== undefined}
-			(Komma separiert)
-		{/if}</span>
+		<span class="label-text"
+			>{label}
+			{#if csv !== undefined}
+				(Komma separiert)
+			{/if}</span
+		>
 	</label>
 	<input type="hidden" name={id} value={inputValue} />
 	{#if csv !== undefined && inputValue.length > 0}
 		<div>
-			{#each inputValue.split(',').filter(x => x.length > 0) as item}
+			{#each inputValue.split(',').filter((x) => x.length > 0) as item}
 				<div class="tag bg-base-200">
 					<span>{item}</span>
 					<button class="btn btn-circle btn-xs" on:click|preventDefault={() => removeTag(item)}
@@ -142,10 +145,9 @@
 </div>
 
 <style lang="scss">
-
 	::placeholder {
 		color: hsl(var(--nc) / var(--tw-bg-opacity));
-		opacity: .3;
+		opacity: 0.3;
 	}
 	input {
 		&:hover,

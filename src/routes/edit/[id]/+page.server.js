@@ -35,6 +35,9 @@ export const actions = {
 	}
 };
 
-function parseCSV(text){
-	return text.split(',').map((s) => s.trim()).filter(x => x.length > 0);
+function parseCSV(text) {
+	return text
+		.split(',')
+		.map((s) => s.trim())
+		.filter((x) => x.length > 0);
 }
