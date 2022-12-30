@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test.describe('test insert element', () => {
     test.beforeEach(async ({ page }) => {
         //await page.goto('http://localhost:5173/create');
-        await page.goto('/');
+        await page.goto('/create');
     });
 
     test('correct insertion', async ({ page }) => {
