@@ -9,7 +9,7 @@ test.describe('navigation', () => {
 		await expect(page).toHaveTitle(/Thesisfinder/);
 	});
 
-	test('homepage has title and links to login page', async ({ page }) => {	
+	test('start page has title and links to login page', async ({ page }) => {	
 		// create a locator
 		const getStarted = page.getByRole('link', { name: 'Login' });
 	
@@ -26,7 +26,7 @@ test.describe('navigation', () => {
 		await expect(page).toHaveURL(/.*login.tu-darmstadt.de/);
 	});
 
-	test('homepage has links to homepage', async ({ page }) => {	
+	test('start page has links to himself/start page', async ({ page }) => {	
 		const getStarted = page.getByRole('link', { name : 'Themenübersicht' });
 	
 		await expect(getStarted).toHaveAttribute(
@@ -40,6 +40,7 @@ test.describe('navigation', () => {
 	});
 });
 
+/*
 test.describe('test labels', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
@@ -64,3 +65,4 @@ test.describe('test labels', () => {
 		await expect(checkbox).toBeChecked();
 	});
 });
+*/
