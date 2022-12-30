@@ -96,11 +96,3 @@
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
 </form>
-
-<style lang="scss">
-	form#createTopic {
-		margin-left: calc(50% - 700px);
-		width: 1400px;
-		text-align: left;
-	}
-</style>
