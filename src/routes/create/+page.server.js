@@ -15,17 +15,21 @@ export const actions = {
 		}
 		formData.draft = formData.draft === 'true';
 		formData.technologies = parseCSV(formData.technologies);
-		formData.specialization = parseCsv(
+		formData.specialization = parseCSV(
 			formData.specialization
+			/*
 				.split(',')
 				.map((s) => s.trim())
 				.filter((x) => x.length > 0)
+			*/
 		);
-		formData.supervisor = parseCsv(
+		formData.supervisor = parseCSV(
 			formData.supervisor
+			/*
 				.split(',')
 				.map((s) => s.trim())
 				.filter((x) => x.length > 0)
+			*/
 		);
 		formData.createdAt = Date.now();
 		formData.lastUpdatedAt = Date.now();
