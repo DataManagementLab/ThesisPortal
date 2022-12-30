@@ -17,7 +17,7 @@
 			<tr class="hover">
 				<td
 					><a
-						href="/{draft ? 'draft' : 'topic'}/{topic.id.split(':')[1]}"
+						href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}"
 						class="underline text-primary">{topic.title}</a
 					></td
 				>

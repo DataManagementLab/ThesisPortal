@@ -12,7 +12,7 @@
 		<a href="/create" class="btn btn-ghost mr-3">Thema erstellen</a>
 		<a href="/profile" class="btn btn-ghost mr-3">Profil</a>
 		<a
-			href="https://login.tu-darmstadt.de/idp/profile/cas/login?service={PUBLIC_HOST}:{PUBLIC_PORT}"
+			href="https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/login?service={PUBLIC_HOST}:{PUBLIC_PORT}"
 			class="btn btn-primary mr-3 px-7">Login</a
 		>
 	</nav>
