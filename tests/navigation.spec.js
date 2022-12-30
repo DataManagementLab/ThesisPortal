@@ -23,7 +23,7 @@ test.describe('navigation', () => {
 		await getStarted.click();
 	
 		// Expects the URL to contain intro.
-		await expect(page).toHaveURL(/.*login.tu-darmstadt.de/);
+		await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
 	});
 
 	test('start page has links to himself/start page', async ({ page }) => {	
