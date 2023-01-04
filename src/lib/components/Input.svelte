@@ -5,7 +5,7 @@
 
 	export let id;
 	export let type = 'text';
-	export let label;
+	export let label = '';
 	export let value = '';
 	export let placeholder = '';
 	export let disabled = false;
@@ -92,15 +92,18 @@
 	}
 </script>
 
-<div class:suggestions={suggestions !== undefined}>
-	<label class="label font-medium pb-1" for={id}>
-		<span class="label-text"
-			>{label}
-			{#if csv !== undefined}
-				(Komma separiert)
-			{/if}</span
-		>
-	</label>
+<div class:suggestions={suggestions !== undefined} class="custom-input">
+	{#if label.length > 0}
+		<label class="label font-medium pb-1" for={id}>
+			<span class="label-text"
+				>{label}
+				{#if csv !== undefined}
+					(Komma separiert)
+				{/if}</span
+			>
+		</label>
+	{/if}
+	
 	<input type="hidden" name={id} value={inputValue} />
 	{#if csv !== undefined && inputValue.length > 0}
 		<div>
@@ -145,6 +148,9 @@
 </div>
 
 <style lang="scss">
+	.custom-input {
+		vertical-align: middle;
+	}
 	::placeholder {
 		color: hsl(var(--nc) / var(--tw-bg-opacity));
 		opacity: 0.3;
