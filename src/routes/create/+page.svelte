@@ -5,6 +5,8 @@
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
 	];
+
+	let files;
 </script>
 
 <form
@@ -48,6 +50,8 @@
 
 	<Input id="title" label="Titel" placeholder="Titel" />
 	<Textarea id="description" label="Beschreibung" placeholder="Beschreibung des Themas" />
+
+	<input type="file" binf:files>
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
