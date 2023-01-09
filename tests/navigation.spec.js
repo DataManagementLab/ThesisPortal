@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('navigation', () => {
 	test.beforeEach(async ({ page }) => {
-		//await page.goto('http://localhost:5173/');
-		await page.goto('/');
+		await page.goto('http://localhost:5173/');
+		//await page.goto('/');
 
 		// Expect a title "to contain" a substring.
 		await expect(page).toHaveTitle(/Thesisfinder/);
@@ -37,34 +37,6 @@ test.describe('navigation', () => {
 	
 		await getStarted.click();
 	
-		await expect(page).toHaveURL('/');
+		await expect(page).toHaveURL('http://localhost:5173/');
 	});
 });
-
-/*
-test.describe('test labels', () => {
-	test.beforeEach(async ({ page }) => {
-		await page.goto('http://localhost:5173/');
-		//await page.goto('/');
-
-		// Expect a title "to contain" a substring.
-		await expect(page).toHaveTitle(/Thesisfinder/);
-	});
-
-	test('topic overview has correct heading', async ({ page }) => {
-		await expect(page.getByRole('heading', { name: 'Themenübersicht' })).toBeVisible();
-	});
-
-	test('test checkboxes', async({ page }) => {
-		const checkbox = page.getByRole('checkbox', { name : 'Bachelor Thesis'});
-		await expect(checkbox).toBeVisible();
-		await checkbox.check();
-		await expect(checkbox).toBeChecked();
-
-		page.getByRole('checkbox', { name : 'Master Thesis'});
-		await expect(checkbox).toBeVisible();
-		await checkbox.check();
-		await expect(checkbox).toBeChecked();
-	});
-});
-*/

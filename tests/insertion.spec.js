@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('test insert element', () => {
     test.beforeEach(async ({ page }) => {
-        //await page.goto('http://localhost:5173/create');
-        await page.goto('/create');
+        await page.goto('http://localhost:5173/create');
+        //await page.goto('/create');
     });
 
     test('correct insertion', async ({ page }) => {
@@ -22,8 +22,8 @@ test.describe('test insert element', () => {
 
         await page.getByRole('button', { name: 'Hochladen' }).click();
 
-        //await page.goto('http://localhost:5173/');
-        await page.goto('/');
+        await page.goto('http://localhost:5173/');
+        //await page.goto('/');
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toBeVisible();
     });
