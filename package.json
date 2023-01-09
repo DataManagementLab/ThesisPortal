@@ -39,6 +39,7 @@
 	"dependencies": {
 		"logical-cas-client": "^0.0.4",
 		"njwt": "^1.2.0",
-		"universal-cookie": "^4.0.4"
+		"universal-cookie": "^4.0.4",
+		"zod": "^3.20.2"
 	}
 }

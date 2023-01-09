@@ -1,4 +1,6 @@
 <script>
+	export let form;
+	
 	import { Input, Textarea } from '$lib/components';
 
 	let thesisType = [
@@ -26,28 +28,60 @@
 						</label>
 					</div>
 				{/each}
+				<label class="label font-medium pb-1" for="thesisType">
+					{#if form?.errors?.thesisType }
+						<span class="label-text-alt text-error">*{form?.errors?.thesisType}*</span>
+					{/if}
+				</label>
 			</div>
 		</div>
 		<div class="mr-5">
-			<Input id="subjectArea" label="Fachbereich" suggestions placeholder="Fachbereich" />
+			<Input 
+				id="subjectArea" 
+				label="Fachbereich" 
+				suggestions 
+				placeholder="Fachbereich"
+				value={form?.formData?.subjectArea ?? ""}
+				errorMsg={form?.errors?.subjectArea ?? ""}	
+			/>
 		</div>
 		<div class="mr-5">
-			<Input id="areaOfExpertise" label="Fachgebiet" suggestions placeholder="Fachgebiet" />
+			<Input 
+				id="areaOfExpertise" 
+				label="Fachgebiet" 
+				suggestions 
+				placeholder="Fachgebiet" 
+				value={form?.formData?.areaOfExpertise ?? ""}
+				errorMsg={form?.errors?.areaOfExpertise ?? ""}	
+			/>
 		</div>
 		<div>
-			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
 			<Input
 				id="specialization"
 				label="Spezialisierung"
+				placeholder="Spezialisierung"
 				suggestions
 				csv
-				placeholder="Spezialisierung"
+				value={form?.formData?.specialization ?? ""}
+				errorMsg={form?.errors?.specialization ?? ""}
 			/>
 		</div>
 	</div>
 
-	<Input id="title" label="Titel" placeholder="Titel" />
-	<Textarea id="description" label="Beschreibung" placeholder="Beschreibung des Themas" />
+	<Input 
+		id="title" 
+		label="Titel" 
+		placeholder="Titel" 
+		value={form?.formData?.title ?? ""}
+		errorMsg={form?.errors?.title ?? ""}
+	/>
+	<Textarea 
+		id="description" 
+		label="Beschreibung" 
+		placeholder="Beschreibung des Themas" 
+		value={form?.formData?.description ?? ""}
+		errorMsg={form?.errors?.description ?? ""}	
+	/>
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -56,6 +90,8 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				suggestions
+				value={form?.formData?.professor ?? ""}
+				errorMsg={form?.errors?.professor ?? ""}
 			/>
 		</div>
 		<div class="mr-5">
@@ -65,6 +101,8 @@
 				placeholder="Betreuende Personen"
 				suggestions
 				csv
+				value={form?.formData?.supervisor ?? ""}
+				errorMsg={form?.errors?.supervisor ?? ""}
 			/>
 		</div>
 
@@ -75,6 +113,8 @@
 				placeholder="Java, Python, C++ ..."
 				suggestions
 				csv
+				value={form?.formData?.technologies ?? ""}
+				errorMsg={form?.errors?.technologies ?? ""}
 			/>
 		</div>
 		<div>
@@ -84,6 +124,8 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				suggestions
+				value={form?.formData?.email ?? ""}
+				errorMsg={form?.errors?.email ?? ""}
 			/>
 		</div>
 	</div>

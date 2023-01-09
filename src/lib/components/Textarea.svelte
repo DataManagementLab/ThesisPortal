@@ -5,6 +5,7 @@
 	export let placeholder = '';
 	export let disabled = false;
 	export let required = false;
+	export let errorMsg='';
 </script>
 
 <label class="label font-medium pb-1" for={id}>
@@ -18,6 +19,11 @@
 	{id}
 	name={id}>{value}</textarea
 >
+<label class="label font-medium pb-1" for={id}>
+	{#if errorMsg}
+		<span class="label-text-alt text-error">*{errorMsg}*</span>
+	{/if}
+</label>
 
 <style lang="scss">
 	textarea {
