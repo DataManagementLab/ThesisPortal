@@ -31,7 +31,7 @@ const filterSchema = z.object({
 		.min(1, { message: 'Ein(e) Professor:in wird benötigt' }),
 	supervisor: z
 		.array(z.string({ required_error: 'Eine oder mehrere betreunde Personen werden benötigt' }).trim())
-		.min(1, { message: 'Eine oder mehrere betreunde Personen werden benötigt' }),
+		.min(1, { message: 'Eine oder mehrere betreuende Personen werden benötigt' }),
 	technologies: z
 		.array(z.string({ required_error: 'Technologien werden benötigt' }).trim())
 		.min(1, { message: 'Technologien werden benötigt' }),
