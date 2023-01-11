@@ -70,15 +70,16 @@ export const actions = {
 		formData.lastUpdatedAt = Date.now();
 
 		try {
-			
 			const result = filterSchema.parse(formData);
 			db.create('topics', formData);
 			throw redirect(303, '/profile');			
 		} catch (error) {
-			const { fieldErrors: errors} = error.flatten();
-			return {
-				formData,
-				errors
+			if (error.errors != null) {
+				const { fieldErrors: errors} = error.flatten();
+				return {
+					formData,
+					errors
+				}
 			}
 		}
 
