@@ -9,6 +9,10 @@
 	];
 </script>
 
+<form action="?/search" method="post" id="search" class="card shadow-xl bg-base-100 p-5 m-5">
+	
+</form>
+
 <form
 	action="?/filterTopic"
 	method="POST"
