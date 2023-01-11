@@ -12,8 +12,8 @@
 		"test": "playwright test"
 	},
 	"devDependencies": {
-		"@macfja/sveltekit-cas": "^2.0.0",
-		"@macfja/sveltekit-session": "^1.0.0",
+		"@macfja/sveltekit-cas": "^2.0.1",
+		"@macfja/sveltekit-session": "^1.1.0",
 		"@playwright/test": "^1.29.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "next",
@@ -36,7 +36,8 @@
 		"svelte-preprocess": "^5.0.0",
 		"tailwindcss": "^3.2.4",
 		"vite": "^4.0.4",
-		"vite-plugin-mkcert": "^1.10.1"
+		"vite-plugin-mkcert": "^1.10.1",
+		"zod": "^3.20.2"
 	},
 	"type": "module"
 }

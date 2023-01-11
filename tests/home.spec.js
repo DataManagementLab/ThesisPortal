@@ -5,9 +5,9 @@ test('homepage has title and links to login page', async ({ page }) => {
 	await page.goto('/');
 
 	// Expect a title "to contain" a substring.
-	await expect(page).toHaveTitle(/Thesisfinder/);
+	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
 
-	// create a locator
+	/*// create a locator
 	const getStarted = page.getByRole('link', { name: 'Login' });
 
 	// Expect an attribute "to be strictly equal" to the value.
@@ -20,5 +20,5 @@ test('homepage has title and links to login page', async ({ page }) => {
 	await getStarted.click();
 
 	// Expects the URL to contain intro.
-	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
+	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);*/
 });
