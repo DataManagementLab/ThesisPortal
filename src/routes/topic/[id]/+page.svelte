@@ -12,6 +12,7 @@
 <div class="card shadow-lg p-5 m-5 bg-base-100">
 	<h1 class="text-2xl mb-2">{data.topic.title} ({data.topic.thesisType})</h1>
 	Spezialisierung: {data.topic.areaOfExpertise}<br />
+	<!--Makes E-Mail clickable and redirects to local E-Mailprovider-->
 	<a href= "mailto:{data.topic.email}">Email: {data.topic.email}</a>
 	Ansprechperson: {data.topic.professor}<br />
 	Fachgebiet: {data.topic.specification}<br />
