@@ -17,7 +17,7 @@
 	<a href="mailto:{data.topic.email}">Email: {data.topic.email}</a>
 	Ansprechperson: {data.topic.professor}
 	<br />	
-	Spezialisierung: {data.topic.specification}
+	Spezialisierung: {data.topic.specialization}
 	<br />
 	Technologien: {data.topic.technologies}
 	<br />
