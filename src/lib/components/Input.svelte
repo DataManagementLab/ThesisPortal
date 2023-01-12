@@ -95,12 +95,12 @@
 
 <div class:suggestions={suggestions !== undefined}>
 	<label class="label font-medium pb-1" for={id}>
-		<span class="label-text"
-			>{label}
+		<span class="label-text">
+			{label}
 			{#if csv !== undefined}
 				(Komma separiert)
-			{/if}</span
-		>
+			{/if}
+		</span>
 	</label>
 	<input type="hidden" name={id} value={inputValue} />
 	{#if csv !== undefined && inputValue.length > 0}
@@ -108,9 +108,9 @@
 			{#each inputValue.split(',').filter((x) => x.length > 0) as item}
 				<div class="tag bg-base-200">
 					<span>{item}</span>
-					<button class="btn btn-circle btn-xs" on:click|preventDefault={() => removeTag(item)}
-						><Close /></button
-					>
+					<button class="btn btn-circle btn-xs" on:click|preventDefault={() => removeTag(item)}>
+						<Close />
+					</button>
 				</div>
 			{/each}
 		</div>
@@ -128,8 +128,7 @@
 		bind:value
 		on:keypress|preventDefault={update}
 		on:keydown={handleDelete}
-		on:focusout={appendValue}
-	/>
+		on:focusout={appendValue} />
 	{#if suggestions !== undefined && loadedSuggestions.length > 0}
 		<div class="bg-base-200 w-full datalist">
 			{#each loadedSuggestions as suggestion}
@@ -138,8 +137,9 @@
 					on:click|preventDefault={() => {
 						value = suggestion;
 						appendValue();
-					}}>{suggestion}</button
-				>
+					}}>
+					{suggestion}
+				</button>
 			{/each}
 		</div>
 	{/if}

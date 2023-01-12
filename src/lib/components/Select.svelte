@@ -15,8 +15,7 @@
 	class="select max-w-xs mb-5 font-normal outline-0 bg-base-200"
 	{disabled}
 	{required}
-	name={id}
->
+	name={id}>
 	{#each options as option}
 		{#if selected == option.id}
 			<option value={option.id} selected>

@@ -13,8 +13,7 @@
 	action="?/updateTopic"
 	method="POST"
 	id="createTopic"
-	class="card shadow-xl bg-base-100 p-5 m-5"
->
+	class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
 
 	<div class="w-full flex justify-start">
@@ -27,8 +26,7 @@
 								type="checkbox"
 								class="checkbox"
 								name="thesisType_{tType.id}"
-								checked={tType.checked ? 'checked' : ''}
-							/>
+								checked={tType.checked ? 'checked' : ''} />
 							<span class="label-text ml-2">{tType.text}</span>
 						</label>
 					</div>
@@ -41,8 +39,7 @@
 				value={data.subjectArea}
 				label="Fachbereich"
 				suggestions
-				placeholder="Fachbereich"
-			/>
+				placeholder="Fachbereich" />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -50,8 +47,7 @@
 				value={data.areaOfExpertise}
 				label="Fachgebiet"
 				suggestions
-				placeholder="Fachgebiet"
-			/>
+				placeholder="Fachgebiet" />
 		</div>
 		<div>
 			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
@@ -61,8 +57,7 @@
 				label="Spezialisierung"
 				suggestions
 				csv
-				placeholder="Spezialisierung"
-			/>
+				placeholder="Spezialisierung" />
 		</div>
 	</div>
 
@@ -71,8 +66,7 @@
 		id="description"
 		label="Beschreibung"
 		placeholder="Beschreibung des Themas"
-		value={data.description}
-	/>
+		value={data.description} />
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -81,8 +75,7 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				value={data.professor}
-				suggestions
-			/>
+				suggestions />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -91,8 +84,7 @@
 				placeholder="Betreuende Personen"
 				value={data.supervisor}
 				suggestions
-				csv
-			/>
+				csv />
 		</div>
 
 		<div class="mr-5">
@@ -102,8 +94,7 @@
 				placeholder="Java, Python, C++ ..."
 				value={data.technologies}
 				suggestions
-				csv
-			/>
+				csv />
 		</div>
 		<div>
 			<Input
@@ -112,8 +103,7 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				value={data.email}
-				suggestions
-			/>
+				suggestions />
 		</div>
 	</div>
 
@@ -121,9 +111,9 @@
 	<input type="hidden" name="createdAt" value={data.createdAt} />
 	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt} />
 	<div class="flex justify-end">
-		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true"
-			>Entwurf speichern</button
-		>
+		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
+			Entwurf speichern
+		</button>
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
 </form>
