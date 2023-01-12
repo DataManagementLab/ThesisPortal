@@ -23,7 +23,7 @@
 					</a>
 				</td>
 				<td>{topic.professor}</td>
-				<td>{topic.specification}</td>
+				<td>{topic.subjectArea}</td>
 				<td>{topic.thesisType.join(', ')}</td>
 			</tr>
 		{/each}
