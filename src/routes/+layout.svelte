@@ -20,6 +20,7 @@
 			class="btn btn-primary mr-3 px-7">
 			Login
 		</a>
+		<a href="/logout" class="btn btn-ghost mr-3">Logout</a>
 	</nav>
 </div>
 <slot />
