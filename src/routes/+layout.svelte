@@ -11,8 +11,7 @@
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
 		<a href="/" class="btn btn-ghost mr-3">Themenübersicht</a>
-		{#if data.eduPersonAffiliation[0]._text == "employee" 
-			|| data.eduPersonAffiliation[1]._text == "employee"}
+		{#if data.isEmployee}
 			<a href="/create" class="btn btn-ghost mr-3">Thema erstellen</a>
 		{/if}
 		<a href="/profile" class="btn btn-ghost mr-3">Profil</a>

@@ -7,7 +7,7 @@ let professor;
 let technologies;
 let action;
 
-export const load = async ( event ) => {
+export const load = async () => {
 	let query = 'SELECT * FROM topics WHERE draft = false';
 	let queryVars = {};
 	if (action === 'filter') {
