@@ -27,6 +27,7 @@
 			<AccountCircle />
 			<span>Profil</span>
 		</a>
+		<a href="/logout" class="btn btn-ghost mr-3">Logout</a>
 	</nav>
 </div>
 <slot />
