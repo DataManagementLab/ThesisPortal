@@ -1,48 +1,28 @@
 import { db } from '$lib/server/db';
 
-let thesisType;
-let specification;
-let areaOfExpertise;
-let professor;
-let technologies;
-let action;
+let filtered = undefined;
+let searchData = undefined;
 
 export const load = async () => {
-	let query = 'SELECT * FROM topics WHERE draft = false';
-	let queryVars = {};
-	if (action === 'filter') {
-		if (thesisType !== undefined && thesisType.length > 0) {
-			query += ' AND thesisType CONTAINSANY $thesisType';
-			queryVars.thesisType = thesisType;
-		}
-		if (specification !== undefined && specification !== '') {
-			query += ' AND specification = $specification';
-			queryVars.specification = specification;
-		}
-		if (areaOfExpertise !== undefined && areaOfExpertise !== '') {
-			query += ' AND $areaOfExpertise CONTAINS areaOfExpertise';
-			queryVars.areaOfExpertise = areaOfExpertise.split(',');
-		}
-		if (professor !== undefined && professor !== '') {
-			query += ' AND string::lowercase(professor) INSIDE string::lowercase($professor)';
-			queryVars.professor = professor;
-		}
-		if (technologies !== undefined && technologies !== '') {
-			query += ' AND string::lowercase(technologies) INSIDE string::lowercase($technologies)';
-			queryVars.technologies = technologies;
-		}
-	}
+	if (filtered === undefined) {
+		let query = 'SELECT * FROM topics WHERE draft = false LIMIT 25';
 
-	let data = await db.query(query, queryVars);
-	return {
-		topics: data[0].result
-	};
+		let data = await db.query(query);
+		return {
+			topics: data[0].result
+		};
+	} else {
+		setTimeout(() => (filtered = undefined), 1);
+		return {
+			topics: filtered,
+			searchData: searchData
+		};
+	}
 };
 
 export const actions = {
-	filterTopic: async ({ request }) => {
-		const formData = Object.fromEntries(await request.formData());
-		// Convert thesisType_* fields to single array 'thesisType: []'
+	search: async ({ request }) => {
+		let formData = Object.fromEntries(await request.formData());
 		formData.thesisType = [];
 		for (const [key, value] of Object.entries(formData)) {
 			if (key.startsWith('thesisType_')) {
@@ -50,11 +30,52 @@ export const actions = {
 				delete formData[key];
 			}
 		}
-		thesisType = formData.thesisType;
-		specification = formData.specification;
-		areaOfExpertise = formData.areaOfExpertise;
-		professor = formData.professor;
-		technologies = formData.technologies;
-		action = formData.action;
+		let data = await db.query(`SELECT * FROM topics WHERE draft = false`, {
+			search: formData.query
+		});
+		filtered = data[0].result.filter((topic) => {
+			return (
+				(formData.query.length > 0 &&
+					topic.title.toLowerCase().includes(formData.query.toLowerCase())) ||
+				(formData.query.length > 0 &&
+					topic.description.toLowerCase().includes(formData.query.toLowerCase())) ||
+				topic.thesisType.some((type) => formData.thesisType.includes(type)) ||
+				topic.specialization.map((x) => x.toLowerCase()) ===
+					formData.specialization.toLowerCase() ||
+				formData.areaOfExpertise.toLowerCase() === topic.areaOfExpertise.toLowerCase() ||
+				(formData.person.length > 0 &&
+					topic.professor.toLowerCase().includes(formData.person.toLowerCase())) ||
+				(formData.person.length > 0 &&
+					topic.supervisor
+						.map((s) => s.toLowerCase())
+						.filter((s) => s.length > 0)
+						.filter((s) => s.toLowerCase().includes(formData.person.toLowerCase())).length > 0) ||
+				topic.technologies
+					.filter((x) => x.length > 0)
+					.some((tech) =>
+						formData.technologies
+							.split(',')
+							.map((x) => x.toLowerCase())
+							.includes(tech.toLowerCase())
+					) ||
+				topic.thesisType.map((x) => x.toLowerCase()).includes(formData.query.toLowerCase()) ||
+				(formData.query.length > 0 &&
+					topic.specialization
+						.map((x) => x.toLowerCase())
+						.includes(formData.query.toLowerCase())) ||
+				(formData.query.length > 0 &&
+					topic.subjectArea.toLowerCase().includes(formData.query.toLowerCase())) ||
+				(formData.query.length > 0 &&
+					topic.areaOfExpertise.toLowerCase().includes(formData.query.toLowerCase())) ||
+				(formData.query.length > 0 &&
+					topic.professor.toLowerCase().includes(formData.query.toLowerCase())) ||
+				(formData.query.length > 0 &&
+					topic.supervisor
+						.map((s) => s.toLowerCase())
+						.filter((s) => s.length > 0)
+						.filter((s) => s.toLowerCase().includes(formData.query.toLowerCase())).length > 0)
+			);
+		});
+		searchData = formData;
 	}
 };
