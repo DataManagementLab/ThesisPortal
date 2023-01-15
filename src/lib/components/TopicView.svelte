@@ -15,14 +15,15 @@
 	<tbody>
 		{#each data as topic}
 			<tr class="hover">
-				<td
-					><a
+				<td>
+					<a
 						href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}"
-						class="underline text-primary">{topic.title}</a
-					></td
-				>
+						class="underline text-primary">
+						{topic.title}
+					</a>
+				</td>
 				<td>{topic.professor}</td>
-				<td>{topic.specification}</td>
+				<td>{topic.areaOfExpertise}</td>
 				<td>{topic.thesisType.join(', ')}</td>
 			</tr>
 		{/each}

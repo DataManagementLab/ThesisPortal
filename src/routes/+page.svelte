@@ -9,12 +9,13 @@
 	];
 </script>
 
+<form action="?/search" method="post" id="search" class="card shadow-xl bg-base-100 p-5 m-5" />
+
 <form
 	action="?/filterTopic"
 	method="POST"
 	id="filterTopic"
-	class="card shadow-xl bg-base-100 p-5 m-5"
->
+	class="card shadow-xl bg-base-100 p-5 m-5">
 	<div class="mr-5 flex">
 		{#each thesisType as tType}
 			<div class="form-control">
@@ -35,25 +36,23 @@
 				id="professor"
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
-				suggestions
-			/>
+				suggestions />
 		</div>
 		<div class="mr-5">
 			<Input
 				id="technologies"
 				label="Zu verwendende Technologien"
 				placeholder="Java, Python, C++ ..."
-				suggestions
-			/>
+				suggestions />
 		</div>
 		<button type="submit" class="btn btn-primary" name="action" value="filter">Suchen</button>
-		<button type="submit" class="btn btn-primary" name="action" value="showAll"
-			>Alle anzeigen</button
-		>
+		<button type="submit" class="btn btn-primary" name="action" value="showAll">
+			Alle anzeigen
+		</button>
 	</div>
 </form>
 
 <div class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
-	<TopicView data={data.topics} />
+	<TopicView data={data.topics}/>
 </div>
