@@ -1,4 +1,5 @@
 <script>
+	import Pencil from 'svelte-material-icons/Pencil.svelte';
 	export let data;
 
 	function nl2br(str) {
@@ -10,7 +11,13 @@
 </script>
 
 <div class="card shadow-lg p-5 m-5 bg-base-100">
-	<h1 class="text-2xl mb-2">{data.topic.title} ({data.topic.thesisType})</h1>
+	<h1 class="text-2xl mb-2">
+		{data.topic.title} ({data.topic.thesisType}) {#if data.isEmployee}
+			<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
+				<Pencil />
+			</a>
+		{/if}
+	</h1>
 	Fachbereich: {data.topic.subjectArea}
 	<br />
 	Fachgebiet: {data.topic.areaOfExpertise}
@@ -18,7 +25,7 @@
 	<!--Makes E-Mail clickable and redirects to local E-Mailprovider-->
 	<a href="mailto:{data.topic.email}">Email: {data.topic.email}</a>
 	Ansprechperson: {data.topic.professor}
-	<br />	
+	<br />
 	Weitere Betreuende Person(en): {data.topic.supervisor}
 	<br />
 	Spezialisierung: {data.topic.specialization}
