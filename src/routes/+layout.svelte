@@ -8,6 +8,7 @@
 <div class="min-h-full">
 	<nav class="navbar bg-base-100">
 		<div class="flex-1">
+			<img src="/tud_logo.png" alt="TU Darmstadt Logo" height="50px" id="tud-logo" />
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
 		<a href="/" class="btn btn-ghost mr-3">Themenübersicht</a>
