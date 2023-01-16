@@ -35,21 +35,29 @@ export const actions = {
 		});
 		filtered = data[0].result.filter((topic) => {
 			return (
+				//title contains query
 				(formData.query.length > 0 &&
 					topic.title.toLowerCase().includes(formData.query.toLowerCase())) ||
+				//description contains query
 				(formData.query.length > 0 &&
 					topic.description.toLowerCase().includes(formData.query.toLowerCase())) ||
+				//formdata thesisType contains topics thesisType  
 				topic.thesisType.some((type) => formData.thesisType.includes(type)) ||
+				//formdata specialization equals topics specialization
 				topic.specialization.map((x) => x.toLowerCase()) ===
 					formData.specialization.toLowerCase() ||
+				//formdata areaOfExpertise equals topics areaOfExpertise
 				formData.areaOfExpertise.toLowerCase() === topic.areaOfExpertise.toLowerCase() ||
+				//topic professor contains formdata person
 				(formData.person.length > 0 &&
 					topic.professor.toLowerCase().includes(formData.person.toLowerCase())) ||
+				//topic supervisor contains formdata person
 				(formData.person.length > 0 &&
 					topic.supervisor
 						.map((s) => s.toLowerCase())
 						.filter((s) => s.length > 0)
 						.filter((s) => s.toLowerCase().includes(formData.person.toLowerCase())).length > 0) ||
+				//topic technologies contains formdata technologies
 				topic.technologies
 					.filter((x) => x.length > 0)
 					.some((tech) =>
@@ -58,17 +66,23 @@ export const actions = {
 							.map((x) => x.toLowerCase())
 							.includes(tech.toLowerCase())
 					) ||
+				//topic thesisType contains query
 				topic.thesisType.map((x) => x.toLowerCase()).includes(formData.query.toLowerCase()) ||
+				//topic specialization contains query
 				(formData.query.length > 0 &&
 					topic.specialization
 						.map((x) => x.toLowerCase())
 						.includes(formData.query.toLowerCase())) ||
+				//topic subjectArea contains query
 				(formData.query.length > 0 &&
 					topic.subjectArea.toLowerCase().includes(formData.query.toLowerCase())) ||
+				//topic areaOfExpertise contains query
 				(formData.query.length > 0 &&
 					topic.areaOfExpertise.toLowerCase().includes(formData.query.toLowerCase())) ||
+				//topic professor contains query
 				(formData.query.length > 0 &&
 					topic.professor.toLowerCase().includes(formData.query.toLowerCase())) ||
+				//topic supervisor contains query
 				(formData.query.length > 0 &&
 					topic.supervisor
 						.map((s) => s.toLowerCase())
