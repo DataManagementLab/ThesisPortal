@@ -37,7 +37,7 @@
 			</a>
 		{/if}
 	</div>
-	<div id="filter" class:open={filterOpen} class="flex gap-5">
+	<div id="filter" class:open={filterOpen} class="flex flex-wrap gap-5">
 		<div>
 			<label class="label font-medium pt-1" for="">Nur Themen für:</label>
 			{#each thesisType as tType}
@@ -95,6 +95,12 @@
 	#search {
 		border: 1px solid hsl(var(--b2));
 		#search-bar {
+			button {
+				color: hsl(var(--n));
+				@media (prefers-color-scheme: dark) {
+					color: hsl(var(--nc));
+				}
+			}
 			input {
 				width: calc(100% - 7rem);
 				+ button + button {
@@ -120,13 +126,16 @@
 			}
 		}
 		#filter {
-			max-height: 200px;
-			transition: max-height 0.5s;
+			max-height: 600px;
+			transition: max-height 0.5s, opacity 0s 0s;
 			margin-top: 10px;
 			overflow: visible;
+			opacity: 1;
 			&:not(.open) {
 				max-height: 0;
 				overflow: hidden;
+				opacity: 0;
+				transition: max-height 0.5s, opacity 0s 0.1s;
 			}
 		}
 	}
