@@ -13,11 +13,20 @@
 			<img src="/tud_logo.png" alt="TU Darmstadt Logo" height="50px" id="tud-logo" />
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
-		<a href="/" class="btn btn-ghost btn-md"><ViewDashboard /> <span>Themenübersicht</span></a>
+		<a href="/" class="btn btn-ghost btn-md">
+			<ViewDashboard />
+			<span>Themenübersicht</span>
+		</a>
 		{#if data.isEmployee}
-			<a href="/create" class="btn btn-ghost btn-md"><FilePlus /> <span>Thema erstellen</span></a>
+			<a href="/create" class="btn btn-ghost btn-md">
+				<FilePlus />
+				<span>Thema erstellen</span>
+			</a>
 		{/if}
-		<a href="/profile" class="btn btn-ghost btn-md"><AccountCircle /> <span>Profil</span></a>
+		<a href="/profile" class="btn btn-ghost btn-md">
+			<AccountCircle />
+			<span>Profil</span>
+		</a>
 	</nav>
 </div>
 <slot />

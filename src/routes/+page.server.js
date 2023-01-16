@@ -41,7 +41,7 @@ export const actions = {
 				//description contains query
 				(formData.query.length > 0 &&
 					topic.description.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//formdata thesisType contains topics thesisType  
+				//formdata thesisType contains topics thesisType
 				topic.thesisType.some((type) => formData.thesisType.includes(type)) ||
 				//formdata specialization equals topics specialization
 				topic.specialization.map((x) => x.toLowerCase()) ===
