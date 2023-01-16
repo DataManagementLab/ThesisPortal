@@ -120,13 +120,13 @@
 			}
 		}
 		#filter {
-			overflow: hidden;
-			max-height: 300px;
-			height: 300px;
+			max-height: 200px;
 			transition: max-height 0.5s;
 			margin-top: 10px;
+			overflow: visible;
 			&:not(.open) {
 				max-height: 0;
+				overflow: hidden;
 			}
 		}
 	}
