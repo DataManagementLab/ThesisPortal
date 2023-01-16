@@ -1,6 +1,8 @@
 <script>
 	import '../app.postcss';
 	import { PUBLIC_HOST, PUBLIC_PORT } from '$env/static/public';
+
+	export let data;
 </script>
 
 <div class="min-h-full">
@@ -9,7 +11,9 @@
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
 		<a href="/" class="btn btn-ghost mr-3">Themenübersicht</a>
-		<a href="/create" class="btn btn-ghost mr-3">Thema erstellen</a>
+		{#if data.isEmployee}
+			<a href="/create" class="btn btn-ghost mr-3">Thema erstellen</a>
+		{/if}
 		<a href="/profile" class="btn btn-ghost mr-3">Profil</a>
 		<a
 			href="https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/login?service={PUBLIC_HOST}:{PUBLIC_PORT}"
