@@ -3,6 +3,7 @@
 	import AccountCircle from 'svelte-material-icons/AccountCircle.svelte';
 	import FilePlus from 'svelte-material-icons/FilePlus.svelte';
 	import ViewDashboard from 'svelte-material-icons/ViewDashboard.svelte';
+	import Logout from 'svelte-material-icons/LogoutVariant.svelte';
 
 	export let data;
 </script>
@@ -27,7 +28,10 @@
 			<AccountCircle />
 			<span>Profil</span>
 		</a>
-		<a href="/logout" class="btn btn-ghost mr-3">Logout</a>
+		<a href="/logout" class="btn btn-ghost mr-3 text-error">
+			<Logout />
+			<span>Logout</span>
+		</a>
 	</nav>
 </div>
 <slot />

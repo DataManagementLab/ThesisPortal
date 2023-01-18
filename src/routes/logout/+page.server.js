@@ -1,11 +1,11 @@
-export const load = async( event ) => {
-    
-	//console.log(event.locals.session.cas);
-    //console.log(event.cookies.delete);
+import { PUBLIC_HOST, PUBLIC_PORT } from '$env/static/public';
+import { redirect } from '@sveltejs/kit';
 
-    event.cookies.delete("SKSESSID");
+export const load = async (event) => {
+	event.cookies.delete('SKSESSID');
 
-    console.log(event.locals.session.cas);
-
-    //console.log(event);
-}
+	throw redirect(
+		302,
+		`https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/logout?service=${PUBLIC_HOST}:${PUBLIC_PORT}`
+	);
+};
