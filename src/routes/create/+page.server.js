@@ -77,7 +77,7 @@ export const actions = {
 			}
 		}
 		throw redirect(303, '/profile');
-	}
+	},
 };
 
 function parseCSV(text) {
