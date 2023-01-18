@@ -1,6 +1,11 @@
 <script>
+	import Star from 'svelte-material-icons/Star.svelte';
+	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+
 	export let data;
 	export let draft = false;
+
+	let favorite = false;
 </script>
 
 {#each data as topic}
@@ -21,6 +26,13 @@
 			<p>{topic.description.split(' ').slice(0, 100).join(' ')}...</p>
 		</div>
 	</a>
+	<button on:click|preventDefault={() => (favorite = !favorite)}>
+		{#if favorite}
+			<Star />
+		{:else}
+			<StarOutline />
+		{/if}
+	</button>
 {/each}
 {#if data.length == 0}
 	<div class="card bg-base-200">
