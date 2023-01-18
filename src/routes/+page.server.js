@@ -3,28 +3,19 @@ import { db } from '$lib/server/db';
 let filtered = undefined;
 let searchData = undefined;
 
-async function createStudentRelation (tuid) {
-	let query = 'SELECT * FROM student WHERE tuid = $tuid';
-
-	let data = await db.query(query, {tuid: tuid});
-	
-	if (data[0].result.length == 0) {
-		await db.create('student', {
-			tuid: tuid
-		});
-	}
-}
-
 export const load = async ({ locals }) => {
-
-	if (locals.session.cas.attributes.eduPersonAffiliation[0]._text 
-		|| locals.session.cas.attributes.eduPersonAffiliation[1]._text) {
+	if (
+		locals.session.cas.attributes.eduPersonAffiliation[0]._text ||
+		locals.session.cas.attributes.eduPersonAffiliation[1]._text
+	) {
 		createStudentRelation(locals.session.cas.user);
 	}
 
-	let favorites = (await db.query('SELECT * FROM favorites WHERE student = $student', {
-		student : `student:${locals.session.cas.user}`
-	}))[0].result;
+	let favorites = (
+		await db.query('SELECT * FROM favorite WHERE student = $student', {
+			student: `student:${locals.session.cas.user}`
+		})
+	)[0].result;
 
 	if (filtered === undefined) {
 		let query = 'SELECT * FROM topics WHERE draft = false LIMIT 25';
@@ -125,8 +116,20 @@ export const actions = {
 				student: `student:${locals.session.cas.user}`,
 				topic: formData.topicId
 			});
-		} else if (formData.type == 'unfavorize') {
-
+		} else if (formData.type == 'unfavorize' && formData.favoriteId) {
+			await db.delete(formData.favoriteId);
 		}
 	}
 };
+
+async function createStudentRelation(tuid) {
+	let query = 'SELECT * FROM student WHERE tuid = $tuid';
+
+	let data = await db.query(query, { tuid: tuid });
+
+	if (data[0].result.length == 0) {
+		await db.create('student', {
+			tuid: tuid
+		});
+	}
+}
