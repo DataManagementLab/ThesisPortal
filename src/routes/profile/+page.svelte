@@ -17,6 +17,12 @@
 				<TopicView data={data.drafts} draft="true" />
 			</div>
 		</div>
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title">Favorisierte Themen</h2>
+				<TopicView data={data.favorites} favorites={data.favorites} />
+			</div>
+		</div>
 	</div>
 </div>
 

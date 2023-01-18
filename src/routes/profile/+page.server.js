@@ -7,9 +7,18 @@ export const load = async ({ locals }) => {
 	let drafts = await db.query('SELECT * FROM topics WHERE draft = true AND author = $author', {
 		author: locals.session.cas.user
 	});
+	let favorites = await db.query('SELECT * FROM favorite WHERE student=$student FETCH topic' ,{
+		student: `student:${locals.session.cas.user}`
+	});
+
+	let favorite = [];
+	for (let i = 0; i < favorites[0].result.length; i++) {
+		favorite[i] = favorites[0].result[i].topic;
+	}
 
 	return {
 		topics: topics[0].result,
-		drafts: drafts[0].result
+		drafts: drafts[0].result,
+		favorites: favorite
 	};
 };
