@@ -16,9 +16,12 @@ export const load = async ({ locals }) => {
 		favorite[i] = favorites[0].result[i].topic;
 	}
 
+	let affiliation = locals.session.cas.attributes.eduPersonAffiliation;
+
 	return {
 		topics: topics[0].result,
 		drafts: drafts[0].result,
-		favorites: favorite
+		favorites: favorite,
+		isEmployee: affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee'
 	};
 };
