@@ -6,7 +6,7 @@ test.describe('test insert element', () => {
         const tu_id = 'ts97luza';
         const password = 'Thesis!Finder22';
 
-        await page.goto('/');
+        await page.goto('/create');
 
         await page.getByLabel('TU-ID').fill(tu_id);
         await page.getByLabel('Passwor').fill(password);
@@ -29,8 +29,7 @@ test.describe('test insert element', () => {
 
         await page.getByRole('button', { name: 'Hochladen' }).click();
 
-        await page.goto('http://localhost:5173/');
-        //await page.goto('/');
+        await page.goto('/');
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toBeVisible();
     });
