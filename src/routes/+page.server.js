@@ -3,19 +3,29 @@ import { db } from '$lib/server/db';
 let filtered = undefined;
 let searchData = undefined;
 
-export const load = async () => {
+export const load = async ({ locals }) => {
+	checkAddStudent(locals.session.cas.user);
+
+	let favorites = (
+		await db.query('SELECT * FROM favorite WHERE student = $student', {
+			student: `student:${locals.session.cas.user}`
+		})
+	)[0].result;
+
 	if (filtered === undefined) {
 		let query = 'SELECT * FROM topics WHERE draft = false LIMIT 25';
 
 		let data = await db.query(query);
 		return {
-			topics: data[0].result
+			topics: data[0].result,
+			favorites
 		};
 	} else {
 		setTimeout(() => (filtered = undefined), 1);
 		return {
 			topics: filtered,
-			searchData: searchData
+			searchData: searchData,
+			favorites
 		};
 	}
 };
@@ -91,5 +101,26 @@ export const actions = {
 			);
 		});
 		searchData = formData;
+	},
+
+	markUnmarkFavorite: async ({ request, locals }) => {
+		const formData = Object.fromEntries(await request.formData());
+
+		if (formData.type == 'favorize') {
+			await db.create('favorite', {
+				student: `student:${locals.session.cas.user}`,
+				topic: formData.topicId
+			});
+		} else if (formData.type == 'unfavorize' && formData.favoriteId) {
+			await db.delete(formData.favoriteId);
+		}
 	}
 };
+
+async function checkAddStudent(tuid) {
+	try {
+		await db.select(`student:${tuid}`);
+	} catch(err) {
+		await db.create(`student:${tuid}`);
+	}
+}
