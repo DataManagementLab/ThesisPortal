@@ -3,8 +3,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('test insert element', () => {
     test.beforeEach(async ({ page }) => {
-        const tu_id = 'tm64mety';
+        const tu_id = process.env.PROFESSOR1_TUID;
         const password = 'Thesis!Finder22';
+
+        await import('dotenv/config');
+        console.log(process.env.PROFESSOR1_TUID);
 
         await page.goto('/create');
 
