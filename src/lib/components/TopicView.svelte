@@ -1,14 +1,38 @@
 <script>
+	import Star from 'svelte-material-icons/Star.svelte';
+	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import { enhance } from '$app/forms';
+
 	export let data;
 	export let draft = false;
+	export let favorites = [];
 </script>
 
 {#each data as topic}
-	<a class="card bg-base-200 mb-3" href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">
+	<div class="card bg-base-200 mb-3">
 		<div class="card-body">
 			<h2 class="card-title text-primary">
-				{topic.title}
+				<a href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">{topic.title}</a>
 				<span class="right font-normal text-sm">von {topic.professor}</span>
+				<form action="?/markUnmarkFavorite" method="POST" id="favorite" use:enhance>
+					<input
+						type="hidden"
+						name="type"
+						value={favorites.find((elem) => elem.topic == topic.id) ? 'unfavorize' : 'favorize'} />
+					{#if favorites.find((elem) => elem.topic == topic.id)}
+						<input
+							type="hidden"
+							name="favoriteId"
+							value={favorites.find((elem) => elem.topic == topic.id).id} />
+					{/if}
+					<button name="topicId" value={topic.id}>
+						{#if favorites.find((elem) => elem.topic == topic.id)}
+							<Star />
+						{:else}
+							<StarOutline />
+						{/if}
+					</button>
+				</form>
 			</h2>
 			<div>
 				{#each topic.thesisType as tt}
@@ -20,7 +44,7 @@
 			</div>
 			<p>{topic.description.split(' ').slice(0, 100).join(' ')}...</p>
 		</div>
-	</a>
+	</div>
 {/each}
 {#if data.length == 0}
 	<div class="card bg-base-200">
@@ -31,7 +55,7 @@
 {/if}
 
 <style lang="scss">
-	a.card {
+	div.card {
 		&:hover {
 			background-color: hsl(var(--b3));
 		}
