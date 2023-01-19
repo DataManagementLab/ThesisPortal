@@ -39,11 +39,12 @@ const filterSchema = z.object({
 		.min(1, { message: 'Technologien werden benötigt' }),
 	email: z
 		.string({ required_error: 'Eine Emailadresse wird benötigt' })
-		.email({ message: 'Eine Emailadresse wird benötigt' })
+		.email({ message: 'Eine Emailadresse wird benötigt' }),
+	draft: z.boolean()
 });
 
 export const actions = {
-	createTopic: async ({ request }) => {
+	createTopic: async ({ request, locals }) => {
 		const formData = Object.fromEntries(await request.formData());
 
 		// Convert thesisType_* fields to single array 'thesisType: []'
@@ -56,26 +57,17 @@ export const actions = {
 		}
 		formData.draft = formData.draft === 'true';
 		formData.technologies = parseCSV(formData.technologies);
-		formData.specialization = parseCSV(
-			formData.specialization
-			/*.split(',')
-				.map((s) => s.trim())
-				.filter((x) => x.length > 0)*/
-		);
-		formData.supervisor = parseCSV(
-			formData.supervisor
-			/*.split(',')
-				.map((s) => s.trim())
-				.filter((x) => x.length > 0)*/
-		);
+		formData.specialization = parseCSV(formData.specialization);
+		formData.supervisor = parseCSV(formData.supervisor);
 		formData.createdAt = Date.now();
 		formData.lastUpdatedAt = Date.now();
 
 		try {
 			const result = filterSchema.parse(formData);
-			db.create('topics', formData);
-			throw redirect(303, '/profile');
+			result.author = locals.session.cas.user;
+			db.create('topics', result);
 		} catch (error) {
+			console.log(error);
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
 				return {
@@ -84,6 +76,7 @@ export const actions = {
 				};
 			}
 		}
+		throw redirect(303, '/profile');
 	}
 };
 

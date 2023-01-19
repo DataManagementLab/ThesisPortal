@@ -17,9 +17,7 @@
 	{required}
 	{disabled}
 	{id}
-	name={id}>
-	{value}
-</textarea>
+	name={id}>{value}</textarea>
 <label class="label font-medium pb-1" for={id}>
 	{#if errorMsg}
 		<span class="label-text-alt text-error">*{errorMsg}*</span>

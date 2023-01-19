@@ -114,7 +114,7 @@
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
 			Entwurf speichern
 		</button>
-		<button type="submit" class="btn btn-primary">Hochladen</button>
+		<button type="submit" class="btn btn-primary">Veröffentlichen</button>
 	</div>
 </form>
 

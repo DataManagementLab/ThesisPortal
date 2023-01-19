@@ -1,13 +1,16 @@
 import { db } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 
-export async function load({ params }) {
+export async function load({ params, locals }) {
 	let data = await db.query('SELECT * FROM $topic', {
 		topic: `topics:${params.id}`
 	});
 	data = data[0].result;
 	if (data.length === 0) {
 		throw error(404, 'Thema nicht gefunden');
+	}
+	if (data[0].author !== locals.session.cas.user) {
+		throw error(403, 'Nicht authorisiert');
 	}
 	return data[0];
 }
@@ -28,9 +31,8 @@ export const actions = {
 		formData.technologies = parseCSV(formData.technologies);
 		formData.specialization = parseCSV(formData.specialization);
 		formData.supervisor = parseCSV(formData.supervisor);
-		formData.createdAt = formData.createdAt;
 		formData.lastUpdatedAt = Date.now();
-		db.update(`topics:${params.id}`, formData);
+		db.change(`topics:${params.id}`, formData);
 		throw redirect(303, '/profile');
 	}
 };
