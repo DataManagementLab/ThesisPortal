@@ -7,18 +7,20 @@ test('homepage has title and links to login page', async ({ page }) => {
 	// Expect a title "to contain" a substring.
 	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
 
-	/*// create a locator
+	/*
+	// create a locator
 	const getStarted = page.getByRole('link', { name: 'Login' });
 
 	// Expect an attribute "to be strictly equal" to the value.
 	await expect(getStarted).toHaveAttribute(
 		'href',
-		'https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/login?service=http://thesisfinder-local.tu-darmstadt.de.test:5173'
+		'https://login-dev.hrz.tu-darmstadt.de/idp/profile/cas/login?service=https://thesisfinder-local.tu-darmstadt.de.test:5173'
 	);
 
 	// Click the get started link.
 	await getStarted.click();
 
 	// Expects the URL to contain intro.
-	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);*/
+	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
+	*/
 });

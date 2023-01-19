@@ -3,8 +3,15 @@ import { test, expect } from '@playwright/test';
 
 test.describe('test insert element', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:5173/create');
-        //await page.goto('/create');
+        const tu_id = 'ts97luza';
+        const password = 'Thesis!Finder22';
+
+        await page.goto('/');
+
+        await page.getByLabel('TU-ID').fill(tu_id);
+        await page.getByLabel('Passwor').fill(password);
+        
+        await page.getByRole('button', { name: 'Login'}).click();
     });
 
     test('correct insertion', async ({ page }) => {
