@@ -3,16 +3,14 @@ import { test, expect } from '@playwright/test';
 
 test.describe('test insert element', () => {
     test.beforeEach(async ({ page }) => {
-        const tu_id = process.env.PROFESSOR1_TUID;
-        const password = 'Thesis!Finder22';
-
         await import('dotenv/config');
-        console.log(process.env.PROFESSOR1_TUID);
+        const tu_id = process.env.PROFESSOR1_TUID;
+        const password = process.env.PROFESSOR1_PASSWORD;
 
         await page.goto('/create');
 
-        await page.getByLabel('TU-ID').fill(tu_id);
-        await page.getByLabel('Passwor').fill(password);
+        await page.getByLabel('TU-ID').fill(`${tu_id}`);
+        await page.getByLabel('Password').fill(`${password}`);
         
         await page.getByRole('button', { name: 'Login'}).click();
     });
