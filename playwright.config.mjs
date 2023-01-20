@@ -69,12 +69,14 @@ const config = {
 		// },
 
 		/*Test against mobile viewports. */
+
 		{
 			name: 'Mobile Chrome',
 			use: {
 				...devices['Pixel 5']
 			}
 		},
+
 		// {
 		//   name: 'Mobile Safari',
 		//   use: {
@@ -83,6 +85,7 @@ const config = {
 		// },
 
 		/* Test against branded browsers. */
+
 		{
 			name: 'Microsoft Edge',
 			use: {
@@ -95,6 +98,7 @@ const config = {
 				channel: 'chrome'
 			}
 		}
+
 	],
 
 	/* Folder for test artifacts such as screenshots, videos, traces, etc. */
