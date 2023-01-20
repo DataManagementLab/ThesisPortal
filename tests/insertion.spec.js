@@ -15,6 +15,10 @@ test.describe('test insert element', () => {
         await page.getByRole('button', { name: 'Login'}).click();
     });
 
+    async function fillInputs() {
+        console.log("asdsa");
+    }
+
     test('correct insertion', async ({ page }) => {
         await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
         await page.getByLabel('Fachbereich').fill('Informatik');
@@ -32,6 +36,10 @@ test.describe('test insert element', () => {
 
         await page.goto('/');
 
-        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toBeVisible();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeVisible();
+    });
+
+    test('correct insertion as draft', async ({ page }) => {
+
     });
 });
