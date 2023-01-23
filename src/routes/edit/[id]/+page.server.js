@@ -2,6 +2,9 @@ import { db } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 
 export async function load({ params, locals }) {
+	const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
+	const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
+	if(!isEmployee) throw redirect(303, '/');
 	let data = await db.query('SELECT * FROM $topic', {
 		topic: `topics:${params.id}`
 	});
@@ -16,7 +19,10 @@ export async function load({ params, locals }) {
 }
 
 export const actions = {
-	updateTopic: async ({ request, params }) => {
+	updateTopic: async ({ locals, request, params }) => {
+		const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
+		const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
+		if(!isEmployee) throw redirect(303, '/');
 		const formData = Object.fromEntries(await request.formData());
 
 		// Convert thesisType_* fields to single array 'thesisType: []'

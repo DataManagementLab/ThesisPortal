@@ -43,8 +43,18 @@ const filterSchema = z.object({
 	draft: z.boolean()
 });
 
+export const load = async ({ locals }) => {
+	const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
+	const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
+	if(!isEmployee) throw redirect(303, '/');
+}
+
 export const actions = {
 	createTopic: async ({ request, locals }) => {
+		const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
+		const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
+		if(!isEmployee) throw redirect(303, '/');
+
 		const formData = Object.fromEntries(await request.formData());
 
 		// Convert thesisType_* fields to single array 'thesisType: []'
