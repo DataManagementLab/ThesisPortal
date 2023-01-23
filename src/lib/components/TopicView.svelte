@@ -39,11 +39,27 @@
 					</button>
 				</form>
 				<form action="?/deleteTopic" method="POST" id=delete >
-					<button name="deleteTopicId" value={topic.id}>
+					<input 
+						type="hidden"
+						name="deleteTopicId"
+						value={topic.id} />
+					<label for="my-modal" >
 						{#if showDeleteButton}
 							<Delete />
 						{/if}
-					</button>
+					</label>
+					<input type="checkbox" id="my-modal" class="modal-toggle" />
+					<div class="modal">
+						<div class="modal-box">
+							<h3 class="font-bold text-lg">Bestätigen Sie das Löschen</h3>
+							<div class="modal-action">
+								<button class="btn" >
+									Bestätigen
+								</button>
+								<label for="my-modal" class="btn">Abbrechen</label>
+							</div>
+						</div>
+					</div>
 				</form>
 			</h2>
 			<div>
