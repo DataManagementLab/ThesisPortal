@@ -7,14 +7,16 @@ export const load = async ({ locals }) => {
 	let drafts = await db.query('SELECT * FROM topics WHERE draft = true AND author = $author', {
 		author: locals.session.cas.user
 	});
-	let favorites = (await db.query('SELECT * FROM favorite WHERE student=$student FETCH topic', {
-		student: `student:${locals.session.cas.user}`
-	}))[0].result;
-	favorites = favorites.map(elem => elem.topic)
+	let favorites = (
+		await db.query('SELECT * FROM favorite WHERE student=$student FETCH topic', {
+			student: `student:${locals.session.cas.user}`
+		})
+	)[0].result;
+	favorites = favorites.map((elem) => elem.topic);
 
 	return {
 		topics: topics[0].result,
 		drafts: drafts[0].result,
-		favorites: favorites,
+		favorites: favorites
 	};
 };

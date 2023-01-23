@@ -14,7 +14,7 @@
 			<img src="/tud_logo.png" alt="TU Darmstadt Logo" height="50px" id="tud-logo" />
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
-		<a href="/" class="btn btn-ghost btn-md">
+		<a href="/overview" class="btn btn-ghost btn-md">
 			<ViewDashboard />
 			<span>Themenübersicht</span>
 		</a>

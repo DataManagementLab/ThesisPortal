@@ -40,12 +40,14 @@ Done!
 ## Security
 
 This project generates a self-signed certificate to use for https. If you want to use custom certificates (which is recommended as selfsigned certificates wont get generally excepted by browsers) you must edit the vite.config.js and replace the https block with the following:
+
 ```js
 https: {
             key: "path/to/privkey.key",
             cert: "path/to/cert.crt",
         }
 ```
+
 As an alternative you could route connections through a https enabling proxy like `nginx` or `apache2`.
 When deploying you should also change the port to `80`(or `443` when using https respectively).
 Additionally you should configure the firewall on the webserver so that only the port of the webserver is accessible publicly. Though no one should be able to access the database due to missing credentials the database should not be accessible from the internet to improve security. If not changed manually you should block external access on the database port `8000`
