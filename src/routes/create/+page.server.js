@@ -77,7 +77,6 @@ export const actions = {
 			result.author = locals.session.cas.user;
 			db.create('topics', result);
 		} catch (error) {
-			console.log(error);
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
 				return {

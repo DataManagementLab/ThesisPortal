@@ -20,3 +20,13 @@ export const load = async ({ locals }) => {
 		favorites: favorites
 	};
 };
+
+export const actions = {
+	deleteTopic: async ({ request }) => {
+		const formData = Object.fromEntries(await request.formData());
+
+		if (formData.deleteTopicId) {
+			await db.delete(formData.deleteTopicId);
+		}
+	} 
+};

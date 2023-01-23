@@ -1,11 +1,14 @@
 <script>
 	import Star from 'svelte-material-icons/Star.svelte';
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import Delete from 'svelte-material-icons/Delete.svelte';
 	import { enhance } from '$app/forms';
 
 	export let data;
 	export let draft = false;
 	export let favorites = [];
+	export let showFavoriteIcon = false;
+	export let showDeleteButton = false;
 </script>
 
 {#each data as topic}
@@ -26,10 +29,19 @@
 							value={favorites.find((elem) => elem.topic == topic.id).id} />
 					{/if}
 					<button name="topicId" value={topic.id}>
-						{#if favorites.find((elem) => elem.topic == topic.id)}
-							<Star />
-						{:else}
-							<StarOutline />
+						{#if showFavoriteIcon}
+							{#if favorites.find((elem) => elem.topic == topic.id)}
+								<Star />
+							{:else}
+								<StarOutline />
+							{/if}
+						{/if}
+					</button>
+				</form>
+				<form action="?/deleteTopic" method="POST" id=delete >
+					<button name="deleteTopicId" value={topic.id}>
+						{#if showDeleteButton}
+							<Delete />
 						{/if}
 					</button>
 				</form>
