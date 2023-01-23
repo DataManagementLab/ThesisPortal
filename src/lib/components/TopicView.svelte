@@ -43,12 +43,12 @@
 						type="hidden"
 						name="deleteTopicId"
 						value={topic.id} />
-					<label for="my-modal" >
+					<label for="delete-id-{topic.id.split(':')[1]}" >
 						{#if showDeleteButton}
 							<Delete />
 						{/if}
 					</label>
-					<input type="checkbox" id="my-modal" class="modal-toggle" />
+					<input type="checkbox" id="delete-id-{topic.id.split(':')[1]}" class="modal-toggle" />
 					<div class="modal">
 						<div class="modal-box">
 							<h3 class="font-bold text-lg">Bestätigen Sie das Löschen</h3>
@@ -56,7 +56,7 @@
 								<button class="btn" >
 									Bestätigen
 								</button>
-								<label for="my-modal" class="btn">Abbrechen</label>
+								<label for="delete-id-{topic.id.split(':')[1]}" class="btn">Abbrechen</label>
 							</div>
 						</div>
 					</div>
