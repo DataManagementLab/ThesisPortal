@@ -51,7 +51,9 @@
 					<input type="checkbox" id="delete-id-{topic.id.split(':')[1]}" class="modal-toggle" />
 					<div class="modal">
 						<div class="modal-box">
-							<h3 class="font-bold text-lg">Bestätigen Sie das Löschen</h3>
+							<h3 class="font-bold text-lg">
+								Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
+							</h3>
 							<div class="modal-action">
 								<button class="btn" >
 									Bestätigen
