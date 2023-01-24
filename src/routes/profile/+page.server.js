@@ -27,6 +27,9 @@ export const actions = {
 
 		if (formData.deleteTopicId) {
 			await db.delete(formData.deleteTopicId);
+			await db.query('DELETE favorite WHERE topic=$topicID', {
+				topicID: formData.deleteTopicId
+			});
 		}
 	} 
 };
