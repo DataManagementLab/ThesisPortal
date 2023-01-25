@@ -13,7 +13,7 @@ export const load = async ({ locals }) => {
 	)[0].result;
 
 	if (filtered === undefined) {
-		let query = 'SELECT * FROM topics WHERE draft=false AND archived=false LIMIT 25';
+		let query = 'SELECT * FROM topics WHERE draft=false LIMIT 25';
 
 		let data = await db.query(query);
 		return {
@@ -40,7 +40,7 @@ export const actions = {
 				delete formData[key];
 			}
 		}
-		let data = await db.query(`SELECT * FROM topics WHERE draft = false AND archived=false`, {
+		let data = await db.query(`SELECT * FROM topics WHERE draft = false`, {
 			search: formData.query
 		});
 		filtered = data[0].result.filter((topic) => {
