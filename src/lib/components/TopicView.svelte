@@ -9,6 +9,7 @@
 	export let favorites = [];
 	export let showFavoriteIcon = false;
 	export let showDeleteButton = false;
+	export let showArchiveButton = false;
 </script>
 
 {#each data as topic}
@@ -44,7 +45,7 @@
 							type="hidden"
 							name="deleteTopicId"
 							value={topic.id} />
-						<label for="delete-id-{topic.id.split(':')[1]}" >
+						<label for="delete-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
 							<Delete />
 						</label>
 						<input type="checkbox" id="delete-id-{topic.id.split(':')[1]}" class="modal-toggle" />
@@ -54,10 +55,35 @@
 									Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
 								</h3>
 								<div class="modal-action">
-									<button class="btn" >
+									<button class="btn btn-error" >
 										Bestätigen
 									</button>
-									<label for="delete-id-{topic.id.split(':')[1]}" class="btn">Abbrechen</label>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+								</div>
+							</div>
+						</div>
+					</form>
+				{/if}
+				{#if showArchiveButton}
+					<form action="?/archiveTopic" method="POST" id="archive" >
+						<input 
+							type="hidden"
+							name="archiveTopicId"
+							value={topic.id} />
+						<label for="archive-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
+							<Delete />
+						</label>
+						<input type="checkbox" id="archive-id-{topic.id.split(':')[1]}" class="modal-toggle" />
+						<div class="modal">
+							<div class="modal-box">
+								<h3 class="font-bold text-lg">
+									Soll dieses Thesis Thema "{topic.title}" wirklich archiviert werden?
+								</h3>
+								<div class="modal-action">
+									<button class="btn btn-error" >
+										Bestätigen
+									</button>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
 								</div>
 							</div>
 						</div>
