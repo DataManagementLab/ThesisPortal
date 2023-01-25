@@ -1,11 +1,14 @@
 <script>
 	import Star from 'svelte-material-icons/Star.svelte';
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import Delete from 'svelte-material-icons/Delete.svelte';
 	import { enhance } from '$app/forms';
 
 	export let data;
 	export let draft = false;
 	export let favorites = [];
+	export let showFavoriteIcon = false;
+	export let showDeleteButton = false;
 </script>
 
 {#each data as topic}
@@ -14,25 +17,52 @@
 			<h2 class="card-title text-primary">
 				<a href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">{topic.title}</a>
 				<span class="right font-normal text-sm">von {topic.professor}</span>
-				<form action="?/markUnmarkFavorite" method="POST" id="favorite" use:enhance>
-					<input
-						type="hidden"
-						name="type"
-						value={favorites.find((elem) => elem.topic == topic.id) ? 'unfavorize' : 'favorize'} />
-					{#if favorites.find((elem) => elem.topic == topic.id)}
+				{#if showFavoriteIcon}
+					<form action="?/markUnmarkFavorite" method="POST" id="favorite" use:enhance>
 						<input
 							type="hidden"
-							name="favoriteId"
-							value={favorites.find((elem) => elem.topic == topic.id).id} />
-					{/if}
-					<button name="topicId" value={topic.id}>
+							name="type"
+							value={favorites.find((elem) => elem.topic == topic.id) ? 'unfavorize' : 'favorize'} />
 						{#if favorites.find((elem) => elem.topic == topic.id)}
-							<Star />
-						{:else}
-							<StarOutline />
+							<input
+								type="hidden"
+								name="favoriteId"
+								value={favorites.find((elem) => elem.topic == topic.id).id} />
 						{/if}
-					</button>
-				</form>
+						<button name="topicId" value={topic.id}>
+							{#if favorites.find((elem) => elem.topic == topic.id)}
+								<Star />
+							{:else}
+								<StarOutline />
+							{/if}
+						</button>
+					</form>
+				{/if}
+				{#if showDeleteButton}
+					<form action="?/deleteTopic" method="POST" id=delete >
+						<input 
+							type="hidden"
+							name="deleteTopicId"
+							value={topic.id} />
+						<label for="delete-id-{topic.id.split(':')[1]}" >
+							<Delete />
+						</label>
+						<input type="checkbox" id="delete-id-{topic.id.split(':')[1]}" class="modal-toggle" />
+						<div class="modal">
+							<div class="modal-box">
+								<h3 class="font-bold text-lg">
+									Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
+								</h3>
+								<div class="modal-action">
+									<button class="btn" >
+										Bestätigen
+									</button>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn">Abbrechen</label>
+								</div>
+							</div>
+						</div>
+					</form>
+				{/if}
 			</h2>
 			<div>
 				{#each topic.thesisType as tt}
