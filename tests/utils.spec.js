@@ -38,6 +38,9 @@ export async function createExampleTheme ({ page, theme }) {
     theme.other ? await page.getByLabel('Sonstiges').fill(`${theme.other}`)
         : await page.getByLabel('Sonstiges').fill('sonstige Bemerkungen können hier beschrieben werden.');
 
+    await Promise.all([
+        
+    ])
 
     await page.getByRole('button', { name: 'Hochladen' }).click();
 }
