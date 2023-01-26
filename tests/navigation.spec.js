@@ -23,7 +23,7 @@ test.describe('navigation', () => {
 	
 		await expect(getStarted).toHaveAttribute(
 			'href',
-			'/'
+			'/overview'
 		);
 	
 		await getStarted.click();

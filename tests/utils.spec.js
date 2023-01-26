@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-export async function loginAsProfessor ({ page }) {
+export async function loginAsProfessor({ page }) {
     await import('dotenv/config');
     const tu_id = process.env.PROFESSOR1_TUID;
     const password = process.env.PROFESSOR1_PASSWORD;
@@ -12,19 +12,24 @@ export async function loginAsProfessor ({ page }) {
     await page.getByRole('button', { name: 'Login'}).click();
 };
 
-export async function createExampleTheme ({ page, theme }) {
-    await page.goto('/create');
-    
+export async function logout({ page }) {
+    await page.getByRole('button', { name: 'logout'});
+};
+
+export async function createExampleTheme({ page, theme }) {
+    await page.getByRole('link', { name: 'Thema erstellen'}).click();
+    await page.mainFrame().waitForURL('/create');
+
     theme.thesisType ? await page.getByRole('checkbox', { name: `${theme.thesisType}`}).check() 
         : await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
     theme.subjectArea ? await page.getByLabel('Fachbereich').fill(`${theme.subjectArea}`)
         : await page.getByLabel('Fachbereich').fill('Informatik');
     theme.areaOfExpertise ? await page.getByLabel('Fachgebiet').fill(`${theme.areaOfExpertise}`)
-        : await page.getByLabel('Fachgebiet').fill('Software Engineering'); 
+        : await page.getByLabel('Fachgebiet').fill('Software Engineering');
     theme.specialization ? await page.getByLabel('Spezialisierung').fill(`${theme.specialization}`)
         : await page.getByLabel('Spezialisierung').fill('Software Systeme');
     theme.title ? await page.getByLabel('Titel').fill(`${theme.title}`)
-        : await page.getByLabel('Titel').fill('Hier kommt der Titel der Thesisarbeit') 
+        : await page.getByLabel('Titel').fill('Hier kommt der Titel der Thesisarbeit');
     theme.description ? await page.getByLabel('Beschreibung').fill(`${theme.description}`)
         : await page.getByLabel('Beschreibung').fill('Die Beschreibung der Thesisarbeit');
     theme.professor ? await page.getByLabel('Leitende(r) Professor*in').fill(`${theme.professor}`)
@@ -37,10 +42,6 @@ export async function createExampleTheme ({ page, theme }) {
         : await page.getByLabel('E-Mail Kontakt').fill('mustermann@tu-darmstadt.de');
     theme.other ? await page.getByLabel('Sonstiges').fill(`${theme.other}`)
         : await page.getByLabel('Sonstiges').fill('sonstige Bemerkungen können hier beschrieben werden.');
-
-    await Promise.all([
-        
-    ])
 
     await page.getByRole('button', { name: 'Hochladen' }).click();
 }
