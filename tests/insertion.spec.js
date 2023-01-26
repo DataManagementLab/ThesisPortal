@@ -1,21 +1,28 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
+import { loginAsProfessor , createExampleTheme } from './utils.spec.js';
+import { db } from './db.js';
 
 test.describe('test insert element', () => {
+    test.beforeAll(async () => {
+        const browser = await chromium.launch();
+        const page = await browser.newPage();
+        await loginAsProfessor({ page });
+    });
+
     test.beforeEach(async ({ page }) => {
-        await import('dotenv/config');
-        const tu_id = process.env.PROFESSOR1_TUID;
-        const password = process.env.PROFESSOR1_PASSWORD;
+        await loginAsProfessor({ page });
+    });
 
-        await page.goto('/create');
-
-        await page.getByLabel('TU-ID').fill(`${tu_id}`);
-        await page.getByLabel('Password').fill(`${password}`);
-        
-        await page.getByRole('button', { name: 'Login'}).click();
+    test.afterAll(async () => {
+        // best to delete database after each test.
+        db.query('DELETE topics');
     });
 
     test('correct insertion', async ({ page }) => {
+        await page.getByRole('link', { name: 'Thema erstellen'}).click();
+        await page.mainFrame().waitForURL('/create');
+
         await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
         await page.getByLabel('Fachbereich').fill('Informatik');
         await page.getByLabel('Fachgebiet').fill('Software Engineering');
@@ -30,12 +37,16 @@ test.describe('test insert element', () => {
 
         await page.getByRole('button', { name: 'Hochladen' }).click();
 
-        await page.goto('/overview');
+        await page.getByRole('link', { name: 'Themenübersicht'}).click();
+        await page.mainFrame().waitForURL('/overview');
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeVisible();
     });
 
     test('correct insertion as draft', async ({ page }) => {
+        await page.getByRole('link', { name: 'Thema erstellen'}).click();
+        await page.mainFrame().waitForURL('/create');
+
         await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
         await page.getByLabel('Fachbereich').fill('Informatik');
         await page.getByLabel('Fachgebiet').fill('Software Engineering');
@@ -50,14 +61,14 @@ test.describe('test insert element', () => {
 
         await page.getByRole('button', { name: 'Entwurf speichern' }).click();
 
-        await page.goto('/overview');
+        await page.getByRole('link', { name: 'Themenübersicht'}).click();
+        await page.mainFrame().waitForURL('/overview');
 
         await expect(page.getByRole('link', { name: 'Entwurf' }).first()).toBeHidden();
     
-        await page.goto('/profile');
+        await page.getByRole('link', { name: 'Profil'}).click();
+        await page.mainFrame().waitForURL('/profile');
 
         await expect(page.getByRole('link', { name: 'Entwurf' }).first()).toBeVisible();
-
-        
     });
 });
