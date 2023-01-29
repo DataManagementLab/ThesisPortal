@@ -13,7 +13,7 @@ export const load = async ({ locals }) => {
 	)[0].result;
 
 	if (filtered === undefined) {
-		let query = 'SELECT * FROM topics WHERE draft=false LIMIT 25';
+		let query = 'SELECT * FROM topics WHERE draft=false AND (archived = null OR archived = false) LIMIT 25';
 
 		let data = await db.query(query);
 		return {
