@@ -68,7 +68,7 @@ test.describe('test filterfunctions', () => {
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeHidden();
     });
 
-    test('test filterfunction of professor - filter after given technology', async ({ page }) => {
+    test('test filterfunction of technology - filter after given technology', async ({ page }) => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
@@ -78,7 +78,7 @@ test.describe('test filterfunctions', () => {
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeVisible();
     });
 
-    test('test filterfunction of professor - filter after non-given technology', async ({ page }) => {
+    test('test filterfunction of technology - filter after non-given technology', async ({ page }) => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
