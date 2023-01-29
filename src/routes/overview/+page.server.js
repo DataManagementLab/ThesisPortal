@@ -40,7 +40,7 @@ export const actions = {
 				delete formData[key];
 			}
 		}
-		let data = await db.query(`SELECT * FROM topics WHERE draft = false`, {
+		let data = await db.query(`SELECT * FROM topics WHERE draft = false AND (archived = null OR archived = false)`, {
 			search: formData.query
 		});
 		filtered = data[0].result.filter((topic) => {

@@ -2,6 +2,7 @@
 	import Star from 'svelte-material-icons/Star.svelte';
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
 	import Delete from 'svelte-material-icons/Delete.svelte';
+	import Archive from 'svelte-material-icons/Archive.svelte';
 	import { enhance } from '$app/forms';
 
 	export let data;
@@ -45,7 +46,7 @@
 							type="hidden"
 							name="deleteTopicId"
 							value={topic.id} />
-						<label for="delete-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
+						<label for="delete-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer" title="Löschen">
 							<Delete />
 						</label>
 						<input type="checkbox" id="delete-id-{topic.id.split(':')[1]}" class="modal-toggle" />
@@ -65,29 +66,61 @@
 					</form>
 				{/if}
 				{#if showArchiveButton}
-					<form action="?/archiveTopic" method="POST" id="archive" >
-						<input 
-							type="hidden"
-							name="archiveTopicId"
-							value={topic.id} />
-						<label for="archive-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
-							<Delete />
-						</label>
-						<input type="checkbox" id="archive-id-{topic.id.split(':')[1]}" class="modal-toggle" />
-						<div class="modal">
-							<div class="modal-box">
-								<h3 class="font-bold text-lg">
-									Soll dieses Thesis Thema "{topic.title}" wirklich archiviert werden?
-								</h3>
-								<div class="modal-action">
-									<button class="btn btn-error" >
-										Bestätigen
-									</button>
-									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+					{#if !topic.archived}
+						<form action="?/archiveTopic" method="POST" id="archive" use:enhance>
+							<input 
+								type="hidden"
+								name="archiveTopicId"
+								value={topic.id} />
+							<label for="archive-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer" title="Archivieren">
+								<Archive />
+							</label>
+							<input type="checkbox" id="archive-id-{topic.id.split(':')[1]}" class="modal-toggle" />
+							<div class="modal">
+								<div class="modal-box">
+									<h3 class="font-bold text-lg">
+										Soll dieses Thesis Thema "{topic.title}" wirklich archiviert werden?
+									</h3>
+									<p class="text-sm text-base-content mt-2">
+										Dieses Thema wird dann nicht mehr in der Liste der verfügbaren Themen angezeigt.
+									</p>
+									<div class="modal-action">
+										<button class="btn btn-error" >
+											Bestätigen
+										</button>
+										<label for="archive-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					{:else}
+						<form action="?/unarchiveTopic" method="POST" id="archive" use:enhance>
+							<input 
+								type="hidden"
+								name="unarchiveTopicId"
+								value={topic.id} />
+							<label for="unarchive-id-{topic.id.split(':')[1]}" class="text-success cursor-pointer" title="Aus Archiv entfernen">
+								<Archive />
+							</label>
+							<input type="checkbox" id="unarchive-id-{topic.id.split(':')[1]}" class="modal-toggle" />
+							<div class="modal">
+								<div class="modal-box">
+									<h3 class="font-bold text-lg">
+										Soll dieses Thesis Thema "{topic.title}" wirklich entarchiviert werden?<br>
+									</h3>
+									<p class="text-sm text-base-content mt-2">
+										Es wird dann wieder in der Liste der Thesis Themen angezeigt.
+									</p>
+									<div class="modal-action">
+										<button class="btn btn-error" >
+											Bestätigen
+										</button>
+										<label for="unarchive-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+									</div>
+								</div>
+							</div>
+						</form>
+					{/if}
 				{/if}
 			</h2>
 			<div>
