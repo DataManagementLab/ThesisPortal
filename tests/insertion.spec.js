@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect, chromium } from '@playwright/test';
-import { loginAsProfessor } from './utils.spec.js';
+import { createExampleTheme, loginAsProfessor } from './utils.spec.js';
 import { db } from './db.js';
 
 test.describe('test insert element', () => {
@@ -70,5 +70,58 @@ test.describe('test insert element', () => {
         await page.mainFrame().waitForURL('/profile');
 
         await expect(page.getByRole('link', { name: 'Entwurf' }).first()).toBeVisible();
+    });
+
+    test('input validation - no filled filters', async({ page }) => {
+        await db.query('DELETE topics');
+
+        await page.getByRole('link', { name: 'Thema erstellen'}).click();
+        await page.mainFrame().waitForURL('/create');
+        await page.getByRole('button', { name: 'Hochladen'}).click();
+
+        await expect(page.getByText('*Thesistyp(en) wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Fachbereich wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Fachgebiet wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Spezifikation wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Titel wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Beschreibung wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein(e) Professor:in wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine oder mehrere betreuende Personen werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Technologien werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Emailadresse wird benötigt*')).toBeVisible();
+
+        await page.getByRole('link', { name: 'Themenübersicht'}).click();
+        await page.mainFrame().waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
+
+    test('input validation - test inputs to be saved', async({ page }) => {
+        await db.query('DELETE topics');
+
+        await page.getByRole('link', { name: 'Thema erstellen'}).click();
+        await page.mainFrame().waitForURL('/create');
+        await page.getByLabel('Fachbereich').fill('Informatik');
+        await page.getByLabel('Fachgebiet').fill('Software Engineering');
+        await page.getByLabel('Titel').fill('Hier kommt der Titel der Thesisarbeit');
+        await page.getByRole('button', { name: 'Hochladen'}).click();
+
+        await expect(page.getByLabel('Fachbereich')).toHaveValue(/Informatik/);
+        await expect(page.getByLabel('Fachgebiet')).toHaveValue(/Software Engineering/);
+        await expect(page.getByLabel('Titel')).toHaveValue(/Hier kommt der Titel der Thesisarbeit/);
+
+        await expect(page.getByText('*Thesistyp(en) wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Fachbereich wird benötigt*')).toBeHidden();
+        await expect(page.getByText('*Ein Fachgebiet wird benötigt*')).toBeHidden();
+        await expect(page.getByText('*Eine Spezifikation wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Titel wird benötigt*')).toBeHidden();
+        await expect(page.getByText('*Eine Beschreibung wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein(e) Professor:in wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine oder mehrere betreuende Personen werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Technologien werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Emailadresse wird benötigt*')).toBeVisible();
+
+        await page.getByRole('link', { name: 'Themenübersicht'}).click();
+        await page.mainFrame().waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
 });
