@@ -1,5 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { loginAsProfessor , createExampleTheme } from './utils.spec.js';
+import { db } from './db.js';
 
 test.describe('navigation', () => {
 	test.beforeEach(async ({ page }) => {
@@ -29,5 +31,9 @@ test.describe('navigation', () => {
 		await getStarted.click();
 	
 		await expect(page).toHaveURL('https://thesisfinder-local.tu-darmstadt.de.test:5173/');
+	});
+
+	test('', async ({ page }) => {	
+
 	});
 });

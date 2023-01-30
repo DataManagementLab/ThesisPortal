@@ -7,6 +7,7 @@ export async function loginAsProfessor({ page }) {
     const password = process.env.PROFESSOR1_PASSWORD;
 
     await page.goto('/');
+    await page.getByRole('link', { name: 'jetzt anmelden'}).click();
     await page.getByLabel('TU-ID').fill(`${tu_id}`);
     await page.getByLabel('Password').fill(`${password}`);
     await page.getByRole('button', { name: 'Login'}).click();
