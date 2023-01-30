@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect, chromium } from '@playwright/test';
-import { loginAsProfessor , createExampleTheme } from './utils.spec.js';
+import { loginAsProfessor } from './utils.spec.js';
 import { db } from './db.js';
 
 test.describe('test insert element', () => {

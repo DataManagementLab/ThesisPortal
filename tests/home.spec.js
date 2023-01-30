@@ -27,7 +27,8 @@ test('homepage has title and links to login page', async ({ page }) => {
 
 test('login as professor/member', async({ page }) => {
 	await page.goto('/');
-	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
+	await expect(page).toHaveTitle(/Thesisfinder/);
+	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
 
 	await import('dotenv/config');
     const tu_id = process.env.PROFESSOR1_TUID;
@@ -36,11 +37,17 @@ test('login as professor/member', async({ page }) => {
     await page.getByLabel('TU-ID').fill(`${tu_id}`);
     await page.getByLabel('Password').fill(`${password}`);
     await page.getByRole('button', { name: 'Login'}).click();
+
+	await expect(page.getByRole('link', { name: 'Themenübersicht'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Thema erstellen'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Profil'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
 });
 
 test('login as student', async({ page }) => {
 	await page.goto('/');
-	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
+	await expect(page).toHaveTitle(/Thesisfinder/);
+	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
 
 	await import('dotenv/config');
     const tu_id = process.env.STUDENT1_TUID;
@@ -49,4 +56,9 @@ test('login as student', async({ page }) => {
     await page.getByLabel('TU-ID').fill(`${tu_id}`);
     await page.getByLabel('Password').fill(`${password}`);
     await page.getByRole('button', { name: 'Login'}).click();
+
+	await expect(page.getByRole('link', { name: 'Themenübersicht'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Thema erstellen'})).toBeHidden();
+	await expect(page.getByRole('link', { name: 'Profil'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
 });
