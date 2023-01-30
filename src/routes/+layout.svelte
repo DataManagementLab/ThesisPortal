@@ -34,7 +34,6 @@
 				<span>Logout</span>
 			</a>
 		{/if}
-		
 	</nav>
 </div>
 <slot />

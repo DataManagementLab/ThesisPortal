@@ -24,7 +24,9 @@
 						<input
 							type="hidden"
 							name="type"
-							value={favorites.find((elem) => elem.topic == topic.id) ? 'unfavorize' : 'favorize'} />
+							value={favorites.find((elem) => elem.topic == topic.id)
+								? 'unfavorize'
+								: 'favorize'} />
 						{#if favorites.find((elem) => elem.topic == topic.id)}
 							<input
 								type="hidden"
@@ -56,10 +58,10 @@
 									Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
 								</h3>
 								<div class="modal-action">
-									<button class="btn btn-error" >
-										Bestätigen
-									</button>
-									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+									<button class="btn btn-error">Bestätigen</button>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">
+										Abbrechen
+									</label>
 								</div>
 							</div>
 						</div>
