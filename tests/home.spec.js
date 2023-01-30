@@ -24,3 +24,29 @@ test('homepage has title and links to login page', async ({ page }) => {
 	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
 	*/
 });
+
+test('login as professor/member', async({ page }) => {
+	await page.goto('/');
+	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
+
+	await import('dotenv/config');
+    const tu_id = process.env.PROFESSOR1_TUID;
+    const password = process.env.PROFESSOR1_PASSWORD;
+
+    await page.getByLabel('TU-ID').fill(`${tu_id}`);
+    await page.getByLabel('Password').fill(`${password}`);
+    await page.getByRole('button', { name: 'Login'}).click();
+});
+
+test('login as student', async({ page }) => {
+	await page.goto('/');
+	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
+
+	await import('dotenv/config');
+    const tu_id = process.env.STUDENT1_TUID;
+    const password = process.env.STUDENT1_PASSWORD;
+
+    await page.getByLabel('TU-ID').fill(`${tu_id}`);
+    await page.getByLabel('Password').fill(`${password}`);
+    await page.getByRole('button', { name: 'Login'}).click();
+});
