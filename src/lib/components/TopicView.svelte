@@ -23,7 +23,9 @@
 						<input
 							type="hidden"
 							name="type"
-							value={favorites.find((elem) => elem.topic == topic.id) ? 'unfavorize' : 'favorize'} />
+							value={favorites.find((elem) => elem.topic == topic.id)
+								? 'unfavorize'
+								: 'favorize'} />
 						{#if favorites.find((elem) => elem.topic == topic.id)}
 							<input
 								type="hidden"
@@ -40,11 +42,8 @@
 					</form>
 				{/if}
 				{#if showDeleteButton}
-					<form action="?/deleteTopic" method="POST" id=delete >
-						<input 
-							type="hidden"
-							name="deleteTopicId"
-							value={topic.id} />
+					<form action="?/deleteTopic" method="POST" id="delete">
+						<input type="hidden" name="deleteTopicId" value={topic.id} />
 						<label for="delete-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
 							<Delete />
 						</label>
@@ -55,21 +54,18 @@
 									Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
 								</h3>
 								<div class="modal-action">
-									<button class="btn btn-error" >
-										Bestätigen
-									</button>
-									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+									<button class="btn btn-error">Bestätigen</button>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">
+										Abbrechen
+									</label>
 								</div>
 							</div>
 						</div>
 					</form>
 				{/if}
 				{#if showArchiveButton}
-					<form action="?/archiveTopic" method="POST" id="archive" >
-						<input 
-							type="hidden"
-							name="archiveTopicId"
-							value={topic.id} />
+					<form action="?/archiveTopic" method="POST" id="archive">
+						<input type="hidden" name="archiveTopicId" value={topic.id} />
 						<label for="archive-id-{topic.id.split(':')[1]}" class="text-error cursor-pointer">
 							<Delete />
 						</label>
@@ -80,10 +76,10 @@
 									Soll dieses Thesis Thema "{topic.title}" wirklich archiviert werden?
 								</h3>
 								<div class="modal-action">
-									<button class="btn btn-error" >
-										Bestätigen
-									</button>
-									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">Abbrechen</label>
+									<button class="btn btn-error">Bestätigen</button>
+									<label for="delete-id-{topic.id.split(':')[1]}" class="btn btn-primary">
+										Abbrechen
+									</label>
 								</div>
 							</div>
 						</div>

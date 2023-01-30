@@ -17,13 +17,14 @@
 		<div>
 			<div class="text-sm breadcrumbs">
 				<ul>
-				<li>{data.topic.subjectArea}</li> 
-				<li>{data.topic.areaOfExpertise}</li> 
-				<li>{data.topic.specialization}</li>
+					<li>{data.topic.subjectArea}</li>
+					<li>{data.topic.areaOfExpertise}</li>
+					<li>{data.topic.specialization}</li>
 				</ul>
 			</div>
 			<h1 class="text-5xl m-2">
-				{data.topic.title} {#if data.isEmployee}
+				{data.topic.title}
+				{#if data.isEmployee}
 					<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
 						<Pencil />
 					</a>
@@ -45,7 +46,8 @@
 			{/each}
 			<div class="icon-text">
 				<a href="mailto:{data.topic.email}" class="link link-primary link-hover email">
-					<Email /> {data.topic.email}
+					<Email />
+					{data.topic.email}
 				</a>
 			</div>
 		</div>

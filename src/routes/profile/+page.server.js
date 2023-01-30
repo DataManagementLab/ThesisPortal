@@ -31,5 +31,5 @@ export const actions = {
 				topicID: formData.deleteTopicId
 			});
 		}
-	} 
+	}
 };

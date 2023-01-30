@@ -9,18 +9,18 @@
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title">Erstellte Themen</h2>
-					<TopicView data={data.topics} showDeleteButton/>
+					<TopicView data={data.topics} showDeleteButton />
 				</div>
 			</div>
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title">Entwürfe</h2>
-					<TopicView data={data.drafts} draft="true" showDeleteButton/>
+					<TopicView data={data.drafts} draft="true" showDeleteButton />
 				</div>
 			</div>
 		</div>
 	{/if}
-	<div class="card shadow-xl bg-base-100 p-5 m-5">
+	<div class="card shadow-xl bg-base-100 p-5 mt-5 w-full" style="max-width: 100%">
 		<h2 class="text-3xl font-bold mx-5 my-3">Favorisierte Themen</h2>
 		<TopicView data={data.favorites} favorites={data.favorites} />
 	</div>

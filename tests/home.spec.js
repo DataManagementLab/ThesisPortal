@@ -5,7 +5,7 @@ test('homepage has title and links to login page', async ({ page }) => {
 	await page.goto('/');
 
 	// Expect a title "to contain" a substring.
-	await expect(page).toHaveTitle(/Identity Provider of Technical University of Darmstadt/);
+	await expect(page).toHaveTitle(/Thesisfinder/);
 
 	/*
 	// create a locator

@@ -6,6 +6,8 @@
 	export let disabled = false;
 	export let required = false;
 	export let errorMsg = '';
+
+	value = value.trim();
 </script>
 
 <label class="label font-medium pb-1" for={id}>
@@ -17,7 +19,8 @@
 	{required}
 	{disabled}
 	{id}
-	name={id}>{value}</textarea>
+	name={id}
+	{value} />
 <label class="label font-medium pb-1" for={id}>
 	{#if errorMsg}
 		<span class="label-text-alt text-error">*{errorMsg}*</span>
@@ -25,6 +28,10 @@
 </label>
 
 <style lang="scss">
+	::placeholder {
+		color: hsl(var(--nc) / var(--tw-bg-opacity));
+		opacity: 0.3;
+	}
 	textarea {
 		min-height: 3rem;
 		&:hover,
