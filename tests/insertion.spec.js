@@ -90,6 +90,19 @@ test.describe('test insert element', () => {
         await expect(page.getByText('*Technologien werden benötigt*')).toBeVisible();
         await expect(page.getByText('*Eine Emailadresse wird benötigt*')).toBeVisible();
 
+        await page.getByRole('button', { name: 'Entwurf speichern'}).click();
+
+        await expect(page.getByText('*Thesistyp(en) wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Fachbereich wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Fachgebiet wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Spezifikation wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein Titel wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Beschreibung wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Ein(e) Professor:in wird benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine oder mehrere betreuende Personen werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Technologien werden benötigt*')).toBeVisible();
+        await expect(page.getByText('*Eine Emailadresse wird benötigt*')).toBeVisible();
+
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
