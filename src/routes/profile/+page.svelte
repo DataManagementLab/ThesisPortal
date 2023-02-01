@@ -9,13 +9,18 @@
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title">Erstellte Themen</h2>
-					<TopicView data={data.topics} showDeleteButton />
+					<TopicView data={data.topics} showDeleteButton showArchiveButton />
 				</div>
 			</div>
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title">Entwürfe</h2>
-					<TopicView data={data.drafts} draft="true" showDeleteButton />
+					<TopicView data={data.drafts} draft="true" showDeleteButton showArchiveButton />
+					{#if data.archived > 0}
+						<div class="card-actions">
+							<a href="/profile/archive" class="btn btn-primary">Archivierte Themen ({data.archived})</a>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
