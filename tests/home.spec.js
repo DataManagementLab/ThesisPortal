@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { loginAsProfessor } from './utils.spec.js';
 
 test('homepage has title and links to login page', async ({ page }) => {
 	await page.goto('/');
@@ -61,4 +62,12 @@ test('login as student', async({ page }) => {
 	await expect(page.getByRole('link', { name: 'Thema erstellen'})).toBeHidden();
 	await expect(page.getByRole('link', { name: 'Profil'})).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
+});
+
+test("logout", async({ page }) => {
+	await loginAsProfessor({ page });
+	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
+	await page.getByRole('link', { name: 'Logout' }).click();
+
+	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);
 });
