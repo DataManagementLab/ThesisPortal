@@ -1,6 +1,3 @@
-// @ts-check
-import { test, expect } from '@playwright/test';
-
 export async function loginAsProfessor({ page }) {
     await import('dotenv/config');
     const tu_id = process.env.PROFESSOR1_TUID;
@@ -13,8 +10,20 @@ export async function loginAsProfessor({ page }) {
     await page.getByRole('button', { name: 'Login'}).click();
 };
 
+export async function loginAsStudent({ page }) {
+    await import('dotenv/config');
+    const tu_id = process.env.STUDENT1_TUID;
+    const password = process.env.STUDENT1_PASSWORD;
+
+    await page.goto('/');
+    await page.getByRole('link', { name: 'jetzt anmelden'}).click();
+    await page.getByLabel('TU-ID').fill(`${tu_id}`);
+    await page.getByLabel('Password').fill(`${password}`);
+    await page.getByRole('button', { name: 'Login'}).click();
+};
+
 export async function logout({ page }) {
-    await page.getByRole('button', { name: 'logout'});
+    await page.getByRole('link', { name: 'logout'}).click();
 };
 
 export async function createExampleTheme({ page, theme }) {
