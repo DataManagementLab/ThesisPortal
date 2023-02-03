@@ -33,6 +33,7 @@ test.describe("theme favorites", () => {
 
     test("test icon of un-/favorize", async({ page }) => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
+        await page.mainFrame().waitForURL('/overview');
 
         await expect(page.locator('button[name="topicId"]')).toBeVisible();
         await expect(page.locator('input[name="favoriteId"]')).toBeHidden();
