@@ -14,7 +14,7 @@
 	<span class="label-text">{label}</span>
 </label>
 <textarea
-	class="input w-full mb-5 p-3 h-36 outline-0 bg-base-200"
+	class="input w-full mb-5 p-3 h-36 outline-0 bg-base-300"
 	{placeholder}
 	{required}
 	{disabled}

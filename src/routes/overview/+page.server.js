@@ -4,7 +4,7 @@ let filtered = undefined;
 let searchData = undefined;
 
 export const load = async ({ locals }) => {
-	checkAddStudent(locals.session.cas.user);
+	checkAddStudent(locals.session.cas);
 
 	let favorites = (
 		await db.query('SELECT * FROM favorite WHERE student = $student', {
@@ -13,7 +13,8 @@ export const load = async ({ locals }) => {
 	)[0].result;
 
 	if (filtered === undefined) {
-		let query = 'SELECT * FROM topics WHERE draft=false AND (archived = null OR archived = false) LIMIT 25';
+		let query =
+			'SELECT * FROM topics WHERE draft=false AND (archived = null OR archived = false) LIMIT 25';
 
 		let data = await db.query(query);
 		return {
@@ -40,9 +41,12 @@ export const actions = {
 				delete formData[key];
 			}
 		}
-		let data = await db.query(`SELECT * FROM topics WHERE draft = false AND (archived = null OR archived = false)`, {
-			search: formData.query
-		});
+		let data = await db.query(
+			`SELECT * FROM topics WHERE draft = false AND (archived = null OR archived = false)`,
+			{
+				search: formData.query
+			}
+		);
 		filtered = data[0].result.filter((topic) => {
 			return (
 				//title contains query
@@ -119,8 +123,18 @@ export const actions = {
 
 async function checkAddStudent(tuid) {
 	try {
-		await db.select(`student:${tuid}`);
+		await db.select(`student:${tuid.user}`);
 	} catch (err) {
-		await db.create(`student:${tuid}`);
+		let affiliation =
+			tuid.attributes.eduPersonAffiliation[0]._text == 'member'
+				? tuid.attributes.eduPersonAffiliation[1]._text
+				: tuid.attributes.eduPersonAffiliation[0]._text;
+		let name = tuid.attributes.cn[0]._text;
+		name = name.split(',').reverse().join(' ').trim();
+		await db.create(`student:${tuid.user}`, {
+			name,
+			affiliation,
+			email: tuid.attributes.mail._text
+		});
 	}
 }
