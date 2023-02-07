@@ -2,7 +2,6 @@
 	export let form;
 
 	import { Input, Textarea } from '$lib/components';
-	import { text } from 'svelte/internal';
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
