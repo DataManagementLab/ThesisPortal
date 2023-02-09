@@ -118,9 +118,15 @@
 				value={form?.formData?.email ?? ''}
 				errorMsg={form?.errors?.email ?? ''} />
 		</div>
+		
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" />
+	<Textarea
+			id="other"
+			label="Sonstiges"
+			placeholder="Sonstige Informationen"
+			value={form?.formData?.other ?? ''} />
+
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
 			Entwurf speichern
