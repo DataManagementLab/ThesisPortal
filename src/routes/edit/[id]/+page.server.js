@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const filterSchema = z.object({
@@ -57,9 +57,7 @@ export async function load({ params, locals }) {
 	if (data[0].author !== locals.session.cas.user) {
 		throw error(403, 'Nicht authorisiert');
 	}
-	return {
-		data: data[0]
-	};
+	return data[0];
 }
 
 export const actions = {
@@ -82,26 +80,7 @@ export const actions = {
 		formData.specialization = parseCSV(formData.specialization);
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.lastUpdatedAt = Date.now();
-
-		try {
-			const result = formData;
-			if (!formData.draft) {
-				result = filterSchema.parse(formData);
-			} else if (!formData.title) {
-				result.title = 'Entwurf'
-			}
-			db.change(`topics:${params.id}`, result);
-		} catch (error) {
-			if (error.errors != null) {
-				const { fieldErrors: errors } = error.flatten();
-				console.log(errors);
-				return {
-					form: formData,
-					errors: errors
-				};
-			}
-		}
-		
+		db.change(`topics:${params.id}`, formData);
 		throw redirect(303, '/profile');
 	}
 };

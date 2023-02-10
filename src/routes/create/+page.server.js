@@ -73,7 +73,7 @@ export const actions = {
 		formData.lastUpdatedAt = Date.now();
 
 		try {
-			const result = formData;
+			let result = formData;
 			if (!formData.draft) {
 				result = filterSchema.parse(formData);
 			} else if (!formData.title) {
