@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { error, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const filterSchema = z.object({
@@ -43,6 +43,8 @@ const filterSchema = z.object({
 	draft: z.boolean()
 });
 
+let returnError;
+
 export async function load({ params, locals }) {
 	const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
 	const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
@@ -57,7 +59,11 @@ export async function load({ params, locals }) {
 	if (data[0].author !== locals.session.cas.user) {
 		throw error(403, 'Nicht authorisiert');
 	}
-	return data[0];
+	
+	return {
+		data: data[0],
+		errors: returnError
+	};
 }
 
 export const actions = {
@@ -80,7 +86,21 @@ export const actions = {
 		formData.specialization = parseCSV(formData.specialization);
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.lastUpdatedAt = Date.now();
-		db.change(`topics:${params.id}`, formData);
+		try {
+			let result = formData;
+			if (!formData.draft) {
+				result = filterSchema.parse(formData);
+			} 
+			db.change(`topics:${params.id}`, formData);
+		} catch (error) {
+			formData.draft = 'true';
+			db.change(`topics:${params.id}`, formData);
+			if (error.errors != null) {
+				const { fieldErrors: errors } = error.flatten();
+				returnError = errors;
+			}
+			return;
+		}
 		throw redirect(303, '/profile');
 	}
 };

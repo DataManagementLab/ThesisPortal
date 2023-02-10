@@ -4,8 +4,8 @@
 	export let data;
 	
 	let thesisType = [
-		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.thesisType.includes('Bachelor') },
-		{ id: 'Master', text: 'Master Thesis', checked: data.thesisType.includes('Master') }
+		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.data.thesisType.includes('Bachelor') },
+		{ id: 'Master', text: 'Master Thesis', checked: data.data.thesisType.includes('Master') }
 	];
 </script>
 
@@ -32,41 +32,54 @@
 					</div>
 				{/each}
 			</div>
+			<label class="label font-medium pb-1" for="thesisType">
+				{#if data?.errors?.thesisType}
+					<span class="label-text-alt text-error">*{data?.errors?.thesisType}*</span>
+				{/if}
+			</label>
 		</div>
 		<div class="mr-5">
 			<Input
 				id="subjectArea"
-				value={data.subjectArea}
+				value={data.data.subjectArea}
 				label="Fachbereich"
 				suggestions
-				placeholder="Fachbereich" />
+				placeholder="Fachbereich" 
+				errorMsg={data?.errors?.subjectArea ?? ''} />
 		</div>
 		<div class="mr-5">
 			<Input
 				id="areaOfExpertise"
-				value={data.areaOfExpertise}
+				value={data.data.areaOfExpertise}
 				label="Fachgebiet"
 				suggestions
-				placeholder="Fachgebiet" />
+				placeholder="Fachgebiet" 
+				errorMsg={data?.errors?.areaOfExpertise ?? ''}/>
 		</div>
 		<div>
-			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
 			<Input
 				id="specialization"
-				value={data.specialization}
+				value={data.data.specialization}
 				label="Spezialisierung"
 				suggestions
 				csv
-				placeholder="Spezialisierung" />
+				placeholder="Spezialisierung"
+				errorMsg={data?.errors?.specialization ?? ''} />
 		</div>
 	</div>
 
-	<Input id="title" label="Titel" placeholder="Titel" value={data.title} />
+	<Input 
+		id="title" 
+		label="Titel" 
+		placeholder="Titel" 
+		value={data.data.title}
+		errorMsg={data?.errors?.title ?? ''} />
 	<Textarea
 		id="description"
 		label="Beschreibung"
 		placeholder="Beschreibung des Themas"
-		value={data.description} />
+		value={data.data.description}
+		errorMsg={data?.errors?.description ?? ''} />
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -74,17 +87,19 @@
 				id="professor"
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
-				value={data.professor}
-				suggestions />
+				value={data.data.professor}
+				suggestions 
+				errorMsg={data?.errors?.professor ?? ''}/>
 		</div>
 		<div class="mr-5">
 			<Input
 				id="supervisor"
 				label="Betreuende Personen"
 				placeholder="Betreuende Personen"
-				value={data.supervisor}
+				value={data.data.supervisor}
 				suggestions
-				csv />
+				csv 
+				errorMsg={data?.errors?.supervisor ?? ''}/>
 		</div>
 
 		<div class="mr-5">
@@ -92,9 +107,10 @@
 				id="technologies"
 				label="Zu verwendende Technologien"
 				placeholder="Java, Python, C++ ..."
-				value={data.technologies}
+				value={data.data.technologies}
 				suggestions
-				csv />
+				csv 
+				errorMsg={data?.errors?.technologies ?? ''}/>
 		</div>
 		<div>
 			<Input
@@ -102,12 +118,13 @@
 				label="E-Mail Kontakt"
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
-				value={data.email}
-				suggestions />
+				value={data.data.email}
+				suggestions 
+				errorMsg={data?.errors?.email ?? ''}/>
 		</div>
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.other} />
+	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.data.other} />
 	<input type="hidden" name="createdAt" value={data.createdAt} />
 	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt} />
 	<div class="flex justify-end">
