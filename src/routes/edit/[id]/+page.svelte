@@ -2,6 +2,7 @@
 	import { Input, Textarea } from '$lib/components';
 
 	export let data;
+	console.log(data);
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.thesisType.includes('Bachelor') },
@@ -31,6 +32,11 @@
 						</label>
 					</div>
 				{/each}
+				<label class="label font-medium pb-1" for="thesisType">
+					{#if data?.errors?.thesisType}
+						<span class="label-text-alt text-error">*{data?.errors?.thesisType}*</span>
+					{/if}
+				</label>
 			</div>
 		</div>
 		<div class="mr-5">
@@ -39,7 +45,8 @@
 				value={data.subjectArea}
 				label="Fachbereich"
 				suggestions
-				placeholder="Fachbereich" />
+				placeholder="Fachbereich" 
+				errorMsg={data?.errors?.subjectArea ?? ''}/>
 		</div>
 		<div class="mr-5">
 			<Input
@@ -47,13 +54,14 @@
 				value={data.areaOfExpertise}
 				label="Fachgebiet"
 				suggestions
-				placeholder="Fachgebiet" />
+				placeholder="Fachgebiet" 
+				errorMsg={data?.errors?.areaOfExpertise ?? ''} />
 		</div>
 		<div>
-			<!-- <MultiSelect data={areaOfExpertise} id="areaOfExpertise" label="Spezialisierung"/> -->
 			<Input
 				id="specialization"
 				value={data.specialization}
+				errorMsg={data?.errors?.specialization ?? ''}
 				label="Spezialisierung"
 				suggestions
 				csv
@@ -61,12 +69,18 @@
 		</div>
 	</div>
 
-	<Input id="title" label="Titel" placeholder="Titel" value={data.title} />
+	<Input 
+		id="title" 
+		label="Titel" 
+		placeholder="Titel" 
+		value={data.title} 
+		errorMsg={data?.errors?.title ?? ''} />
 	<Textarea
 		id="description"
 		label="Beschreibung"
 		placeholder="Beschreibung des Themas"
-		value={data.description} />
+		value={data.description}
+		errorMsg={data?.errors?.description ?? ''} />
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -75,7 +89,8 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				value={data.professor}
-				suggestions />
+				suggestions 
+				errorMsg={data?.errors?.professor ?? ''}/>
 		</div>
 		<div class="mr-5">
 			<Input
@@ -84,7 +99,8 @@
 				placeholder="Betreuende Personen"
 				value={data.supervisor}
 				suggestions
-				csv />
+				csv 
+				errorMsg={data?.errors?.supervisor ?? ''}/>
 		</div>
 
 		<div class="mr-5">
@@ -94,7 +110,8 @@
 				placeholder="Java, Python, C++ ..."
 				value={data.technologies}
 				suggestions
-				csv />
+				csv 
+				errorMsg={data?.errors?.technologies ?? ''}/>
 		</div>
 		<div>
 			<Input
@@ -103,7 +120,8 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				value={data.email}
-				suggestions />
+				suggestions 
+				errorMsg={data?.errors?.email ?? ''}/>
 		</div>
 	</div>
 
