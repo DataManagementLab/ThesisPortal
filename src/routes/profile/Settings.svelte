@@ -4,7 +4,7 @@
 
 	export let user;
 
-	let selectedTab = 1;
+	let selectedTab = 0;
 </script>
 
 <div class="flex">

@@ -94,7 +94,10 @@ export const actions = {
 	},
 	editInfo: async ({ request, locals }) => {
 		const formData = Object.fromEntries(await request.formData());
-		formData.keywords = formData.keywords.split(',').map((elem) => elem.trim()).filter((elem) => elem.length > 0);
+		formData.keywords = formData.keywords
+			.split(',')
+			.map((elem) => elem.trim())
+			.filter((elem) => elem.length > 0);
 		console.log(formData.keywords);
 
 		const schema = z.object({
@@ -104,10 +107,10 @@ export const actions = {
 			keywords: z.array(z.string().trim())
 		});
 
-		try{
+		try {
 			const data = schema.parse(formData);
 			console.log(await db.change(`student:${locals.session.cas.user}`, data));
-		} catch(e) {
+		} catch (e) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = e.flatten();
 				return {
@@ -118,5 +121,5 @@ export const actions = {
 		}
 
 		throw redirect(302, '/profile');
-	},
+	}
 };
