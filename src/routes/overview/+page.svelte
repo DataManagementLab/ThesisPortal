@@ -56,14 +56,14 @@
 		<div class="mr-5">
 			<Input
 				id="areaOfExpertise"
-				label="Spezialisierung"
+				label="Fachgebiet"
 				suggestions
 				value={data.searchData?.areaOfExpertise ?? ''} />
 		</div>
 		<div class="mr-5">
 			<Input
 				id="specialization"
-				label="Fachgebiet"
+				label="Spezialisierung"
 				suggestions
 				value={data.searchData?.specialization ?? ''} />
 		</div>
