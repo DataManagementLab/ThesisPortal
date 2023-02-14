@@ -32,7 +32,7 @@
 			{/if}
 		</button>
 		{#if data.searchData !== undefined}
-			<a class="btn" title="Suche zurücksetzen" href="/" on:click={invalidateAll}>
+			<a class="btn" title="Suche zurücksetzen" href="/overview" on:click={invalidateAll}>
 				<Close />
 			</a>
 		{/if}
