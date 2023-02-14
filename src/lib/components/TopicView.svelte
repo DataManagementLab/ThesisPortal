@@ -55,7 +55,7 @@
 						<div class="modal">
 							<div class="modal-box">
 								<h3 class="font-bold text-lg">
-									Soll dieses Thesis Thema "{topic.title}" wirklich gelöscht werden?
+									Soll dieses Thesisthema "{topic.title}" wirklich gelöscht werden?
 								</h3>
 								<div class="modal-action">
 									<button class="btn btn-error">Bestätigen</button>
@@ -84,7 +84,7 @@
 							<div class="modal">
 								<div class="modal-box">
 									<h3 class="font-bold text-lg">
-										Soll dieses Thesis Thema "{topic.title}" wirklich archiviert werden?
+										Soll dieses Thesisthema "{topic.title}" wirklich archiviert werden?
 									</h3>
 									<p class="text-sm text-base-content mt-2">
 										Dieses Thema wird dann nicht mehr in der Liste der verfügbaren Themen angezeigt.
@@ -114,11 +114,11 @@
 							<div class="modal">
 								<div class="modal-box">
 									<h3 class="font-bold text-lg">
-										Soll dieses Thesis Thema "{topic.title}" wirklich entarchiviert werden?
+										Soll dieses Thesisthema "{topic.title}" wirklich entarchiviert werden?
 										<br />
 									</h3>
 									<p class="text-sm text-base-content mt-2">
-										Es wird dann wieder in der Liste der Thesis Themen angezeigt.
+										Es wird dann wieder in der Liste der verfügbaren Themen angezeigt.
 									</p>
 									<div class="modal-action">
 										<button class="btn btn-error">Bestätigen</button>

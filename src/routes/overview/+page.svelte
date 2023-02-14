@@ -95,12 +95,6 @@
 	#search {
 		border: 1px solid hsl(var(--b2));
 		#search-bar {
-			button {
-				color: hsl(var(--n));
-				@media (prefers-color-scheme: dark) {
-					color: hsl(var(--nc));
-				}
-			}
 			input {
 				width: calc(100% - 7rem);
 				+ button + button {
@@ -111,8 +105,16 @@
 					font-size: 1.5rem;
 					background-color: transparent;
 					border-color: hsl(var(--b2));
+					color: hsl(var(--n));
+					@media (prefers-color-scheme: dark) {
+					color: hsl(var(--nc));
+					}
 					&:hover {
 						background-color: hsl(var(--p));
+						color: hsl(var(--nc));
+						@media (prefers-color-scheme: dark) {
+						color: hsl(var(--n));
+						}
 					}
 				}
 			}
@@ -120,8 +122,16 @@
 				font-size: 1.5rem;
 				background-color: transparent;
 				border-color: hsl(var(--b2));
+				color: hsl(var(--n));
+				@media (prefers-color-scheme: dark) {
+					color: hsl(var(--nc));
+					}
 				&:hover {
 					background-color: hsl(var(--p));
+					color: hsl(var(--nc));
+					@media (prefers-color-scheme: dark) {
+						color: hsl(var(--n));
+						}
 				}
 			}
 		}
