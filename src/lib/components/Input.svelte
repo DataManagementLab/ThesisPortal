@@ -119,7 +119,7 @@
 		</div>
 	{/if}
 	<input
-		class="input w-full outline-0 bg-base-200"
+		class="input input-bordered bg-base-300 w-full outline-0"
 		class:mb-5={suggestions === undefined}
 		class:hasResults={loadedSuggestions.length > 0}
 		use:addType
@@ -223,10 +223,11 @@
 		padding: 3px 1px 3px 5px;
 		font-size: 1rem;
 		margin: 0px 0px 5px 5px;
-		border: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+		border: 1px solid hsl(var(--b1));
+		background-color: hsl(var(--b3));
 
 		&:hover {
-			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+			border-color: hsl(var(--p));
 		}
 		button {
 			height: 1rem;

@@ -73,7 +73,12 @@ export const actions = {
 		formData.lastUpdatedAt = Date.now();
 
 		try {
-			const result = filterSchema.parse(formData);
+			let result = formData;
+			if (!formData.draft) {
+				result = filterSchema.parse(formData);
+			} else if (!formData.title) {
+				result.title = 'Entwurf'
+			}
 			result.author = locals.session.cas.user;
 			db.create('topics', result);
 		} catch (error) {
