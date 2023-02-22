@@ -98,24 +98,29 @@ export const actions = {
 			.split(',')
 			.map((elem) => elem.trim())
 			.filter((elem) => elem.length > 0);
-		console.log(formData.keywords);
 
 		const schema = z.object({
-			subjectArea: z.string().min(3).trim(),
-			areaOfExpertise: z.string().min(3).trim(),
-			specialization: z.string().min(3).trim(),
+			subjectArea: z.string().min(3, { message: 'Ein Fachbereich wird benötigt' }).trim(),
+			areaOfExpertise: z.string().min(3, { message: 'Ein Fachgebiet wird benötigt' }).trim(),
+			specialization: z.string().min(3, { message: 'Eine Spezialisierung wird benötigt' }).trim(),
 			keywords: z.array(z.string().trim())
 		});
 
 		try {
 			const data = schema.parse(formData);
-			console.log(await db.change(`student:${locals.session.cas.user}`, data));
-		} catch (e) {
+			await db.change(`student:${locals.session.cas.user}`, data);
+			return {
+				openTab: 0,
+				openSettings: 1
+			}
+		} catch (error) {
 			if (error.errors != null) {
-				const { fieldErrors: errors } = e.flatten();
+				const { fieldErrors: errors } = error.flatten();
 				return {
 					formData,
-					errors
+					errors,
+					openTab: 0,
+					openSettings: 1
 				};
 			}
 		}

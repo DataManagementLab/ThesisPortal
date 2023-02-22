@@ -3,8 +3,10 @@
 	import { Input } from '$lib/components';
 
 	export let user;
+	export let form;
+	export let tab = undefined;
 
-	let selectedTab = 0;
+	let selectedTab = tab ?? 0;
 </script>
 
 <div class="flex">
@@ -59,13 +61,28 @@
 				{#if selectedTab == 1}
 					<h2 class="card-title">Forschung</h2>
 					<div>
-						<form action="?/editInfo" method="POST" class="inline-block" use:enhance>
+						<form action="?/editInfo" method="POST" class="inline-block">
 							<div class="flex flex-wrap gap-5">
-								<Input id="subjectArea" label="Fachbereich" value={user.subjectArea ?? "Informatik"} suggestions/>
-								<Input id="areaOfExpertise" label="Fachgebiet" value={user.areaOfExpertise ?? ""} suggestions/>
-								<Input id="specialization" label="Spezialisierung" value={user.specialization ?? ""} suggestions/>
+								<Input
+									id="subjectArea"
+									label="Fachbereich"
+									value={form?.formData?.subjectArea ?? user.subjectArea ?? 'Informatik'}
+									errorMsg={form?.errors?.subjectArea}
+									suggestions />
+								<Input
+									id="areaOfExpertise"
+									label="Fachgebiet"
+									value={form?.formData?.areaOfExpertise ?? user.areaOfExpertise ?? ''}
+									errorMsg={form?.errors?.areaOfExpertise}
+									suggestions />
+								<Input
+									id="specialization"
+									label="Spezialisierung"
+									value={form?.formData?.specialization ?? user.specialization ?? ''}
+									errorMsg={form?.errors?.specialization}
+									suggestions />
 							</div>
-							<Input id="keywords" label="Keywords" value={user.keywords ?? ""} suggestions csv />
+							<Input id="keywords" label="Keywords" value={user.keywords ?? ''} suggestions csv />
 							<input type="submit" class="btn btn-primary" value="Speichern" />
 						</form>
 					</div>
