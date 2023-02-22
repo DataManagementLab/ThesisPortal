@@ -11,6 +11,7 @@
 	export let showFavoriteIcon = false;
 	export let showDeleteButton = false;
 	export let showArchiveButton = false;
+	export let showViewCounter = false;
 </script>
 
 {#each data as topic}
@@ -18,7 +19,10 @@
 		<div class="card-body">
 			<h2 class="card-title text-primary">
 				<a href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">{topic.title}</a>
-				<span class="right font-normal text-sm">von {topic.professor}</span>
+				<span class="right font-normal text-sm">
+					von {topic.professor}
+					{#if showViewCounter}({topic.views ?? 0} mal angesehen){/if}
+				</span>
 				{#if showFavoriteIcon}
 					<form action="?/markUnmarkFavorite" method="POST" id="favorite" use:enhance>
 						<input

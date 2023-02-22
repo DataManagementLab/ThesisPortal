@@ -71,6 +71,7 @@ export const actions = {
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.createdAt = Date.now();
 		formData.lastUpdatedAt = Date.now();
+		formData.views = 0;
 
 		try {
 			let result = formData;

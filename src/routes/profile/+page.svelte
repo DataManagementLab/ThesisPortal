@@ -29,11 +29,16 @@
 				{/if}
 				{#if openTab == 1}
 					<h2 class="card-title">Erstellte Themen</h2>
-					<TopicView data={data.topics} showDeleteButton showArchiveButton />
+					<TopicView data={data.topics} showDeleteButton showArchiveButton showViewCounter />
 				{/if}
 				{#if openTab == 2}
 					<h2 class="card-title">Entwürfe</h2>
-					<TopicView data={data.drafts} draft="true" showDeleteButton showArchiveButton />
+					<TopicView
+						data={data.drafts}
+						draft="true"
+						showDeleteButton
+						showArchiveButton
+						showViewCounter />
 				{/if}
 				{#if openTab == 3}
 					<h2 class="card-title">Archiv</h2>
