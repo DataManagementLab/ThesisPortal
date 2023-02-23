@@ -4,8 +4,6 @@ let filtered = undefined;
 let searchData = undefined;
 
 export const load = async ({ locals }) => {
-	checkAddStudent(locals.session.cas);
-
 	let favorites = (
 		await db.query('SELECT * FROM favorite WHERE student = $student', {
 			student: `student:${locals.session.cas.user}`
@@ -134,21 +132,3 @@ export const actions = {
 		}
 	}
 };
-
-async function checkAddStudent(tuid) {
-	try {
-		await db.select(`student:${tuid.user}`);
-	} catch (err) {
-		let affiliation =
-			tuid.attributes.eduPersonAffiliation[0]._text == 'member'
-				? tuid.attributes.eduPersonAffiliation[1]._text
-				: tuid.attributes.eduPersonAffiliation[0]._text;
-		let name = tuid.attributes.cn[0]._text;
-		name = name.split(',').reverse().join(' ').trim();
-		await db.create(`student:${tuid.user}`, {
-			name,
-			affiliation,
-			email: tuid.attributes.mail._text
-		});
-	}
-}
