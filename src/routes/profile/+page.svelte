@@ -2,7 +2,8 @@
 	import { TopicView } from '$lib/components';
 	import Settings from './Settings.svelte';
 	export let data;
-	let openTab = 0;
+	export let form;
+	let openTab = form?.openTab ?? 0;
 </script>
 
 <div id="topics" class="m-5">
@@ -25,7 +26,7 @@
 			<div class="card-body">
 				{#if openTab == 0}
 					<h2 class="card-title">Einstellungen</h2>
-					<Settings user={data.user} />
+					<Settings user={data.user} {form} tab={form?.openSettings} />
 				{/if}
 				{#if openTab == 1}
 					<h2 class="card-title">Erstellte Themen</h2>
