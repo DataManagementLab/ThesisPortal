@@ -120,7 +120,7 @@
 	{/if}
 	<input
 		class="input input-bordered bg-base-300 w-full outline-0"
-		class:mb-5={suggestions === undefined}
+		class:mb-5={suggestions === undefined && id !== 'title'}
 		class:hasResults={loadedSuggestions.length > 0}
 		use:addType
 		{placeholder}
@@ -148,7 +148,7 @@
 	{/if}
 	<label class="label font-medium pb-1" for={id}>
 		{#if errorMsg}
-			<span class="label-text-alt text-error">*{errorMsg}*</span>
+			<span class="label-text-alt text-error">* {errorMsg} *</span>
 		{/if}
 	</label>
 </div>
