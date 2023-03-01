@@ -47,12 +47,11 @@
 				{/if}
 			</div>
 		</div>
-	{:else}
-		<div class="card shadow-xl bg-base-100 p-5 mt-5 w-full" style="max-width: 100%">
-			<h2 class="text-3xl font-bold mx-5 my-3">Favorisierte Themen</h2>
-			<TopicView data={data.favorites} favorites={data.favorites} />
-		</div>
 	{/if}
+	<div class="card shadow-xl bg-base-100 p-5 mt-5 w-full" style="max-width: 100%">
+		<h2 class="text-3xl font-bold mx-5 my-3">Favorisierte Themen</h2>
+		<TopicView data={data.favorites} favorites={data.favorites} />
+	</div>
 </div>
 
 <style lang="postcss">
