@@ -43,7 +43,7 @@
 								name="favoriteId"
 								value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
 						{/if}
-						<button name="topicId" value={data.topic.id} class="inline text-2xl text-warning">
+						<button name="topicId" value={data.topic.id} class="inline text-2xl text-warning" title={data.favorites.find((elem) => elem.topic == data.topic.id)?'Entfavorisieren':'Favorisieren'}>
 							{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
 								<Star />
 							{:else}
