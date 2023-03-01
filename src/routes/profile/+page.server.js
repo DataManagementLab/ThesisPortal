@@ -66,26 +66,17 @@ export const actions = {
 		}
 		throw redirect(302, '/profile');
 	},
-	editName: async ({ request, locals }) => {
+	editAccount: async ({ request, locals }) => {
 		const formData = Object.fromEntries(await request.formData());
 
-		const schema = z.string().min(3);
+		const schema = z.object({
+			name: z.string().min(3),
+			email: z.string().email()
+		});
 
-		if (schema.safeParse(formData.name).success === true) {
+		if (schema.safeParse(formData).success === true) {
 			db.change(`student:${locals.session.cas.user}`, {
-				name: formData.name
-			});
-		}
-
-		throw redirect(302, '/profile');
-	},
-	editEmail: async ({ request, locals }) => {
-		const formData = Object.fromEntries(await request.formData());
-
-		const schema = z.string().email();
-
-		if (schema.safeParse(formData.email).success === true) {
-			db.change(`student:${locals.session.cas.user}`, {
+				name: formData.name,
 				email: formData.email
 			});
 		}
@@ -112,7 +103,7 @@ export const actions = {
 			return {
 				openTab: 0,
 				openSettings: 1
-			}
+			};
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
