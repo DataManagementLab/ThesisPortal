@@ -5,9 +5,22 @@
 	import Star from 'svelte-material-icons/Star.svelte';
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
 	import { enhance } from '$app/forms';
+	import md from 'markdown-it';
+	import hljs from 'highlight.js';
 
 	export let data;
 	let showFavoriteIcon = data.isEmployee;
+
+	const syntaxHighlighting = {
+		highlight: function (str, lang) {
+			if (lang && hljs.getLanguage(lang)) {
+				try {
+					return hljs.highlight(str, { language: lang }).value;
+				} catch (__) {}
+			}
+			return ''; // use external default escaping
+		}
+	};
 
 	function nl2br(str) {
 		if (typeof str === 'undefined' || str === null) {
@@ -88,7 +101,7 @@
 	<br />
 	<div class="card bg-base-200">
 		<div class="card-body">
-			{@html nl2br(data.topic.description)}
+			{@html md(syntaxHighlighting).render(data.topic.description)}
 		</div>
 	</div>
 	{#if data.topic.other && data.topic.other.trim().length > 0}

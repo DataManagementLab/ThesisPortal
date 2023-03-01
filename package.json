@@ -38,5 +38,9 @@
 		"vite-plugin-mkcert": "^1.13.2",
 		"zod": "^3.20.6"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"highlight.js": "^11.7.0",
+		"markdown-it": "^13.0.1"
+	}
 }
