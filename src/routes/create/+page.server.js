@@ -73,6 +73,7 @@ export const actions = {
 		formData.lastUpdatedAt = Date.now();
 		formData.views = 0;
 
+		let createdTopic;
 		try {
 			let result = formData;
 			if (!formData.draft) {
@@ -81,7 +82,7 @@ export const actions = {
 				result.title = 'Entwurf';
 			}
 			result.author = locals.session.cas.user;
-			db.create('topics', result);
+			createdTopic = await db.create('topics', result);
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
@@ -91,7 +92,7 @@ export const actions = {
 				};
 			}
 		}
-		throw redirect(303, '/profile');
+		throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
 	}
 };
 
