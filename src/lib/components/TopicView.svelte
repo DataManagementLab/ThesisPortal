@@ -73,7 +73,7 @@
 				{/if}
 				{#if showArchiveButton}
 					{#if !topic.archived}
-						<form action="?/archiveTopic" method="POST" id="archive" use:enhance>
+						<form action="?/archiveTopic" method="POST" id="archive">
 							<input type="hidden" name="archiveTopicId" value={topic.id} />
 							<label
 								for="archive-id-{topic.id.split(':')[1]}"
@@ -103,7 +103,7 @@
 							</div>
 						</form>
 					{:else}
-						<form action="?/unarchiveTopic" method="POST" id="archive" use:enhance>
+						<form action="?/unarchiveTopic" method="POST" id="archive">
 							<input type="hidden" name="unarchiveTopicId" value={topic.id} />
 							<label
 								for="unarchive-id-{topic.id.split(':')[1]}"
