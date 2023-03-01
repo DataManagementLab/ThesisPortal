@@ -37,7 +37,7 @@
 								name="favoriteId"
 								value={favorites.find((elem) => elem.topic == topic.id).id} />
 						{/if}
-						<button name="topicId" value={topic.id}>
+						<button name="topicId" value={topic.id} class="text-warning">
 							{#if favorites.find((elem) => elem.topic == topic.id)}
 								<Star />
 							{:else}

@@ -2,7 +2,12 @@
 	import Email from 'svelte-material-icons/Email.svelte';
 	import Pencil from 'svelte-material-icons/Pencil.svelte';
 	import Person from 'svelte-material-icons/AccountCircle.svelte';
+	import Star from 'svelte-material-icons/Star.svelte';
+	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import { enhance } from '$app/forms';
+
 	export let data;
+	let showFavoriteIcon = data.isEmployee;
 
 	function nl2br(str) {
 		if (typeof str === 'undefined' || str === null) {
@@ -24,6 +29,29 @@
 			</div>
 			<h1 class="text-5xl m-2">
 				{data.topic.title}
+				{#if showFavoriteIcon}
+					<form action="?/markUnmarkFavorite" method="POST" id="favorite" class="inline" use:enhance>
+						<input
+							type="hidden"
+							name="type"
+							value={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'unfavorize'
+								: 'favorize'} />
+						{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
+							<input
+								type="hidden"
+								name="favoriteId"
+								value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
+						{/if}
+						<button name="topicId" value={data.topic.id} class="inline text-2xl text-warning">
+							{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
+								<Star />
+							{:else}
+								<StarOutline />
+							{/if}
+						</button>
+					</form>
+				{/if}
 				{#if data.isEmployee}
 					<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
 						<Pencil />
