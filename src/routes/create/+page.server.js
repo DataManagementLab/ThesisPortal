@@ -47,6 +47,10 @@ export const load = async ({ locals }) => {
 	const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
 	const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
 	if (!isEmployee) throw redirect(303, '/');
+	const userData = await db.select(`student:${locals.session.cas.user}`);
+	return {
+		userData: userData[0]
+	};
 };
 
 export const actions = {
@@ -83,6 +87,11 @@ export const actions = {
 			}
 			result.author = locals.session.cas.user;
 			createdTopic = await db.create('topics', result);
+			if (result.draft) {
+				throw redirect(303, `/profile`);
+			} else {
+				throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
+			}
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
@@ -92,7 +101,7 @@ export const actions = {
 				};
 			}
 		}
-		throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
+		throw redirect(302, '/profile');
 	}
 };
 

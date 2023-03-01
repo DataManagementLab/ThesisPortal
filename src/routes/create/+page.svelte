@@ -1,4 +1,5 @@
 <script>
+	export let data;
 	export let form;
 
 	import { Input, Textarea } from '$lib/components';
@@ -40,7 +41,7 @@
 				label="Fachbereich"
 				suggestions
 				placeholder="Fachbereich"
-				value={form?.formData?.subjectArea ?? ''}
+				value={form?.formData?.subjectArea ?? data.userData.subjectArea ?? ''}
 				errorMsg={form?.errors?.subjectArea ?? ''} />
 		</div>
 		<div class="mr-5">
@@ -49,7 +50,7 @@
 				label="Fachgebiet"
 				suggestions
 				placeholder="Fachgebiet"
-				value={form?.formData?.areaOfExpertise ?? ''}
+				value={form?.formData?.areaOfExpertise ?? data.userData.areaOfExpertise ?? ''}
 				errorMsg={form?.errors?.areaOfExpertise ?? ''} />
 		</div>
 		<div>
@@ -59,7 +60,7 @@
 				placeholder="Spezialisierung"
 				suggestions
 				csv
-				value={form?.formData?.specialization ?? ''}
+				value={form?.formData?.specialization ?? data.userData.specialization ?? ''}
 				errorMsg={form?.errors?.specialization ?? ''} />
 		</div>
 	</div>
@@ -94,7 +95,7 @@
 				placeholder="Betreuende Personen"
 				suggestions
 				csv
-				value={form?.formData?.supervisor ?? ''}
+				value={form?.formData?.supervisor ?? data.userData.name ?? ''}
 				errorMsg={form?.errors?.supervisor ?? ''} />
 		</div>
 
@@ -115,7 +116,7 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				suggestions
-				value={form?.formData?.email ?? ''}
+				value={form?.formData?.email ?? data.userData.email ?? ''}
 				errorMsg={form?.errors?.email ?? ''} />
 		</div>
 	</div>
