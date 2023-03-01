@@ -30,7 +30,12 @@
 			<h1 class="text-5xl m-2">
 				{data.topic.title}
 				{#if showFavoriteIcon}
-					<form action="?/markUnmarkFavorite" method="POST" id="favorite" class="inline" use:enhance>
+					<form
+						action="?/markUnmarkFavorite"
+						method="POST"
+						id="favorite"
+						class="inline"
+						use:enhance>
 						<input
 							type="hidden"
 							name="type"

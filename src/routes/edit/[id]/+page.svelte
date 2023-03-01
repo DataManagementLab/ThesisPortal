@@ -1,8 +1,8 @@
 <script>
 	import { Input, Textarea } from '$lib/components';
-	
+
 	export let data;
-	
+
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis', checked: data.data.thesisType.includes('Bachelor') },
 		{ id: 'Master', text: 'Master Thesis', checked: data.data.thesisType.includes('Master') }
@@ -44,7 +44,7 @@
 				value={data.data.subjectArea}
 				label="Fachbereich"
 				suggestions
-				placeholder="Fachbereich" 
+				placeholder="Fachbereich"
 				errorMsg={data?.errors?.subjectArea ?? ''} />
 		</div>
 		<div class="mr-5">
@@ -53,8 +53,8 @@
 				value={data.data.areaOfExpertise}
 				label="Fachgebiet"
 				suggestions
-				placeholder="Fachgebiet" 
-				errorMsg={data?.errors?.areaOfExpertise ?? ''}/>
+				placeholder="Fachgebiet"
+				errorMsg={data?.errors?.areaOfExpertise ?? ''} />
 		</div>
 		<div>
 			<Input
@@ -68,10 +68,10 @@
 		</div>
 	</div>
 
-	<Input 
-		id="title" 
-		label="Titel" 
-		placeholder="Titel" 
+	<Input
+		id="title"
+		label="Titel"
+		placeholder="Titel"
 		value={data.data.title}
 		errorMsg={data?.errors?.title ?? ''} />
 	<Textarea
@@ -88,8 +88,8 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				value={data.data.professor}
-				suggestions 
-				errorMsg={data?.errors?.professor ?? ''}/>
+				suggestions
+				errorMsg={data?.errors?.professor ?? ''} />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -98,8 +98,8 @@
 				placeholder="Betreuende Personen"
 				value={data.data.supervisor}
 				suggestions
-				csv 
-				errorMsg={data?.errors?.supervisor ?? ''}/>
+				csv
+				errorMsg={data?.errors?.supervisor ?? ''} />
 		</div>
 
 		<div class="mr-5">
@@ -109,8 +109,8 @@
 				placeholder="Java, Python, C++ ..."
 				value={data.data.technologies}
 				suggestions
-				csv 
-				errorMsg={data?.errors?.technologies ?? ''}/>
+				csv
+				errorMsg={data?.errors?.technologies ?? ''} />
 		</div>
 		<div>
 			<Input
@@ -119,12 +119,16 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				value={data.data.email}
-				suggestions 
-				errorMsg={data?.errors?.email ?? ''}/>
+				suggestions
+				errorMsg={data?.errors?.email ?? ''} />
 		</div>
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" value={data.data.other} />
+	<Textarea
+		id="other"
+		label="Sonstiges"
+		placeholder="Sonstige Informationen"
+		value={data.data.other} />
 	<input type="hidden" name="createdAt" value={data.createdAt} />
 	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt} />
 	<div class="flex justify-end">

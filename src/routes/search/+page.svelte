@@ -18,11 +18,13 @@
 	};
 
 	export const snapshot = {
-		capture: () => { return formData },
+		capture: () => {
+			return formData;
+		},
 		restore: (value) => {
 			formData = value;
 		}
-	}
+	};
 
 	let filterOpen = false;
 	let thesisType = [
@@ -123,13 +125,13 @@
 					border-color: hsl(var(--b2));
 					color: hsl(var(--n));
 					@media (prefers-color-scheme: dark) {
-					color: hsl(var(--nc));
+						color: hsl(var(--nc));
 					}
 					&:hover {
 						background-color: hsl(var(--p));
 						color: hsl(var(--nc));
 						@media (prefers-color-scheme: dark) {
-						color: hsl(var(--n));
+							color: hsl(var(--n));
 						}
 					}
 				}
@@ -141,13 +143,13 @@
 				color: hsl(var(--n));
 				@media (prefers-color-scheme: dark) {
 					color: hsl(var(--nc));
-					}
+				}
 				&:hover {
 					background-color: hsl(var(--p));
 					color: hsl(var(--nc));
 					@media (prefers-color-scheme: dark) {
 						color: hsl(var(--n));
-						}
+					}
 				}
 			}
 		}

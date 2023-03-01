@@ -73,7 +73,7 @@
 	<Textarea
 		id="description"
 		label="Beschreibung"
-		placeholder="Beschreibung des Themas"
+		placeholder="Beschreibung des Themas (inkl. Voraussetzungen, Aufgabenstellung, etc.)"
 		value={form?.formData?.description ?? ''}
 		errorMsg={form?.errors?.description ?? ''} />
 
@@ -118,14 +118,13 @@
 				value={form?.formData?.email ?? ''}
 				errorMsg={form?.errors?.email ?? ''} />
 		</div>
-		
 	</div>
 
 	<Textarea
-			id="other"
-			label="Sonstiges"
-			placeholder="Sonstige Informationen"
-			value={form?.formData?.other ?? ''} />
+		id="other"
+		label="Sonstiges (z.B. Zeitfenster, nützliche Links, etc.)"
+		placeholder="Sonstige Informationen"
+		value={form?.formData?.other ?? ''} />
 
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">

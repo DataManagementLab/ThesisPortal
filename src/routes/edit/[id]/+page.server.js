@@ -59,7 +59,7 @@ export async function load({ params, locals }) {
 	if (data[0].author !== locals.session.cas.user) {
 		throw error(403, 'Nicht authorisiert');
 	}
-	
+
 	return {
 		data: data[0],
 		errors: returnError
@@ -90,7 +90,7 @@ export const actions = {
 			let result = formData;
 			if (!formData.draft) {
 				result = filterSchema.parse(formData);
-			} 
+			}
 			db.change(`topics:${params.id}`, formData);
 		} catch (error) {
 			formData.draft = 'true';

@@ -3,8 +3,7 @@ import { PUBLIC_HOST, PUBLIC_PORT } from '$env/static/public';
 import { db } from '$lib/server/db';
 
 export const load = async ({ locals }) => {
-	if(locals.session.cas)
-		checkAddStudent(locals.session.cas);
+	if (locals.session.cas) checkAddStudent(locals.session.cas);
 
 	return {
 		user: locals.session.cas,
@@ -27,7 +26,7 @@ async function checkAddStudent(tuid) {
 		await db.create(`student:${tuid.user}`, {
 			name,
 			affiliation,
-			email: tuid.attributes.mail?._text ?? ""
+			email: tuid.attributes.mail?._text ?? ''
 		});
 	}
 }

@@ -112,7 +112,7 @@ export const actions = {
 			return {
 				openTab: 0,
 				openSettings: 1
-			}
+			};
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();

@@ -78,7 +78,7 @@ export const actions = {
 			if (!formData.draft) {
 				result = filterSchema.parse(formData);
 			} else if (!formData.title) {
-				result.title = 'Entwurf'
+				result.title = 'Entwurf';
 			}
 			result.author = locals.session.cas.user;
 			db.create('topics', result);
