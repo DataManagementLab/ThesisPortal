@@ -107,7 +107,7 @@
 	{#if data.topic.other && data.topic.other.trim().length > 0}
 		<div class="card bg-base-200 mt-3">
 			<div class="card-body">
-				{@html nl2br(data.topic.other)}
+				{@html md(syntaxHighlighting).render(data.topic.other)}
 			</div>
 		</div>
 	{/if}

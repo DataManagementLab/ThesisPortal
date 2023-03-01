@@ -76,7 +76,7 @@
 		errorMsg={form?.errors?.title ?? ''} />
 	<Textarea
 		id="description"
-		label="Beschreibung"
+		label="Beschreibung (Markdown unterstützt)"
 		placeholder="Beschreibung des Themas (inkl. Voraussetzungen, Aufgabenstellung, etc.)"
 		value={form?.formData?.description ?? ''}
 		errorMsg={form?.errors?.description ?? ''} />
@@ -126,7 +126,7 @@
 
 	<Textarea
 		id="other"
-		label="Sonstiges (z.B. Zeitfenster, nützliche Links, etc.)"
+		label="Sonstiges (z.B. Zeitfenster, nützliche Links, etc.) (Markdown unterstützt)"
 		placeholder="Sonstige Informationen"
 		value={form?.formData?.other ?? ''} />
 
