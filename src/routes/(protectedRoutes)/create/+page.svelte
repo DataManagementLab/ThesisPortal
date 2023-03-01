@@ -22,7 +22,11 @@
 				{#each thesisType as tType}
 					<div class="form-control">
 						<label class="label justify-start cursor-pointer">
-							<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" checked={form?.formData.thesisType.includes(tType.id) ?? false}/>
+							<input
+								type="checkbox"
+								class="checkbox"
+								name="thesisType_{tType.id}"
+								checked={form?.formData.thesisType.includes(tType.id) ?? false} />
 							<span class="label-text ml-2">{tType.text}</span>
 						</label>
 					</div>
