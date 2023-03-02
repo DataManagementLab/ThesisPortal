@@ -25,37 +25,30 @@
 			<div class="card-body">
 				{#if selectedTab == 0}
 					<h2 class="card-title">Account</h2>
-					<form action="?/editName" method="POST" use:enhance>
+					<form action="?/editAccount" method="POST" use:enhance>
 						<div class="form-control">
 							<label class="label" for="name">
 								<span class="label-text">Name</span>
 							</label>
-							<span class="input-group">
-								<input
-									type="text"
-									id="name"
-									name="name"
-									class="input input-bordered bg-base-300"
-									value={user.name} />
-								<input type="submit" class="btn btn-primary" value="Speichern" />
-							</span>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								class="input input-bordered bg-base-300 max-w-sm"
+								value={user.name} />
 						</div>
-					</form>
-					<form action="?/editEmail" method="POST" use:enhance>
-						<div class="form-control">
+						<div class="form-control mt-2">
 							<label class="label" for="email">
 								<span class="label-text">E-Mail Adresse</span>
 							</label>
-							<span class="input-group">
-								<input
-									type="email"
-									id="name"
-									name="email"
-									class="input input-bordered bg-base-300"
-									value={user.email} />
-								<input type="submit" class="btn btn-primary" value="Speichern" />
-							</span>
+							<input
+								type="email"
+								id="name"
+								name="email"
+								class="input input-bordered bg-base-300 max-w-sm"
+								value={user.email} />
 						</div>
+						<input type="submit" class="btn btn-primary mt-4" value="Speichern" />
 					</form>
 				{/if}
 				{#if selectedTab == 1}
