@@ -1,5 +1,6 @@
 <script>
 	import '../app.postcss';
+	import 'highlight.js/styles/atom-one-dark.css';
 	import AccountCircle from 'svelte-material-icons/AccountCircle.svelte';
 	import FilePlus from 'svelte-material-icons/FilePlus.svelte';
 	import ViewDashboard from 'svelte-material-icons/ViewDashboard.svelte';
