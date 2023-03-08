@@ -60,7 +60,7 @@
 		<div>
 			<Input
 				id="specialization"
-				label="Spezialisierung"
+				label="Keywords"
 				placeholder="Spezialisierung"
 				suggestions
 				csv

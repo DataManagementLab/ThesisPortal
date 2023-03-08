@@ -81,7 +81,7 @@
 		<div class="mr-5">
 			<Input
 				id="specialization"
-				label="Spezialisierung"
+				label="Keywords"
 				suggestions
 				bind:value={formData.specialization} />
 		</div>

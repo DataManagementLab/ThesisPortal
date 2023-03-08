@@ -70,12 +70,18 @@
 									suggestions />
 								<Input
 									id="specialization"
-									label="Spezialisierung"
+									label="Keywords"
 									value={form?.formData?.specialization ?? user.specialization ?? ''}
 									errorMsg={form?.errors?.specialization}
-									suggestions />
+									suggestions
+									csv />
 							</div>
-							<Input id="keywords" label="Keywords" value={user.keywords ?? ''} suggestions csv />
+							<Input
+								id="keywords"
+								label="Technologien"
+								value={user.keywords ?? ''}
+								suggestions
+								csv />
 							<input type="submit" class="btn btn-primary" value="Speichern" />
 						</form>
 					</div>
