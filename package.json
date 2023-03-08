@@ -14,11 +14,11 @@
 	"devDependencies": {
 		"@macfja/sveltekit-cas": "^2.0.1",
 		"@macfja/sveltekit-session": "^1.1.0",
-		"@playwright/test": "^1.31.1",
-		"@sveltejs/adapter-node": "^1.2.0",
-		"@sveltejs/kit": "^1.9.2",
+		"@playwright/test": "^1.31.2",
+		"@sveltejs/adapter-node": "^1.2.1",
+		"@sveltejs/kit": "^1.10.0",
 		"autoprefixer": "^10.4.13",
-		"daisyui": "^2.51.2",
+		"daisyui": "^2.51.3",
 		"eslint": "^8.35.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -36,7 +36,7 @@
 		"tailwindcss": "^3.2.7",
 		"vite": "^4.1.4",
 		"vite-plugin-mkcert": "^1.13.2",
-		"zod": "^3.20.6"
+		"zod": "^3.21.1"
 	},
 	"type": "module",
 	"dependencies": {

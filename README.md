@@ -29,12 +29,16 @@ Install [SurrealDB](https://surrealdb.com/install)
 4. Start the database (see [here](https://surrealdb.com/docs/start/starting-surrealdb) for additional startup options): `surreal start --log trace --user root --pass pass` where `trace` can also be `debug` to get additional debug information. `user` and `pass` should be changed to something secure, and these must be the same as in your `.env`-file. the database now starts on port `8000` by default.
    > Attention: By default surrealdb stores all data in memory only which means all data is lost when surrealdb is shutdown for whatever reason. You can append a directorypath to the command to safe the data into a directory automatically! `surreal start --log trace --user root --pass pass file://./path/to/db`
 5. Start the development server: `npm run dev` (If you have trouble accessing the site using the url as specified in your `.env`-file (`PBL_HOST`) use the following command: `npm run dev -- --host`
+> Notice: for the development environment you need to add an entry to your hosts file (`/etc/hosts` on linux and MacOS, `C:\Windows\System32\drivers\etc\hosts` on Windows) forwarding the domain `thesisfinder-local.tu-darmstadt.de.test` to your local machine `127.0.0.1`. Note that the entries must be separated by a Tab, not spaces! The line in the hosts file should look something like this:
+```
+127.0.0.1	thesisfinder-local.tu-darmstadt.de.test
+```
 
 ## Deploying
 
 Once you want to deploy the project make sure to follow the same steps as the development setup until `2.4`
 Now build the project using `npm run build`. This produces a `build` folder containing the compiled sources.
-If you have not cloned the repo on your target webserver, you can now upload the contents of the `build` folder to your webserver (make sure nodejs and surrealdb is installed on that one). You can now open the `build`-folder in the terminal (make sure you see a index.js file from here (e.g. via `ls -l`). If you see it you can now run `node index.js` and the server should start on port `3000`. If you want to change the port pass the port aswell es the HOST ip adress as environment variable `PORT=80 node index.js`
+If you have not cloned the repo on your target webserver, you can now upload the contents of the `build` folder to your webserver (make sure nodejs and surrealdb is installed on that one). You can now open the `build`-folder in the terminal (make sure you see a index.js file from here (e.g. via `ls -l`). If you see it you can now run `node index.js` and the server should start on port `3000`. If you want to change the port, pass the port aswell as the HOST ip adress as environment variable `PORT=443 HOST=localhost node index.js`
 Done!
 
 ## Security
