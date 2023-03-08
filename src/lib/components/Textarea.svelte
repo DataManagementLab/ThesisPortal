@@ -4,19 +4,23 @@
 	export let value = '';
 	export let placeholder = '';
 	export let disabled = false;
-	export let required = false;
+	export let required = undefined;
 	export let errorMsg = '';
 
 	value = value.trim();
 </script>
 
 <label class="label font-medium pb-1" for={id}>
-	<span class="label-text">{label}</span>
+	<span class="label-text">
+		{label}
+		{#if required}
+			<span class="label-text-alt text-error" title="Pflichtfeld">*</span>
+		{/if}
+	</span>
 </label>
 <textarea
 	class="input w-full mb-5 p-3 h-36 outline-0 bg-base-300"
 	{placeholder}
-	{required}
 	{disabled}
 	{id}
 	name={id}

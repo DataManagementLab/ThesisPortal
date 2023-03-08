@@ -101,6 +101,9 @@
 				{#if csv !== undefined}
 					(Komma separiert)
 				{/if}
+				{#if required}
+					<span class="text-error" title="Pflichtfeld">*</span>
+				{/if}
 			</span>
 		</label>
 	{/if}
@@ -124,7 +127,6 @@
 		class:hasResults={loadedSuggestions.length > 0}
 		use:addType
 		{placeholder}
-		{required}
 		{disabled}
 		{id}
 		autocomplete="off"

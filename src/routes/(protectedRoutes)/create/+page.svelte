@@ -46,7 +46,8 @@
 				suggestions
 				placeholder="Fachbereich"
 				value={form?.formData?.subjectArea ?? data.userData.subjectArea ?? ''}
-				errorMsg={form?.errors?.subjectArea ?? ''} />
+				errorMsg={form?.errors?.subjectArea ?? ''}
+				required />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -55,7 +56,8 @@
 				suggestions
 				placeholder="Fachgebiet"
 				value={form?.formData?.areaOfExpertise ?? data.userData.areaOfExpertise ?? ''}
-				errorMsg={form?.errors?.areaOfExpertise ?? ''} />
+				errorMsg={form?.errors?.areaOfExpertise ?? ''}
+				required />
 		</div>
 		<div>
 			<Input
@@ -65,7 +67,8 @@
 				suggestions
 				csv
 				value={form?.formData?.specialization ?? data.userData.specialization ?? ''}
-				errorMsg={form?.errors?.specialization ?? ''} />
+				errorMsg={form?.errors?.specialization ?? ''}
+				required />
 		</div>
 	</div>
 
@@ -74,13 +77,15 @@
 		label="Titel"
 		placeholder="Titel"
 		value={form?.formData?.title ?? ''}
-		errorMsg={form?.errors?.title ?? ''} />
+		errorMsg={form?.errors?.title ?? ''}
+		required />
 	<Textarea
 		id="description"
 		label="Beschreibung (Markdown unterstützt)"
 		placeholder="Beschreibung des Themas (inkl. Voraussetzungen, Aufgabenstellung, etc.)"
 		value={form?.formData?.description ?? ''}
-		errorMsg={form?.errors?.description ?? ''} />
+		errorMsg={form?.errors?.description ?? ''}
+		required />
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -90,7 +95,8 @@
 				placeholder="Leitende(r) Professor*in"
 				suggestions
 				value={form?.formData?.professor ?? ''}
-				errorMsg={form?.errors?.professor ?? ''} />
+				errorMsg={form?.errors?.professor ?? ''}
+				required />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -100,7 +106,8 @@
 				suggestions
 				csv
 				value={form?.formData?.supervisor ?? data.userData.name ?? ''}
-				errorMsg={form?.errors?.supervisor ?? ''} />
+				errorMsg={form?.errors?.supervisor ?? ''}
+				required />
 		</div>
 
 		<div class="mr-5">
@@ -111,7 +118,8 @@
 				suggestions
 				csv
 				value={form?.formData?.technologies ?? ''}
-				errorMsg={form?.errors?.technologies ?? ''} />
+				errorMsg={form?.errors?.technologies ?? ''}
+				required />
 		</div>
 		<div>
 			<Input
@@ -121,7 +129,8 @@
 				type="mail"
 				suggestions
 				value={form?.formData?.email ?? data.userData.email ?? ''}
-				errorMsg={form?.errors?.email ?? ''} />
+				errorMsg={form?.errors?.email ?? ''}
+				required />
 		</div>
 	</div>
 
