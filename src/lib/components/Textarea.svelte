@@ -19,7 +19,7 @@
 	</span>
 </label>
 <textarea
-	class="input w-full mb-5 p-3 h-36 outline-0 bg-base-300"
+	class="textarea textarea-bordered w-full mb-5 h-36 outline-0 bg-base-300"
 	{placeholder}
 	{disabled}
 	{id}
@@ -35,6 +35,12 @@
 	::placeholder {
 		color: hsl(var(--nc) / var(--tw-bg-opacity));
 		opacity: 0.3;
+	}
+	@media (prefers-color-scheme: light) {
+		::placeholder {
+			color: hsl(var(--n) / var(--tw-bg-opacity));
+			opacity: 0.5;
+		}
 	}
 	textarea {
 		min-height: 3rem;

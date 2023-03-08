@@ -29,15 +29,26 @@
 	});
 
 	function update(e) {
+		let cursorPos = e.target.selectionStart;
 		if ((e.charCode === 13 || e.charCode === ','.charCodeAt(0)) && csv !== undefined) {
 			e.preventDefault();
 			appendValue();
 		} else {
-			value += String.fromCharCode(e.charCode);
+			if (cursorPos !== e.target.selectionEnd || cursorPos !== value.length) {
+				value =
+					value.slice(0, cursorPos) +
+					String.fromCharCode(e.charCode) +
+					value.slice(e.target.selectionEnd);
+			} else {
+				value += String.fromCharCode(e.charCode);
+			}
 			if (csv === undefined) inputValue = value;
 		}
 		loadSuggestions();
-		setTimeout(() => (e.target.scrollLeft = e.target.scrollWidth), 0);
+		setTimeout(() => {
+			e.target.scrollLeft = e.target.scrollWidth;
+			e.target.setSelectionRange(cursorPos + 1, cursorPos + 1);
+		}, 0);
 	}
 
 	function handleDelete(e) {
@@ -163,6 +174,12 @@
 		color: hsl(var(--nc) / var(--tw-bg-opacity));
 		opacity: 0.3;
 	}
+	@media (prefers-color-scheme: light) {
+		::placeholder {
+			color: hsl(var(--n) / var(--tw-bg-opacity));
+			opacity: 0.5;
+		}
+	}
 	input {
 		&:hover,
 		&:focus {
@@ -239,6 +256,10 @@
 			vertical-align: middle;
 			background-color: transparent;
 			border: none;
+			color: hsl(var(--n));
+			@media (prefers-color-scheme: dark) {
+				color: hsl(var(--nc));
+			}
 			&:hover {
 				color: hsl(var(--p) / var(--tw-bg-opacity));
 				background-color: hsl(var(--b3) / var(--tw-bg-opacity));
