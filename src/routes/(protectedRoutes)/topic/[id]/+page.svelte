@@ -61,7 +61,13 @@
 								name="favoriteId"
 								value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
 						{/if}
-						<button name="topicId" value={data.topic.id} class="inline text-2xl text-warning" title={data.favorites.find((elem) => elem.topic == data.topic.id)?'Entfavorisieren':'Favorisieren'}>
+						<button
+							name="topicId"
+							value={data.topic.id}
+							class="inline text-2xl text-warning"
+							title={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'Entfavorisieren'
+								: 'Favorisieren'}>
 							{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
 								<Star />
 							{:else}
@@ -70,7 +76,7 @@
 						</button>
 					</form>
 				{/if}
-				{#if data.isEmployee}
+				{#if data.isEmployee && data.topic.author == data.user}
 					<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
 						<Pencil />
 					</a>
