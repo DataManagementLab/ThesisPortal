@@ -36,8 +36,8 @@ export async function createExampleTheme({ page, theme }) {
         : await page.getByLabel('Fachbereich').fill('Informatik');
     theme.areaOfExpertise ? await page.getByLabel('Fachgebiet').fill(`${theme.areaOfExpertise}`)
         : await page.getByLabel('Fachgebiet').fill('Software Engineering');
-    theme.specialization ? await page.getByLabel('Spezialisierung').fill(`${theme.specialization}`)
-        : await page.getByLabel('Spezialisierung').fill('Software Systeme');
+    theme.specialization ? await page.getByLabel('Keywords').fill(`${theme.specialization}`)
+        : await page.getByLabel('Keywords').fill('Software Systeme');
     theme.title ? await page.getByLabel('Titel').fill(`${theme.title}`)
         : await page.getByLabel('Titel').fill('Hier kommt der Titel der Thesisarbeit');
     theme.description ? await page.getByLabel('Beschreibung').fill(`${theme.description}`)
