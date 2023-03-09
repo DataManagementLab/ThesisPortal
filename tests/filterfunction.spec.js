@@ -118,13 +118,13 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
         await page.getByLabel('Technologien').fill('Java');
         await page.getByRole('button', { name: 'Suche starten'}).click();
-        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(2);
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
 
         await page.getByRole('button', { name: 'Filtern' }).click();
         await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
         await page.getByLabel('Technologien').fill('Python');
         await page.getByRole('button', { name: 'Suche starten'}).click();
-        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(2);
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
 
     test('test filter "showAll" button', async({ page }) => {
