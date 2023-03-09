@@ -13,10 +13,6 @@ test.describe('navigation', () => {
         await db.query('DELETE topics');
     });
 
-	test('start page has links to himself/start page', async ({ page }) => {	
-		
-	});
-
 	test('Test email provider to show', async ({ page }) => {	
 		await createExampleTheme({ page, theme:{
 			title: 'Thema',
