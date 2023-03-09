@@ -31,6 +31,7 @@ test('login as professor/member', async({ page }) => {
 	await expect(page).toHaveTitle(/Thesisfinder/);
 	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
 
+	// @ts-ignore
 	await import('dotenv/config');
     const tu_id = process.env.PROFESSOR1_TUID;
     const password = process.env.PROFESSOR1_PASSWORD;
@@ -50,6 +51,7 @@ test('login as student', async({ page }) => {
 	await expect(page).toHaveTitle(/Thesisfinder/);
 	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
 
+	// @ts-ignore
 	await import('dotenv/config');
     const tu_id = process.env.STUDENT1_TUID;
     const password = process.env.STUDENT1_PASSWORD;
