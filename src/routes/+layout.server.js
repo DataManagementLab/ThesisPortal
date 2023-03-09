@@ -1,3 +1,5 @@
+import { redirect } from '@sveltejs/kit';
+
 export const load = async ({ locals }) => {
 	let loggedIn = locals.session.cas !== undefined;
 	let affiliation = locals.session.cas?.attributes.eduPersonAffiliation;

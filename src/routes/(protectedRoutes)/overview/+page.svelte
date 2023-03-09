@@ -8,6 +8,24 @@
 
 	export let data;
 
+	let formData = {
+		query: data.searchData?.query ?? '',
+		thesisType: data.searchData?.thesisType ?? {},
+		areaOfExpertise: data.searchData?.areaOfExpertise ?? '',
+		specialization: data.searchData?.specialization ?? '',
+		person: data.searchData?.person ?? '',
+		technologies: data.searchData?.technologies ?? ''
+	};
+
+	export const snapshot = {
+		capture: () => {
+			return formData;
+		},
+		restore: (value) => {
+			formData = value;
+		}
+	};
+
 	let filterOpen = false;
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
@@ -15,14 +33,14 @@
 	];
 </script>
 
-<form action="?/search" method="POST" id="search" class="card shadow-xl bg-base-100 p-5 m-5">
+<form action="/search" method="GET" id="search" class="card shadow-xl bg-base-100 p-5 m-5">
 	<div class="flex input-group" id="search-bar">
 		<input
 			type="search"
 			placeholder="Suche"
 			class="input outline-0 bg-base-200"
 			name="query"
-			value={data.searchData?.query ?? ''} />
+			bind:value={formData.query} />
 		<button class="btn" title="Suche starten"><Search /></button>
 		<button class="btn" title="Filtern" on:click|preventDefault={() => (filterOpen = !filterOpen)}>
 			{#if filterOpen}
@@ -32,7 +50,7 @@
 			{/if}
 		</button>
 		{#if data.searchData !== undefined}
-			<a class="btn" title="Suche zurücksetzen" href="/" on:click={invalidateAll}>
+			<a class="btn" title="Suche zurücksetzen" href="/overview" on:click={invalidateAll}>
 				<Close />
 			</a>
 		{/if}
@@ -47,7 +65,7 @@
 							type="checkbox"
 							class="checkbox"
 							name="thesisType_{tType.id}"
-							checked={data.searchData?.thesisType.includes(tType.id) ?? false} />
+							bind:checked={formData.thesisType[tType.id]} />
 						<span class="label-text ml-2">{tType.text}</span>
 					</label>
 				</div>
@@ -56,16 +74,16 @@
 		<div class="mr-5">
 			<Input
 				id="areaOfExpertise"
-				label="Spezialisierung"
+				label="Fachgebiet"
 				suggestions
-				value={data.searchData?.areaOfExpertise ?? ''} />
+				bind:value={formData.areaOfExpertise} />
 		</div>
 		<div class="mr-5">
 			<Input
 				id="specialization"
-				label="Fachgebiet"
+				label="Keywords"
 				suggestions
-				value={data.searchData?.specialization ?? ''} />
+				bind:value={formData.specialization} />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -73,7 +91,7 @@
 				label="Betreuende Person"
 				placeholder="Betreuende Person"
 				suggestions
-				value={data.searchData?.person ?? ''} />
+				bind:value={formData.person} />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -81,7 +99,7 @@
 				label="Zu verwendende Technologien"
 				placeholder="Java, Python, C++ ..."
 				suggestions
-				value={data.searchData?.technologies ?? ''} />
+				bind:value={formData.technologies} />
 		</div>
 	</div>
 </form>
@@ -95,12 +113,6 @@
 	#search {
 		border: 1px solid hsl(var(--b2));
 		#search-bar {
-			button {
-				color: hsl(var(--n));
-				@media (prefers-color-scheme: dark) {
-					color: hsl(var(--nc));
-				}
-			}
 			input {
 				width: calc(100% - 7rem);
 				+ button + button {
@@ -111,8 +123,16 @@
 					font-size: 1.5rem;
 					background-color: transparent;
 					border-color: hsl(var(--b2));
+					color: hsl(var(--n));
+					@media (prefers-color-scheme: dark) {
+						color: hsl(var(--nc));
+					}
 					&:hover {
 						background-color: hsl(var(--p));
+						color: hsl(var(--nc));
+						@media (prefers-color-scheme: dark) {
+							color: hsl(var(--n));
+						}
 					}
 				}
 			}
@@ -120,8 +140,16 @@
 				font-size: 1.5rem;
 				background-color: transparent;
 				border-color: hsl(var(--b2));
+				color: hsl(var(--n));
+				@media (prefers-color-scheme: dark) {
+					color: hsl(var(--nc));
+				}
 				&:hover {
 					background-color: hsl(var(--p));
+					color: hsl(var(--nc));
+					@media (prefers-color-scheme: dark) {
+						color: hsl(var(--n));
+					}
 				}
 			}
 		}

@@ -29,15 +29,26 @@
 	});
 
 	function update(e) {
+		let cursorPos = e.target.selectionStart;
 		if ((e.charCode === 13 || e.charCode === ','.charCodeAt(0)) && csv !== undefined) {
 			e.preventDefault();
 			appendValue();
 		} else {
-			value += String.fromCharCode(e.charCode);
+			if (cursorPos !== e.target.selectionEnd || cursorPos !== value.length) {
+				value =
+					value.slice(0, cursorPos) +
+					String.fromCharCode(e.charCode) +
+					value.slice(e.target.selectionEnd);
+			} else {
+				value += String.fromCharCode(e.charCode);
+			}
 			if (csv === undefined) inputValue = value;
 		}
 		loadSuggestions();
-		setTimeout(() => (e.target.scrollLeft = e.target.scrollWidth), 0);
+		setTimeout(() => {
+			e.target.scrollLeft = e.target.scrollWidth;
+			e.target.setSelectionRange(cursorPos + 1, cursorPos + 1);
+		}, 0);
 	}
 
 	function handleDelete(e) {
@@ -101,6 +112,9 @@
 				{#if csv !== undefined}
 					(Komma separiert)
 				{/if}
+				{#if required}
+					<span class="text-error" title="Pflichtfeld">*</span>
+				{/if}
 			</span>
 		</label>
 	{/if}
@@ -119,12 +133,11 @@
 		</div>
 	{/if}
 	<input
-		class="input w-full outline-0 bg-base-200"
-		class:mb-5={suggestions === undefined}
+		class="input input-bordered bg-base-300 w-full outline-0"
+		class:mb-5={suggestions === undefined && id !== 'title'}
 		class:hasResults={loadedSuggestions.length > 0}
 		use:addType
 		{placeholder}
-		{required}
 		{disabled}
 		{id}
 		autocomplete="off"
@@ -148,7 +161,7 @@
 	{/if}
 	<label class="label font-medium pb-1" for={id}>
 		{#if errorMsg}
-			<span class="label-text-alt text-error">*{errorMsg}*</span>
+			<span class="label-text-alt text-error">* {errorMsg} *</span>
 		{/if}
 	</label>
 </div>
@@ -160,6 +173,12 @@
 	::placeholder {
 		color: hsl(var(--nc) / var(--tw-bg-opacity));
 		opacity: 0.3;
+	}
+	@media (prefers-color-scheme: light) {
+		::placeholder {
+			color: hsl(var(--n) / var(--tw-bg-opacity));
+			opacity: 0.5;
+		}
 	}
 	input {
 		&:hover,
@@ -223,10 +242,11 @@
 		padding: 3px 1px 3px 5px;
 		font-size: 1rem;
 		margin: 0px 0px 5px 5px;
-		border: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+		border: 1px solid hsl(var(--b1));
+		background-color: hsl(var(--b3));
 
 		&:hover {
-			border-color: hsl(var(--p) / var(--tw-bg-opacity));
+			border-color: hsl(var(--p));
 		}
 		button {
 			height: 1rem;
@@ -236,6 +256,10 @@
 			vertical-align: middle;
 			background-color: transparent;
 			border: none;
+			color: hsl(var(--n));
+			@media (prefers-color-scheme: dark) {
+				color: hsl(var(--nc));
+			}
 			&:hover {
 				color: hsl(var(--p) / var(--tw-bg-opacity));
 				background-color: hsl(var(--b3) / var(--tw-bg-opacity));

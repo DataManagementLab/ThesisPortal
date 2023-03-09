@@ -1,9 +1,11 @@
 <script>
 	import '../app.postcss';
+	import 'highlight.js/styles/atom-one-dark.css';
 	import AccountCircle from 'svelte-material-icons/AccountCircle.svelte';
 	import FilePlus from 'svelte-material-icons/FilePlus.svelte';
 	import ViewDashboard from 'svelte-material-icons/ViewDashboard.svelte';
 	import Logout from 'svelte-material-icons/LogoutVariant.svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 </script>
@@ -15,17 +17,26 @@
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
 		{#if data.loggedIn}
-			<a href="/overview" class="btn btn-ghost btn-md">
+			<a
+				href="/overview"
+				class="btn btn-ghost btn-md"
+				selected={$page.route.id.startsWith('/overview')}>
 				<ViewDashboard />
 				<span>Themenübersicht</span>
 			</a>
 			{#if data.isEmployee}
-				<a href="/create" class="btn btn-ghost btn-md">
+				<a
+					href="/create"
+					class="btn btn-ghost btn-md"
+					selected={$page.route.id.startsWith('/created')}>
 					<FilePlus />
 					<span>Thema erstellen</span>
 				</a>
 			{/if}
-			<a href="/profile" class="btn btn-ghost btn-md">
+			<a
+				href="/profile"
+				class="btn btn-ghost btn-md"
+				selected={$page.route.id.startsWith('/profile')}>
 				<AccountCircle />
 				<span>Profil</span>
 			</a>
@@ -39,6 +50,10 @@
 <slot />
 
 <style lang="scss">
+	a.btn[selected='true'] {
+		background-color: hsl(var(--p));
+		color: white;
+	}
 	nav.navbar > a {
 		font-size: 1.5rem;
 		margin-right: 0.25rem;

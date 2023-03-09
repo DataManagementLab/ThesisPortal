@@ -1,4 +1,5 @@
 <script>
+	export let data;
 	export let form;
 
 	import { Input, Textarea } from '$lib/components';
@@ -22,14 +23,18 @@
 				{#each thesisType as tType}
 					<div class="form-control">
 						<label class="label justify-start cursor-pointer">
-							<input type="checkbox" class="checkbox" name="thesisType_{tType.id}" />
+							<input
+								type="checkbox"
+								class="checkbox"
+								name="thesisType_{tType.id}"
+								checked={form?.formData.thesisType.includes(tType.id) ?? false} />
 							<span class="label-text ml-2">{tType.text}</span>
 						</label>
 					</div>
 				{/each}
 				<label class="label font-medium pb-1" for="thesisType">
 					{#if form?.errors?.thesisType}
-						<span class="label-text-alt text-error">*{form?.errors?.thesisType}*</span>
+						<span class="label-text-alt text-error">* {form?.errors?.thesisType} *</span>
 					{/if}
 				</label>
 			</div>
@@ -40,8 +45,9 @@
 				label="Fachbereich"
 				suggestions
 				placeholder="Fachbereich"
-				value={form?.formData?.subjectArea ?? ''}
-				errorMsg={form?.errors?.subjectArea ?? ''} />
+				value={form?.formData?.subjectArea ?? data.userData.subjectArea ?? ''}
+				errorMsg={form?.errors?.subjectArea ?? ''}
+				required />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -49,18 +55,20 @@
 				label="Fachgebiet"
 				suggestions
 				placeholder="Fachgebiet"
-				value={form?.formData?.areaOfExpertise ?? ''}
-				errorMsg={form?.errors?.areaOfExpertise ?? ''} />
+				value={form?.formData?.areaOfExpertise ?? data.userData.areaOfExpertise ?? ''}
+				errorMsg={form?.errors?.areaOfExpertise ?? ''}
+				required />
 		</div>
 		<div>
 			<Input
 				id="specialization"
-				label="Spezialisierung"
+				label="Keywords"
 				placeholder="Spezialisierung"
 				suggestions
 				csv
-				value={form?.formData?.specialization ?? ''}
-				errorMsg={form?.errors?.specialization ?? ''} />
+				value={form?.formData?.specialization ?? data.userData.specialization ?? ''}
+				errorMsg={form?.errors?.specialization ?? ''}
+				required />
 		</div>
 	</div>
 
@@ -69,13 +77,15 @@
 		label="Titel"
 		placeholder="Titel"
 		value={form?.formData?.title ?? ''}
-		errorMsg={form?.errors?.title ?? ''} />
+		errorMsg={form?.errors?.title ?? ''}
+		required />
 	<Textarea
 		id="description"
-		label="Beschreibung"
-		placeholder="Beschreibung des Themas"
+		label="Beschreibung (Markdown unterstützt)"
+		placeholder="Beschreibung des Themas (inkl. Voraussetzungen, Aufgabenstellung, etc.)"
 		value={form?.formData?.description ?? ''}
-		errorMsg={form?.errors?.description ?? ''} />
+		errorMsg={form?.errors?.description ?? ''}
+		required />
 
 	<div class="w-full flex justify-start">
 		<div class="mr-5">
@@ -85,7 +95,8 @@
 				placeholder="Leitende(r) Professor*in"
 				suggestions
 				value={form?.formData?.professor ?? ''}
-				errorMsg={form?.errors?.professor ?? ''} />
+				errorMsg={form?.errors?.professor ?? ''}
+				required />
 		</div>
 		<div class="mr-5">
 			<Input
@@ -94,8 +105,9 @@
 				placeholder="Betreuende Personen"
 				suggestions
 				csv
-				value={form?.formData?.supervisor ?? ''}
-				errorMsg={form?.errors?.supervisor ?? ''} />
+				value={form?.formData?.supervisor ?? data.userData.name ?? ''}
+				errorMsg={form?.errors?.supervisor ?? ''}
+				required />
 		</div>
 
 		<div class="mr-5">
@@ -106,7 +118,8 @@
 				suggestions
 				csv
 				value={form?.formData?.technologies ?? ''}
-				errorMsg={form?.errors?.technologies ?? ''} />
+				errorMsg={form?.errors?.technologies ?? ''}
+				required />
 		</div>
 		<div>
 			<Input
@@ -115,12 +128,18 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				suggestions
-				value={form?.formData?.email ?? ''}
-				errorMsg={form?.errors?.email ?? ''} />
+				value={form?.formData?.email ?? data.userData.email ?? ''}
+				errorMsg={form?.errors?.email ?? ''}
+				required />
 		</div>
 	</div>
 
-	<Textarea id="other" label="Sonstiges" placeholder="Sonstige Informationen" />
+	<Textarea
+		id="other"
+		label="Sonstiges (z.B. Zeitfenster, nützliche Links, etc.) (Markdown unterstützt)"
+		placeholder="Sonstige Informationen"
+		value={form?.formData?.other ?? ''} />
+
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
 			Entwurf speichern

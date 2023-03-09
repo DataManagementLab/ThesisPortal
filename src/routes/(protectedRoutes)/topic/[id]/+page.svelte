@@ -2,7 +2,25 @@
 	import Email from 'svelte-material-icons/Email.svelte';
 	import Pencil from 'svelte-material-icons/Pencil.svelte';
 	import Person from 'svelte-material-icons/AccountCircle.svelte';
+	import Star from 'svelte-material-icons/Star.svelte';
+	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import { enhance } from '$app/forms';
+	import md from 'markdown-it';
+	import hljs from 'highlight.js';
+
 	export let data;
+	let showFavoriteIcon = data.isEmployee;
+
+	const syntaxHighlighting = {
+		highlight: function (str, lang) {
+			if (lang && hljs.getLanguage(lang)) {
+				try {
+					return hljs.highlight(str, { language: lang }).value;
+				} catch (__) {}
+			}
+			return ''; // use external default escaping
+		}
+	};
 
 	function nl2br(str) {
 		if (typeof str === 'undefined' || str === null) {
@@ -24,7 +42,41 @@
 			</div>
 			<h1 class="text-5xl m-2">
 				{data.topic.title}
-				{#if data.isEmployee}
+				{#if showFavoriteIcon}
+					<form
+						action="?/markUnmarkFavorite"
+						method="POST"
+						id="favorite"
+						class="inline"
+						use:enhance>
+						<input
+							type="hidden"
+							name="type"
+							value={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'unfavorize'
+								: 'favorize'} />
+						{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
+							<input
+								type="hidden"
+								name="favoriteId"
+								value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
+						{/if}
+						<button
+							name="topicId"
+							value={data.topic.id}
+							class="inline text-2xl text-warning"
+							title={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'Entfavorisieren'
+								: 'Favorisieren'}>
+							{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
+								<Star />
+							{:else}
+								<StarOutline />
+							{/if}
+						</button>
+					</form>
+				{/if}
+				{#if data.isEmployee && data.topic.author == data.user}
 					<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
 						<Pencil />
 					</a>
@@ -55,13 +107,13 @@
 	<br />
 	<div class="card bg-base-200">
 		<div class="card-body">
-			{@html nl2br(data.topic.description)}
+			{@html md(syntaxHighlighting).render(data.topic.description)}
 		</div>
 	</div>
 	{#if data.topic.other && data.topic.other.trim().length > 0}
 		<div class="card bg-base-200 mt-3">
 			<div class="card-body">
-				{@html nl2br(data.topic.other)}
+				{@html md(syntaxHighlighting).render(data.topic.other)}
 			</div>
 		</div>
 	{/if}

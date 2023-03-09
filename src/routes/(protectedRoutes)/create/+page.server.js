@@ -12,8 +12,8 @@ const filterSchema = z.object({
 		.min(1, { message: 'Ein Fachgebiet wird benötigt' })
 		.trim(),
 	specialization: z
-		.array(z.string({ required_error: 'Eine Spezifikation wird benötigt' }).trim())
-		.min(1, { message: 'Eine Spezifikation wird benötigt' }),
+		.array(z.string({ required_error: 'Eine Spezialisierung wird benötigt' }).trim())
+		.min(1, { message: 'Eine Spezialisierung wird benötigt' }),
 	thesisType: z
 		.array(z.string({ required_error: 'Thesistyp(en) wird benötigt' }))
 		.min(1, { message: 'Thesistyp(en) wird benötigt' })
@@ -47,6 +47,10 @@ export const load = async ({ locals }) => {
 	const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
 	const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
 	if (!isEmployee) throw redirect(303, '/');
+	const userData = await db.select(`student:${locals.session.cas.user}`);
+	return {
+		userData: userData[0]
+	};
 };
 
 export const actions = {
@@ -71,11 +75,23 @@ export const actions = {
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.createdAt = Date.now();
 		formData.lastUpdatedAt = Date.now();
+		formData.views = 0;
 
+		let createdTopic;
 		try {
-			const result = filterSchema.parse(formData);
+			let result = formData;
+			if (!formData.draft) {
+				result = filterSchema.parse(formData);
+			} else if (!formData.title) {
+				result.title = 'Entwurf';
+			}
 			result.author = locals.session.cas.user;
-			db.create('topics', result);
+			createdTopic = await db.create('topics', result);
+			if (result.draft) {
+				throw redirect(303, `/profile`);
+			} else {
+				throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
+			}
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
@@ -85,7 +101,7 @@ export const actions = {
 				};
 			}
 		}
-		throw redirect(303, '/profile');
+		throw redirect(302, '/profile');
 	}
 };
 
