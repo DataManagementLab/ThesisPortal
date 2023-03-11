@@ -97,7 +97,7 @@ export const actions = {
 			}
 		}
 		if (createdTopic.draft) {
-			throw redirect(303, `/profile`);
+			throw redirect(303, `/profile/drafts`);
 		} else {
 			throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
 		}

@@ -91,7 +91,7 @@ export const actions = {
 			if (!formData.draft) {
 				result = filterSchema.parse(formData);
 			}
-			db.change(`topics:${params.id}`, formData);
+			db.change(`topics:${params.id}`, result);
 		} catch (error) {
 			formData.draft = 'true';
 			db.change(`topics:${params.id}`, formData);
@@ -101,7 +101,11 @@ export const actions = {
 			}
 			return;
 		}
-		throw redirect(303, '/profile');
+		if(formData.draft){
+			throw redirect(303, '/profile/drafts');
+		} else {
+			throw redirect(303, '/profile/topics');
+		}
 	}
 };
 
