@@ -87,11 +87,10 @@ export const actions = {
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.lastUpdatedAt = Date.now();
 		try {
-			let result = formData;
 			if (!formData.draft) {
-				result = filterSchema.parse(formData);
+				filterSchema.parse(formData);
 			}
-			db.change(`topics:${params.id}`, result);
+			db.change(`topics:${params.id}`, formData);
 		} catch (error) {
 			formData.draft = 'true';
 			db.change(`topics:${params.id}`, formData);
