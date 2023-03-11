@@ -10,7 +10,7 @@ Portal für Abschlussarbeiten - Bachelorpraktikum 2022/23
 
 #### 1.1. Node / npm
 
-Install [nodejs](https://nodejs.org/) version 16 or higher. LTS is recommended
+Install [nodejs](https://nodejs.org/) version 16 or higher. LTS is recommended.
 You can use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to simplify the process of installing nodejs
 
 ### 1.2. Database: SurrealDB
