@@ -29,6 +29,7 @@ export async function logout({ page }) {
 export async function createExampleTheme({ page, theme }) {
     await page.getByRole('link', { name: 'Thema erstellen'}).click();
     await page.mainFrame().waitForURL('/create');
+    await page.mainFrame().waitForURL('/create');
 
     theme.thesisType ? await page.getByRole('checkbox', { name: `${theme.thesisType}`}).check() 
         : await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
@@ -53,5 +54,9 @@ export async function createExampleTheme({ page, theme }) {
     theme.other ? await page.getByLabel('Sonstiges').fill(`${theme.other}`)
         : await page.getByLabel('Sonstiges').fill('sonstige Bemerkungen können hier beschrieben werden.');
 
-    await page.getByRole('button', { name: 'Hochladen' }).click();
+    if (theme.draft) {
+        await page.getByRole('button', { name: 'Entwurf speichern' }).click();
+    } else {
+        await page.getByRole('button', { name: 'Hochladen' }).click();
+    }
 }
