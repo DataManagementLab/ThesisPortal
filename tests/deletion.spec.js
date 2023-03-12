@@ -1,36 +1,93 @@
 // @ts-check
-import { test, expect, chromium } from '@playwright/test';
-import { loginAsProfessor , createExampleTheme, loginAsStudent, logout } from './utils.spec.js';
+import { test, expect } from '@playwright/test';
+import { loginAsProfessor , createExampleTheme} from './utils.spec.js';
 import { db } from './db.js';
 
 test.describe("theme deletion", () => {
-    test.beforeAll(async () => {
-        const browser = await chromium.launch();
-        const page = await browser.newPage();
-        await loginAsProfessor({ page });
-        let exampleBachlorTheme = {
-            thesisType: 'Bachelor Thesis',
-            professor: 'Prof. Mustermann',
-            areaOfExpertise: 'GRIS',
-            technologies: 'C++'
-        };
-        await createExampleTheme({ page, theme: exampleBachlorTheme });
-    });
-
     test.beforeEach(async ({ page }) => {
         await loginAsProfessor({ page });
     });
 
+    test.afterEach(async () => {
+        // best to delete database after each test.
+        await db.query('DELETE topics');
+    });
+
     test("test deletion of public theme", async({ page }) => {
+        await createExampleTheme({ page, theme: [] });
+
         await page.getByRole('link', { name: 'Profil' }).click();
         await page.mainFrame().waitForURL('/profile');
 
         await page.getByRole('button', { name: 'Erstellte Themen' }).click();
         await expect(page.locator('label[title="Löschen"]')).toBeVisible();
-        
+        await page.locator('label[title="Löschen"]').click();
+
+        await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
+        await page.getByRole('button', { name: 'Bestätigen' }).click();
+
+        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
+
+    test("test interruption of a public theme deletion", async({ page }) => {
+        await createExampleTheme({ page, theme: [] });
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.mainFrame().waitForURL('/profile');
+
+        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+        await expect(page.locator('label[title="Löschen"]')).toBeVisible();
+        await page.locator('label[title="Löschen"]').click();
+
+        await expect(page.locator('#delete').getByText('Abbrechen')).toBeVisible();
+        await page.locator('#delete').getByText('Abbrechen').click();
+
+        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
     });
 
     test("test deletion of a draft", async({ page }) => {
+        let exampleBachlorTheme = {
+            draft: true
+        };
+        await createExampleTheme({ page, theme: exampleBachlorTheme });
 
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.mainFrame().waitForURL('/profile');
+
+        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await expect(page.locator('label[title="Löschen"]')).toBeVisible();
+        await page.locator('label[title="Löschen"]').click();
+
+        await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
+        await page.getByRole('button', { name: 'Bestätigen' }).click();
+
+        await page.getByRole('button', { name: 'Entwürfe' }).click();
+
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
+
+    test("test interruption of a draft deletion", async({ page }) => {
+        let exampleBachlorTheme = {
+            draft: true
+        };
+        await createExampleTheme({ page, theme: exampleBachlorTheme });
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.mainFrame().waitForURL('/profile');
+
+        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await expect(page.locator('label[title="Löschen"]')).toBeVisible();
+        await page.locator('label[title="Löschen"]').click();
+
+        await expect(page.locator('#delete').getByText('Abbrechen')).toBeVisible();
+        await page.locator('#delete').getByText('Abbrechen').click();
+
+        await page.getByRole('button', { name: 'Entwürfe' }).click();
+
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
     });
 });
