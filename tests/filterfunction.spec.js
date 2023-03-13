@@ -19,6 +19,32 @@ test.describe('test filterfunctions', () => {
         // best to delete database after each test.
         db.query('DELETE topics');
     });
+
+    test('test search field', async({ page }) => {
+        await page.getByRole('link', { name: 'Themenübersicht' }).click();
+        await page.mainFrame().waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await page.getByPlaceholder('Suche').fill('Bob');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+
+        await page.getByPlaceholder('Suche').fill('Mustermann');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await page.getByPlaceholder('Suche').fill('GRIS');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await page.getByPlaceholder('Suche').fill('Java');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+
+        await page.getByPlaceholder('Suche').fill('Master Thesis');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
     
     test('test filterfunction of thesis type - filter after bachelor', async ({ page }) => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
@@ -35,8 +61,7 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
-        while (!page.getByRole('checkbox', { name: 'Master Thesis' }).isChecked())
-            await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
+        await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
         await page.getByRole('button', { name: 'Suche starten'}).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeHidden();
@@ -165,4 +190,6 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('button', { name: 'Suche starten'}).click();
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
+
+    
 });
