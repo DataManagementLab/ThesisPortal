@@ -16,18 +16,13 @@
 			if (lang && hljs.getLanguage(lang)) {
 				try {
 					return hljs.highlight(str, { language: lang }).value;
-				} catch (__) {}
+				} catch (__) {
+					/*dont care*/
+				}
 			}
 			return ''; // use external default escaping
 		}
 	};
-
-	function nl2br(str) {
-		if (typeof str === 'undefined' || str === null) {
-			return '';
-		}
-		return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
-	}
 </script>
 
 <div class="card card-compact md:card-normal shadow-lg m-3 md:m-5 bg-base-100">

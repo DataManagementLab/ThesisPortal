@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const filterSchema = z.object({
@@ -100,7 +100,7 @@ export const actions = {
 			}
 			return;
 		}
-		if(formData.draft){
+		if (formData.draft) {
 			throw redirect(303, '/profile/drafts');
 		} else {
 			throw redirect(303, '/profile/topics');

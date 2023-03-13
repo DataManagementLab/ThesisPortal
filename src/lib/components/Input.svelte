@@ -22,6 +22,8 @@
 		if (csv !== undefined) {
 			if (Array.isArray(value)) {
 				value = value.join(',') + ',';
+			} else if (!value.endsWith(',')) {
+				value += ',';
 			}
 		}
 		inputValue = value;

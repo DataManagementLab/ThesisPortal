@@ -5,5 +5,5 @@ export const load = async ({ locals }) => {
 	if (!loggedIn) throw redirect(302, '/');
 	return {
 		user: locals.session.cas.user
-	}
+	};
 };

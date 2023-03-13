@@ -37,7 +37,13 @@
 								name="favoriteId"
 								value={favorites.find((elem) => elem.topic == topic.id).id} />
 						{/if}
-						<button name="topicId" value={topic.id} class="text-warning" title={favorites.find((elem) => elem.topic == topic.id)?'Entfavorisieren':'Favorisieren'}>
+						<button
+							name="topicId"
+							value={topic.id}
+							class="text-warning"
+							title={favorites.find((elem) => elem.topic == topic.id)
+								? 'Entfavorisieren'
+								: 'Favorisieren'}>
 							{#if favorites.find((elem) => elem.topic == topic.id)}
 								<Star />
 							{:else}

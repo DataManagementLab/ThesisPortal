@@ -1,6 +1,5 @@
 import { db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
-import { z } from 'zod';
 
 export const actions = {
 	deleteTopic: async ({ request }) => {
