@@ -26,47 +26,47 @@ test('homepage has title and links to login page', async ({ page }) => {
 	*/
 });
 
-test('login as professor/member', async({ page }) => {
+test('login as professor/member', async ({ page }) => {
 	await page.goto('/');
 	await expect(page).toHaveTitle(/Thesisfinder/);
-	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
+	await page.getByRole('link', { name: 'jetzt anmelden' }).click();
 
 	await import('dotenv/config');
-    const tu_id = process.env.PROFESSOR1_TUID;
-    const password = process.env.PROFESSOR1_PASSWORD;
+	const tu_id = process.env.PROFESSOR1_TUID;
+	const password = process.env.PROFESSOR1_PASSWORD;
 
-    await page.getByLabel('TU-ID').fill(`${tu_id}`);
-    await page.getByLabel('Password').fill(`${password}`);
-    await page.getByRole('button', { name: 'Login'}).click();
+	await page.getByLabel('TU-ID').fill(`${tu_id}`);
+	await page.getByLabel('Password').fill(`${password}`);
+	await page.getByRole('button', { name: 'Login' }).click();
 
-	await expect(page.getByRole('link', { name: 'Themenübersicht'})).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Thema erstellen'})).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Profil'})).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Themenübersicht' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Thema erstellen' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Profil' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
 });
 
-test('login as student', async({ page }) => {
+test('login as student', async ({ page }) => {
 	await page.goto('/');
 	await expect(page).toHaveTitle(/Thesisfinder/);
-	await page.getByRole('link', { name: 'jetzt anmelden'}).click();
+	await page.getByRole('link', { name: 'jetzt anmelden' }).click();
 
 	await import('dotenv/config');
-    const tu_id = process.env.STUDENT1_TUID;
-    const password = process.env.STUDENT1_PASSWORD;
+	const tu_id = process.env.STUDENT1_TUID;
+	const password = process.env.STUDENT1_PASSWORD;
 
-    await page.getByLabel('TU-ID').fill(`${tu_id}`);
-    await page.getByLabel('Password').fill(`${password}`);
-    await page.getByRole('button', { name: 'Login'}).click();
+	await page.getByLabel('TU-ID').fill(`${tu_id}`);
+	await page.getByLabel('Password').fill(`${password}`);
+	await page.getByRole('button', { name: 'Login' }).click();
 
-	await expect(page.getByRole('link', { name: 'Themenübersicht'})).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Thema erstellen'})).toBeHidden();
-	await expect(page.getByRole('link', { name: 'Profil'})).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Themenübersicht' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Thema erstellen' })).toBeHidden();
+	await expect(page.getByRole('link', { name: 'Profil' })).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
 });
 
-test("logout", async({ page }) => {
+test('logout', async ({ page }) => {
 	await loginAsProfessor({ page });
-	await expect(page.getByRole('link', { name: 'Logout'})).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
 	await page.getByRole('link', { name: 'Logout' }).click();
 
 	await expect(page).toHaveURL(/.*login-dev.hrz.tu-darmstadt.de/);

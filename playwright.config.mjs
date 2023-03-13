@@ -48,14 +48,13 @@ const config = {
 
 	/* Configure projects for major browsers */
 	projects: [
-		
 		{
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome']
 			}
 		},
-		
+
 		{
 			name: 'firefox',
 			use: {
@@ -71,7 +70,7 @@ const config = {
 		// },
 
 		/*Test against mobile viewports. */
-/*
+		/*
 		{
 			name: 'Mobile Chrome',
 			use: {
@@ -100,7 +99,6 @@ const config = {
 				channel: 'chrome'
 			}
 		}
-
 	],
 
 	/* Folder for test artifacts such as screenshots, videos, traces, etc. */

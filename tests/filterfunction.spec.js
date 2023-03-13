@@ -24,7 +24,8 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
-        await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
+        while (!page.getByRole('checkbox', { name: 'Bachelor Thesis' }).isChecked())
+            await page.getByRole('checkbox', { name: 'Bachelor Thesis'}).check();
         await page.getByRole('button', { name: 'Suche starten'}).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeVisible();
