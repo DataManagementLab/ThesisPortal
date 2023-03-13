@@ -4,10 +4,7 @@ import { loginAsProfessor , createExampleTheme, logout } from './utils.spec.js';
 import { db } from './db.js';
 
 test.describe('test filterfunctions', () => {
-    
-    test.beforeAll(async () => {
-        const browser = await chromium.launch();
-        const page = await browser.newPage();
+    test.beforeEach(async ({ page }) => {
         await loginAsProfessor({ page });
         let exampleBachlorTheme = {
             thesisType: 'Bachelor Thesis',
@@ -18,11 +15,7 @@ test.describe('test filterfunctions', () => {
         await createExampleTheme({ page, theme: exampleBachlorTheme });
     });
 
-    test.beforeEach(async ({ page }) => {
-        await loginAsProfessor({ page });
-    });
-
-    test.afterAll(async () => {
+    test.afterEach(async () => {
         // best to delete database after each test.
         db.query('DELETE topics');
     });
@@ -100,7 +93,6 @@ test.describe('test filterfunctions', () => {
             areaOfExpertise: 'GRIS',
             technologies: 'Java'
         };
-
         await createExampleTheme({ page, theme: exampleBachlorTheme});
         await createExampleTheme({ page, theme: exampleBachlorTheme2});
 
@@ -119,14 +111,29 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('button', { name: 'Suche starten'}).click();
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
 
-        await page.getByRole('button', { name: 'Filtern' }).click();
         await page.getByRole('checkbox', { name: 'Master Thesis'}).check();
         await page.getByLabel('Technologien').fill('Python');
+
         await page.getByRole('button', { name: 'Suche starten'}).click();
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
 
     test('test filter "showAll" button', async({ page }) => {
+        let exampleBachlorTheme = {
+            thesisType: 'Master Thesis',
+            professor: 'Prof. Mustermann',
+            areaOfExpertise: 'GRIS',
+            technologies: 'C++'
+        };
+        let exampleBachlorTheme2 = {
+            thesisType: 'Master Thesis',
+            professor: 'Prof. Mustermann',
+            areaOfExpertise: 'GRIS',
+            technologies: 'Java'
+        };
+        await createExampleTheme({ page, theme: exampleBachlorTheme});
+        await createExampleTheme({ page, theme: exampleBachlorTheme2});
+
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
