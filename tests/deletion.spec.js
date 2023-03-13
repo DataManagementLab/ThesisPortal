@@ -90,4 +90,55 @@ test.describe("theme deletion", () => {
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
     });
+
+    test("test archive/de-archive of public theme", async({ page }) => {
+        await createExampleTheme({ page, theme: [] });
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.mainFrame().waitForURL('/profile');
+
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.locator('label[title="Archivieren"]')).toBeVisible();
+        await page.locator('label[title="Archivieren"]').click();
+
+        await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
+        await page.getByRole('button', { name: 'Bestätigen' }).click();
+
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+
+        await page.getByRole('link', { name: 'Archiv' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await expect(page.locator('label[title="Aus Archiv entfernen"]')).toBeVisible();
+        await page.locator('label[title="Aus Archiv entfernen"]').click();
+        await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
+        await page.getByRole('button', { name: 'Bestätigen' }).click();
+
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await page.getByRole('link', { name: 'Archiv' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
+
+    test("test interruption of archive of public theme", async({ page }) => {
+        await createExampleTheme({ page, theme: [] });
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.mainFrame().waitForURL('/profile');
+
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.locator('label[title="Archivieren"]')).toBeVisible();
+        await page.locator('label[title="Archivieren"]').click();
+
+        await expect(page.locator('#archive').getByText('Abbrechen')).toBeVisible();
+        await page.locator('#archive').getByText('Abbrechen').click();
+
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
+
+        await page.getByRole('link', { name: 'Archiv' }).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+    });
 });
