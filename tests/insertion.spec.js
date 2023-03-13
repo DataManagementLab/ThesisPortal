@@ -69,7 +69,7 @@ test.describe('test insert element', () => {
         await page.getByRole('link', { name: 'Profil'}).click();
         await page.mainFrame().waitForURL('/profile');
 
-        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
 
         await expect(page.getByRole('link', { name: 'Entwurf' }).first()).toBeVisible();
     });

@@ -28,7 +28,6 @@ test.describe('test filterfunctions', () => {
     });
     
     test('test filterfunction of thesis type - filter after bachelor', async ({ page }) => {
-        //await loginAsProfessor({ page });
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await page.getByRole('button', { name: 'Filtern' }).click();
@@ -137,5 +136,24 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('link', { name: 'Themenübersicht'}).click();
         await page.mainFrame().waitForURL('/overview');
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(3);
+    });
+
+    test('test empty filter search', async({ page }) => {
+        await createExampleTheme({ page, theme: [] });
+        await createExampleTheme({ page, theme: [] });
+
+        await page.getByRole('link', { name: 'Themenübersicht' }).click();
+        await page.mainFrame().waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(3);
+        
+        await page.getByRole('button', { name: 'Filtern' }).click();
+        await page.getByLabel('Technologien').fill('Non given thnology');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+
+        await page.getByRole('button', { name: 'Filtern' }).click();
+        await page.getByLabel('Technologien').fill('');
+        await page.getByRole('button', { name: 'Suche starten'}).click();
+        await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
 });
