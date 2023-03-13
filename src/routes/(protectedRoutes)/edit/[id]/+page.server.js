@@ -87,9 +87,8 @@ export const actions = {
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.lastUpdatedAt = Date.now();
 		try {
-			let result = formData;
 			if (!formData.draft) {
-				result = filterSchema.parse(formData);
+				filterSchema.parse(formData);
 			}
 			db.change(`topics:${params.id}`, formData);
 		} catch (error) {
@@ -101,7 +100,11 @@ export const actions = {
 			}
 			return;
 		}
-		throw redirect(303, '/profile');
+		if(formData.draft){
+			throw redirect(303, '/profile/drafts');
+		} else {
+			throw redirect(303, '/profile/topics');
+		}
 	}
 };
 

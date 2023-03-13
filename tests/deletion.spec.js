@@ -19,14 +19,14 @@ test.describe("theme deletion", () => {
         await page.getByRole('link', { name: 'Profil' }).click();
         await page.mainFrame().waitForURL('/profile');
 
-        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
         await expect(page.locator('label[title="Löschen"]')).toBeVisible();
         await page.locator('label[title="Löschen"]').click();
 
         await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
         await page.getByRole('button', { name: 'Bestätigen' }).click();
 
-        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
@@ -37,14 +37,14 @@ test.describe("theme deletion", () => {
         await page.getByRole('link', { name: 'Profil' }).click();
         await page.mainFrame().waitForURL('/profile');
 
-        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
         await expect(page.locator('label[title="Löschen"]')).toBeVisible();
         await page.locator('label[title="Löschen"]').click();
 
         await expect(page.locator('#delete').getByText('Abbrechen')).toBeVisible();
         await page.locator('#delete').getByText('Abbrechen').click();
 
-        await page.getByRole('button', { name: 'Erstellte Themen' }).click();
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
     });
@@ -58,14 +58,14 @@ test.describe("theme deletion", () => {
         await page.getByRole('link', { name: 'Profil' }).click();
         await page.mainFrame().waitForURL('/profile');
 
-        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
         await expect(page.locator('label[title="Löschen"]')).toBeVisible();
         await page.locator('label[title="Löschen"]').click();
 
         await expect(page.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
         await page.getByRole('button', { name: 'Bestätigen' }).click();
 
-        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
@@ -79,14 +79,14 @@ test.describe("theme deletion", () => {
         await page.getByRole('link', { name: 'Profil' }).click();
         await page.mainFrame().waitForURL('/profile');
 
-        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
         await expect(page.locator('label[title="Löschen"]')).toBeVisible();
         await page.locator('label[title="Löschen"]').click();
 
         await expect(page.locator('#delete').getByText('Abbrechen')).toBeVisible();
         await page.locator('#delete').getByText('Abbrechen').click();
 
-        await page.getByRole('button', { name: 'Entwürfe' }).click();
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
 
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(1);
     });

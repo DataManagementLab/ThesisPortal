@@ -87,11 +87,6 @@ export const actions = {
 			}
 			result.author = locals.session.cas.user;
 			createdTopic = await db.create('topics', result);
-			if (result.draft) {
-				throw redirect(303, `/profile`);
-			} else {
-				throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
-			}
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
@@ -101,7 +96,11 @@ export const actions = {
 				};
 			}
 		}
-		throw redirect(302, '/profile');
+		if (createdTopic.draft) {
+			throw redirect(303, `/profile/drafts`);
+		} else {
+			throw redirect(303, `/topic/${createdTopic.id.split(':')[1]}`);
+		}
 	}
 };
 
