@@ -190,6 +190,4 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('button', { name: 'Suche starten'}).click();
         await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
     });
-
-    
 });

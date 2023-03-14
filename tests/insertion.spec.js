@@ -128,8 +128,8 @@ test.describe('test insert element', () => {
 
 		await page.getByRole('link', { name: 'Themenübersicht' }).click();
 		await page.mainFrame().waitForURL('/overview');
-		await expect(
-			page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })
-		).toHaveCount(0);
+		await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
 	});
+
+	
 });
