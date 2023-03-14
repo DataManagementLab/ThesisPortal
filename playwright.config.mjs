@@ -60,7 +60,7 @@ const config = {
 			use: {
 				...devices['Desktop Firefox'],
 				launchOptions: {
-					slowMo: 50,
+					slowMo: 70,
 				},
 			}
 		},

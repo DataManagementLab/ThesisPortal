@@ -34,7 +34,54 @@ test.describe('test filterfunctions', () => {
         await page.getByRole('link', { name: 'Themenübersicht' }).click();
         await page.mainFrame().waitForURL('/overview');
 
-        await expect(page.getByRole('link', { name: 'Thema X '})).toBeHidden();
+        await expect(page.getByRole('link', { name: 'Thema X'})).toBeHidden();
         await expect(page.getByRole('link', { name: 'Thema Y' })).toBeVisible();
+    });
+
+    test('test edit/change public to draft & draft to public', async ({ page }) => {
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.waitForURL('/profile');
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+
+        await page.getByRole('link', { name: 'Thema X'}).click();
+        await page.getByTitle('edit').click();
+
+        await page.getByRole('button', { name: 'Entwurf speichern' }).click();
+        await page.getByRole('link', { name: 'Themenübersicht' }).click();
+        await page.waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Thema X' })).toBeHidden();
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.waitForURL('/profile');
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
+        await expect(page.getByRole('link', { name: 'Thema X'})).toBeVisible();
+
+        await page.getByRole('link', { name: 'Thema X'}).click();
+        await page.getByRole('button', { name: 'Veröffentlichen'}).click();
+
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.waitForURL('/profile');
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+        await expect(page.getByRole('link', { name: 'Thema X'})).toBeVisible();
+
+        await page.getByRole('link', { name: 'Entwürfe' }).click();
+        await expect(page.getByRole('link', { name: 'Thema x'})).toBeHidden();
+
+        await page.getByRole('link', { name: 'Themenübersicht' }).click();
+        await page.waitForURL('/overview');
+        await expect(page.getByRole('link', { name: 'Thema x'})).toBeVisible();
+    });
+
+    test('test filter validation in editing mode', async ({ page }) => {
+        await page.getByRole('link', { name: 'Profil' }).click();
+        await page.waitForURL('/profile');
+        await page.getByRole('link', { name: 'Erstellte Themen' }).click();
+
+        await page.getByRole('link', { name: 'Thema X'}).click();
+        await page.getByTitle('edit').click();
+
+        await page.getByLabel('Titel').fill('');
+        await page.getByRole('button', { name: 'Veröffentlichen'}).click();
+        await expect(page.getByText('* Ein Titel wird benötigt *')).toBeVisible();
     });
 });
