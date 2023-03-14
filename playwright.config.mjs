@@ -58,17 +58,20 @@ const config = {
 		{
 			name: 'firefox',
 			use: {
-				...devices['Desktop Firefox']
+				...devices['Desktop Firefox'],
+				launchOptions: {
+					slowMo: 50,
+				},
 			}
 		},
-
-		// {
-		//   name: 'webkit',
-		//   use: {
-		//     ...devices['Desktop Safari'],
-		//   },
-		// },
-
+/*
+		{
+		   name: 'webkit',
+		   use: {
+		     ...devices['Desktop Safari'],
+		   }
+	    },
+*/
 		/*Test against mobile viewports. */
 		/*
 		{
