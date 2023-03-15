@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { loginAsProfessor, createExampleTheme } from './utils.spec.js';
 import { db } from './db.js';
 
-test.describe('navigation', () => {
+test.describe('test navigation', () => {
 	test.beforeEach(async ({ page }) => {
 		await loginAsProfessor({ page });
 	});

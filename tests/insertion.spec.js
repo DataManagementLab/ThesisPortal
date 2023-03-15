@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { loginAsProfessor } from './utils.spec.js';
 import { db } from './db.js';
 
-test.describe('test insert element', () => {
+test.describe('test insertion of element', () => {
 	test.beforeEach(async ({ page }) => {
 		await loginAsProfessor({ page });
 	});

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loginAsProfessor , createExampleTheme, logout, loginAsStudent } from './utils.spec.js';
 import { db } from './db.js';
 
-test.describe('test filterfunctions', () => {
+test.describe('test editing', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsProfessor({ page });
         let exampleBachlorTheme = {
