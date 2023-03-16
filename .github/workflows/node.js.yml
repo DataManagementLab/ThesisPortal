@@ -46,8 +46,8 @@ jobs:
         run: screen -AmdS surreal surreal start --user root --pass pass
       - name: Add hosts to /etc/hosts
         run: sudo echo "127.0.0.1 thesisfinder-local.tu-darmstadt.de.test" | sudo tee -a /etc/hosts
-      - name: print hosts
-        run: cat /etc/hosts
+      - name: ping thesisfinder
+        run: ping thesisfinder-local.tu-darmstadt.de.test
       - name: Build project
         run: npm run build
       - name: Install Playwright Browsers
