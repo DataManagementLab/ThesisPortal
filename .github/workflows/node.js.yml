@@ -48,6 +48,8 @@ jobs:
         run: sudo echo "127.0.0.1 thesisfinder-local.tu-darmstadt.de.test" | sudo tee -a /etc/hosts
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: build project
+        run: npm run build
       - name: Run project
         run: screen -AmdS thesisfinder npm run dev
       - name: Run test
