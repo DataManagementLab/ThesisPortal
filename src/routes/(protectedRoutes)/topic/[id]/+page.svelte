@@ -9,7 +9,6 @@
 	import hljs from 'highlight.js';
 
 	export let data;
-	let showFavoriteIcon = data.isEmployee;
 
 	const syntaxHighlighting = {
 		highlight: function (str, lang) {
@@ -38,40 +37,38 @@
 			<div class="flex flex-wrap w-full">
 				<h1 class="text-5xl m-2 w-full">
 					{data.topic.title}
-					{#if showFavoriteIcon}
-						<form
-							action="?/markUnmarkFavorite"
-							method="POST"
-							id="favorite"
-							class="inline"
-							use:enhance>
+					<form
+						action="?/markUnmarkFavorite"
+						method="POST"
+						id="favorite"
+						class="inline"
+						use:enhance>
+						<input
+							type="hidden"
+							name="type"
+							value={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'unfavorize'
+								: 'favorize'} />
+						{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
 							<input
 								type="hidden"
-								name="type"
-								value={data.favorites.find((elem) => elem.topic == data.topic.id)
-									? 'unfavorize'
-									: 'favorize'} />
+								name="favoriteId"
+								value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
+						{/if}
+						<button
+							name="topicId"
+							value={data.topic.id}
+							class="inline text-2xl text-warning"
+							title={data.favorites.find((elem) => elem.topic == data.topic.id)
+								? 'Entfavorisieren'
+								: 'Favorisieren'}>
 							{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
-								<input
-									type="hidden"
-									name="favoriteId"
-									value={data.favorites.find((elem) => elem.topic == data.topic.id).id} />
+								<Star />
+							{:else}
+								<StarOutline />
 							{/if}
-							<button
-								name="topicId"
-								value={data.topic.id}
-								class="inline text-2xl text-warning"
-								title={data.favorites.find((elem) => elem.topic == data.topic.id)
-									? 'Entfavorisieren'
-									: 'Favorisieren'}>
-								{#if data.favorites.find((elem) => elem.topic == data.topic.id)}
-									<Star />
-								{:else}
-									<StarOutline />
-								{/if}
-							</button>
-						</form>
-					{/if}
+						</button>
+					</form>
 					{#if data.isEmployee && data.topic.author == data.user}
 						<a href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle">
 							<Pencil />
