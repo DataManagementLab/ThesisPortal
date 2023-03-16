@@ -40,7 +40,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dotenv": "^16.0.3",
 		"highlight.js": "^11.7.0",
-		"markdown-it": "^13.0.1"
+		"markdown-it": "^13.0.1",
+		"playwright": "^1.31.2"
 	}
 }

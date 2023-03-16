@@ -44,12 +44,16 @@ jobs:
         run: curl -sSf https://install.surrealdb.com | sh
       - name: Start Database
         run: screen -AmdS surreal surreal start --user root --pass pass
-      - name: Build project
-        run: npm run build
+      - name: Add hosts to /etc/hosts
+        run: sudo echo "127.0.0.1 thesisfinder-local.tu-darmstadt.de.test" | sudo tee -a /etc/hosts
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: build project
+        run: npm run build
+      - name: Run project
+        run: screen -AmdS thesisfinder npm run dev
+      - name: Run test
+        run: npm run test
       - uses: actions/upload-artifact@v3
         if: always()
         with:

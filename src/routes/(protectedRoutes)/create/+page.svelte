@@ -17,7 +17,7 @@
 	class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
 
-	<div class="w-full flex justify-start flex-wrap">
+	<div class="w-full flex justify-start">
 		<div class="mr-5">
 			<div>
 				{#each thesisType as tType}
@@ -87,7 +87,7 @@
 		errorMsg={form?.errors?.description ?? ''}
 		required />
 
-	<div class="w-full flex justify-start flex-wrap">
+	<div class="w-full flex justify-start">
 		<div class="mr-5">
 			<Input
 				id="professor"
@@ -147,13 +147,3 @@
 		<button type="submit" class="btn btn-primary">Hochladen</button>
 	</div>
 </form>
-
-<style lang="scss">
-	@media (min-width: 1440px) {
-		form#createTopic {
-			margin-left: calc(50% - 700px);
-			width: 1400px;
-			text-align: left;
-		}
-	}
-</style>
