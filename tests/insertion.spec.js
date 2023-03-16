@@ -3,6 +3,10 @@ import { test, expect } from '@playwright/test';
 import { loginAsProfessor } from './utils.spec.js';
 import { db } from './db.js';
 
+test.use({
+	ignoreHTTPSErrors: true
+});
+
 test.describe('test insertion of element', () => {
 	test.beforeEach(async ({ page }) => {
 		await loginAsProfessor({ page });
@@ -118,7 +122,9 @@ test.describe('test insertion of element', () => {
 
 		await page.getByRole('link', { name: 'Themenübersicht' }).click();
 		await page.mainFrame().waitForURL('/overview');
-		await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })).toHaveCount(0);
+		await expect(
+			page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' })
+		).toHaveCount(0);
 	});
 
 	test('test insertion of draft without filling all input fields', async ({ page }) => {
@@ -133,10 +139,12 @@ test.describe('test insertion of element', () => {
 		await page.mainFrame().waitForURL('/profile');
 		await page.getByRole('link', { name: 'Entwürfe' }).click();
 
-		await expect(page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()).toBeVisible();
+		await expect(
+			page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()
+		).toBeVisible();
 	});
 
-	test('test insertion of draft with missing title', async({ page }) => {
+	test('test insertion of draft with missing title', async ({ page }) => {
 		await page.getByRole('link', { name: 'Thema erstellen' }).click();
 		await page.mainFrame().waitForURL('/create');
 		await page.getByLabel('Fachbereich').fill('Informatik');

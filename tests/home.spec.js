@@ -2,6 +2,10 @@
 import { test, expect } from '@playwright/test';
 import { loginAsProfessor } from './utils.spec.js';
 
+test.use({
+	ignoreHTTPSErrors: true
+});
+
 test('homepage has title and links to login page', async ({ page }) => {
 	await page.goto('/');
 

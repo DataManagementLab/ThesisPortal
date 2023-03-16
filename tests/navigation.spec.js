@@ -3,6 +3,10 @@ import { test, expect } from '@playwright/test';
 import { loginAsProfessor, createExampleTheme } from './utils.spec.js';
 import { db } from './db.js';
 
+test.use({
+	ignoreHTTPSErrors: true
+});
+
 test.describe('test navigation', () => {
 	test.beforeEach(async ({ page }) => {
 		await loginAsProfessor({ page });

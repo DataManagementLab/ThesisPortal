@@ -3,6 +3,10 @@ import { test, expect, chromium } from '@playwright/test';
 import { loginAsProfessor, createExampleTheme, loginAsStudent } from './utils.spec.js';
 import { db } from './db.js';
 
+test.use({
+	ignoreHTTPSErrors: true
+});
+
 test.describe('test favorization of theme', () => {
 	test.beforeAll(async () => {
 		const browser = await chromium.launch();
@@ -34,7 +38,7 @@ test.describe('test favorization of theme', () => {
 	test('test un-/favorize of a theme in detail page', async ({ page }) => {
 		await page.getByRole('link', { name: 'Themenübersicht' }).click();
 		await page.waitForURL('/overview');
-		await page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit'}).click();
+		await page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).click();
 
 		await expect(page.locator('button[name="topicId"]')).toBeVisible();
 		await expect(page.locator('input[name="favoriteId"]')).toBeHidden();
@@ -119,6 +123,4 @@ test.describe('test favorization of theme', () => {
 			page.getByRole('link', { name: 'Hier kommt der Titel der Thesisarbeit' }).first()
 		).toBeHidden();
 	});
-
-	
 });
