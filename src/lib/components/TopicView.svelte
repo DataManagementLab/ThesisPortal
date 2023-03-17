@@ -15,7 +15,7 @@
 </script>
 
 {#each data as topic}
-	<div class="card bg-base-200 mb-3">
+	<div class="card card-compact md:card-normal bg-base-200 mb-3">
 		<div class="card-body">
 			<h2 class="card-title text-primary">
 				<a href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">{topic.title}</a>

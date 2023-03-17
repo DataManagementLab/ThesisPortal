@@ -104,7 +104,7 @@
 	</div>
 </form>
 
-<div class="card shadow-xl bg-base-100 p-5 m-5">
+<div class="card shadow-xl bg-base-100 p-3 md:p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
 	<TopicView data={data.topics} favorites={data.favorites} showFavoriteIcon={true} />
 </div>
