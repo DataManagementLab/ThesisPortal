@@ -33,7 +33,7 @@
 				Archiv
 			</a>
 		</div>
-		<div class="card">
+		<div class="card card-compact md:card-normal">
 			<div class="card-body">
 				<slot />
 			</div>

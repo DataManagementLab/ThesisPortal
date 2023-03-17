@@ -11,7 +11,7 @@
 
 <div class="flex">
 	<div class="flex h-full w-full gap-5">
-		<ul class="menu rounded-box w-48 bg-base-200 p-2">
+		<ul class="menu rounded-box w-48 bg-base-200 p-2 ml-0">
 			<li>
 				<button class:active={selectedTab == 0} on:click={() => (selectedTab = 0)}>Account</button>
 			</li>
