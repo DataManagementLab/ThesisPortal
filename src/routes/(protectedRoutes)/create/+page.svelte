@@ -17,7 +17,7 @@
 	class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
 
-	<div class="w-full flex justify-start">
+	<div class="w-full flex flex-wrap justify-start">
 		<div class="mr-5">
 			<div>
 				{#each thesisType as tType}
@@ -87,7 +87,7 @@
 		errorMsg={form?.errors?.description ?? ''}
 		required />
 
-	<div class="w-full flex justify-start">
+	<div class="w-full flex flex-wrap justify-start">
 		<div class="mr-5">
 			<Input
 				id="professor"
