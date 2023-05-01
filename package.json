@@ -16,7 +16,7 @@
 		"@macfja/sveltekit-session": "^1.1.0",
 		"@playwright/test": "^1.31.2",
 		"@sveltejs/adapter-node": "^1.2.1",
-		"@sveltejs/kit": "^1.15.7",
+		"@sveltejs/kit": "^1.15.9",
 		"autoprefixer": "^10.4.14",
 		"daisyui": "^2.51.3",
 		"eslint": "^8.36.0",
