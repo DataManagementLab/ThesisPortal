@@ -29,6 +29,6 @@ export const load = async ({ locals }) => {
 		drafts: drafts[0].result,
 		archived: archived[0].result,
 		favorites: favorites,
-		user: user[0]
+		user
 	};
 };

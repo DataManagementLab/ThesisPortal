@@ -8,7 +8,7 @@ export const actions = {
 
 		const schema = z.object({
 			name: z.string().min(3),
-			email: z.string().email()
+			email: z.string().regex(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g)
 		});
 
 		if (schema.safeParse(formData).success === true) {
@@ -16,9 +16,19 @@ export const actions = {
 				name: formData.name,
 				email: formData.email
 			});
+		} else {
+			return {
+				formData,
+				openSettings: 0,
+				accountSuccess: false
+			}
 		}
 
-		throw redirect(302, '/profile');
+		return {
+			formData,
+			openSettings: 0,
+			accountSuccess: true
+		}
 	},
 	editInfo: async ({ request, locals }) => {
 		const formData = Object.fromEntries(await request.formData());
@@ -38,8 +48,9 @@ export const actions = {
 			const data = schema.parse(formData);
 			await db.change(`student:${locals.session.cas.user}`, data);
 			return {
-				openTab: 0,
-				openSettings: 1
+				formData,
+				openSettings: 1,
+				researchSuccess: true
 			};
 		} catch (error) {
 			if (error.errors != null) {
@@ -47,11 +58,10 @@ export const actions = {
 				return {
 					formData,
 					errors,
-					openTab: 0,
-					openSettings: 1
+					openSettings: 1,
+					researchSuccess: false
 				};
 			}
 		}
-		throw redirect(302, '/profile');
 	}
 };

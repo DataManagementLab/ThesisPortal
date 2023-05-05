@@ -1,9 +1,10 @@
 <script>
-	import { enhance } from '$app/forms';
 	import { Input } from '$lib/components';
 
 	export let user;
 	export let form;
+	export let accountSuccess;
+	export let researchSuccess;
 	export let tab = undefined;
 
 	let selectedTab = tab ?? 0;
@@ -25,7 +26,10 @@
 			<div class="card-body">
 				{#if selectedTab == 0}
 					<h2 class="card-title">Account</h2>
-					<form action="?/editAccount" method="POST" use:enhance>
+					{#if accountSuccess}
+						<b>Daten wurden gespeichert</b>
+					{/if}
+					<form action="?/editAccount" method="POST">
 						<div class="form-control">
 							<label class="label" for="name">
 								<span class="label-text">Name</span>
@@ -53,25 +57,28 @@
 				{/if}
 				{#if selectedTab == 1}
 					<h2 class="card-title">Forschung</h2>
+					{#if researchSuccess}
+						<b>Daten wurden gespeichert</b>
+					{/if}
 					<div>
 						<form action="?/editInfo" method="POST" class="inline-block">
 							<div class="flex flex-wrap gap-5">
 								<Input
 									id="subjectArea"
 									label="Fachbereich"
-									value={form?.formData?.subjectArea ?? user.subjectArea ?? 'Informatik'}
+									value={form?.formData?.subjectArea ?? user?.subjectArea ?? 'Informatik'}
 									errorMsg={form?.errors?.subjectArea}
 									suggestions />
 								<Input
 									id="areaOfExpertise"
 									label="Fachgebiet"
-									value={form?.formData?.areaOfExpertise ?? user.areaOfExpertise ?? ''}
+									value={form?.formData?.areaOfExpertise ?? user?.areaOfExpertise ?? ''}
 									errorMsg={form?.errors?.areaOfExpertise}
 									suggestions />
 								<Input
 									id="specialization"
 									label="Keywords"
-									value={form?.formData?.specialization ?? user.specialization ?? ''}
+									value={form?.formData?.specialization ?? user?.specialization ?? ''}
 									errorMsg={form?.errors?.specialization}
 									suggestions
 									csv />
@@ -79,7 +86,7 @@
 							<Input
 								id="keywords"
 								label="Technologien"
-								value={user.keywords ?? ''}
+								value={user?.keywords ?? ''}
 								suggestions
 								csv />
 							<input type="submit" class="btn btn-primary" value="Speichern" />
