@@ -45,7 +45,7 @@
 				label="Fachbereich"
 				suggestions
 				placeholder="Fachbereich"
-				value={form?.formData?.subjectArea ?? data.userData.subjectArea ?? ''}
+				value={form?.formData?.subjectArea ?? data.userData?.subjectArea ?? ''}
 				errorMsg={form?.errors?.subjectArea ?? ''}
 				required />
 		</div>
@@ -55,7 +55,7 @@
 				label="Fachgebiet"
 				suggestions
 				placeholder="Fachgebiet"
-				value={form?.formData?.areaOfExpertise ?? data.userData.areaOfExpertise ?? ''}
+				value={form?.formData?.areaOfExpertise ?? data.userData?.areaOfExpertise ?? ''}
 				errorMsg={form?.errors?.areaOfExpertise ?? ''}
 				required />
 		</div>
@@ -66,7 +66,7 @@
 				placeholder="Spezialisierung"
 				suggestions
 				csv
-				value={form?.formData?.specialization ?? data.userData.specialization ?? ''}
+				value={form?.formData?.specialization ?? data.userData?.specialization ?? ''}
 				errorMsg={form?.errors?.specialization ?? ''}
 				required />
 		</div>
@@ -105,7 +105,7 @@
 				placeholder="Betreuende Personen"
 				suggestions
 				csv
-				value={form?.formData?.supervisor ?? data.userData.name ?? ''}
+				value={form?.formData?.supervisor ?? data.userData?.name ?? ''}
 				errorMsg={form?.errors?.supervisor ?? ''}
 				required />
 		</div>
@@ -128,7 +128,7 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				suggestions
-				value={form?.formData?.email ?? data.userData.email ?? ''}
+				value={form?.formData?.email ?? data.userData?.email ?? ''}
 				errorMsg={form?.errors?.email ?? ''}
 				required />
 		</div>
