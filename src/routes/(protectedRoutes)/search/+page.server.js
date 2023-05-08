@@ -18,7 +18,7 @@ export const load = async ({ locals, url }) => {
 		}
 	}
 	let data = await db.query(
-		`SELECT * FROM topics WHERE draft = false AND (archived = null OR archived = false)`,
+		`SELECT * FROM topics WHERE draft = false AND (archived = undefined OR archived = false)`,
 		{
 			search: formData.query
 		}
