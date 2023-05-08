@@ -17,14 +17,6 @@ export const load = async ({ locals, url }) => {
 			delete formData[key];
 		}
 	}
-	console.log({
-		query: formData.query,
-		thesisType: formData.thesisType,
-		specialization: formData.specialization.split(',').filter((x) => x.length > 0),
-		areaOfExpertise: formData.areaOfExpertise,
-		person: formData.person.trim(),
-		technologies: formData.technologies.split(',').filter((x) => x.length > 0)
-	});
 	let data = await db.query(
 		`SELECT * FROM topics WHERE 
 			draft = false AND (archived = undefined OR archived = false) AND (
