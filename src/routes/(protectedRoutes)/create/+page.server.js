@@ -86,7 +86,7 @@ export const actions = {
 				result.title = 'Entwurf';
 			}
 			result.author = locals.session.cas.user;
-			createdTopic = await db.create('topics', result);
+			createdTopic = (await db.create('topics', result))[0];
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();

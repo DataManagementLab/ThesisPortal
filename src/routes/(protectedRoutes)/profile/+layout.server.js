@@ -2,13 +2,13 @@ import { db } from '$lib/server/db';
 
 export const load = async ({ locals }) => {
 	let topics = await db.query(
-		'SELECT * FROM topics WHERE draft = false AND (archived = null OR archived = false) AND author = $author',
+		'SELECT * FROM topics WHERE draft = false AND (archived = undefined OR archived = false) AND author = $author',
 		{
 			author: locals.session.cas.user
 		}
 	);
 	let drafts = await db.query(
-		'SELECT * FROM topics WHERE draft = true AND (archived = null OR archived = false) AND author = $author',
+		'SELECT * FROM topics WHERE draft = true AND (archived = undefined OR archived = false) AND author = $author',
 		{
 			author: locals.session.cas.user
 		}

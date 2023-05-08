@@ -9,9 +9,10 @@ export const load = async ({ locals }) => {
 		})
 	)[0].result;
 	let query =
-		'SELECT * FROM topics WHERE draft=false AND (archived = null OR archived = false) LIMIT 25';
+		'SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) LIMIT 25';
 
 	let data = await db.query(query);
+	
 	return {
 		topics: data[0].result,
 		favorites
