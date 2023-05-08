@@ -17,92 +17,50 @@ export const load = async ({ locals, url }) => {
 			delete formData[key];
 		}
 	}
+	console.log({
+		query: formData.query,
+		thesisType: formData.thesisType,
+		specialization: formData.specialization.split(',').filter((x) => x.length > 0),
+		areaOfExpertise: formData.areaOfExpertise,
+		person: formData.person.trim(),
+		technologies: formData.technologies.split(',').filter((x) => x.length > 0)
+	});
 	let data = await db.query(
-		`SELECT * FROM topics WHERE draft = false AND (archived = undefined OR archived = false)`,
+		`SELECT * FROM topics WHERE 
+			draft = false AND (archived = undefined OR archived = false) AND (
+			(array::len($thesisType) == 0 OR thesisType CONTAINSANY $thesisType) AND
+			(array::len($specialization) == 0 OR specialization CONTAINSANY $specialization) AND
+			(string::len($areaOfExpertise) == 0 OR 
+				string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)) AND
+			(string::len($person) == 0 OR 
+				string::lowercase(professor) CONTAINS string::lowercase($person) OR
+				supervisor CONTAINS $person) AND
+			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
+			(string::len($query) == 0 OR 
+				string::lowercase(title) CONTAINS string::lowercase($query) OR
+				string::lowercase(description) CONTAINS string::lowercase($query) OR
+				thesisType CONTAINS $query OR
+				specialization CONTAINS $query OR
+				string::lowercase(subjectArea) CONTAINS string::lowercase($query) OR
+				string::lowercase(areaOfExpertise) CONTAINS string::lowercase($query) OR
+				string::lowercase(professor) CONTAINS string::lowercase($query) OR
+				technologies CONTAINS $query OR
+				supervisor CONTAINS $query
+			)
+		)
+		`,
 		{
-			search: formData.query
+			query: formData.query.trim(),
+			thesisType: formData.thesisType,
+			specialization: formData.specialization.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			areaOfExpertise: formData.areaOfExpertise,
+			person: formData.person.trim(),
+			technologies: formData.technologies.split(',').map(x => x.trim()).filter((x) => x.length > 0)
 		}
 	);
-	let filtered = data[0].result.filter((topic) => {
-		return (
-			//formdata thesisType contains topics thesisType
-			(formData.thesisType.length <= 0 ||
-				topic.thesisType.some((type) => formData.thesisType.includes(type))) &&
-			//formdata specialization equals topics specialization
-			(formData.specialization.length <= 0 ||
-				topic.specialization
-					.filter((x) => x.length > 0)
-					.some((spec) =>
-						formData.specialization
-							.split(',')
-							.map((x) => x.toLowerCase())
-							.includes(spec.toLowerCase())
-					)) &&
-			//formdata areaOfExpertise equals topics areaOfExpertise
-			(formData.areaOfExpertise.length <= 0 ||
-				formData.areaOfExpertise.toLowerCase() === topic.areaOfExpertise.toLowerCase()) &&
-			//topic professor contains formdata person
-			(formData.person.length <= 0 ||
-				(formData.person.length > 0 &&
-					topic.professor.toLowerCase().includes(formData.person.toLowerCase())) ||
-				//topic supervisor contains formdata person
-				formData.person.length <= 0 ||
-				(formData.person.length > 0 &&
-					topic.supervisor
-						.map((s) => s.toLowerCase())
-						.filter((s) => s.length > 0)
-						.filter((s) => s.toLowerCase().includes(formData.person.toLowerCase())).length > 0)) &&
-			//topic technologies contains formdata technologies
-			(formData.technologies.length <= 0 ||
-				topic.technologies
-					.filter((x) => x.length > 0)
-					.some((tech) =>
-						formData.technologies
-							.split(',')
-							.map((x) => x.toLowerCase())
-							.includes(tech.toLowerCase())
-					)) &&
-			//title contains query
-			(formData.query <= 0 ||
-				(formData.query.length > 0 &&
-					topic.title.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//description contains query
-				formData.query <= 0 ||
-				(formData.query.length > 0 &&
-					topic.description.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//topic thesisType contains query
-				formData.query.length <= 0 ||
-				topic.thesisType.map((x) => x.toLowerCase()).includes(formData.query.toLowerCase()) ||
-				//topic specialization contains query
-				formData.query.length <= 0 ||
-				(formData.query.length > 0 &&
-					topic.specialization
-						.map((x) => x.toLowerCase())
-						.includes(formData.query.toLowerCase())) ||
-				//topic subjectArea contains query
-				formData.query.length <= 0 ||
-				(formData.query.length > 0 &&
-					topic.subjectArea.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//topic areaOfExpertise contains query
-				formData.query.length <= 0 ||
-				(formData.query.length > 0 &&
-					topic.areaOfExpertise.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//topic professor contains query
-				formData.query.length <= 0 ||
-				(formData.query.length > 0 &&
-					topic.professor.toLowerCase().includes(formData.query.toLowerCase())) ||
-				//topic supervisor contains query
-				formData.query.length <= 0 ||
-				(formData.query.length > 0 &&
-					topic.supervisor
-						.map((s) => s.toLowerCase())
-						.filter((s) => s.length > 0)
-						.filter((s) => s.toLowerCase().includes(formData.query.toLowerCase())).length > 0))
-		);
-	});
 
 	return {
-		topics: filtered,
+		topics: data[0].result,
 		searchData: formData,
 		favorites
 	};
