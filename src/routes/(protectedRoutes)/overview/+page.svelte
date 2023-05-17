@@ -1,5 +1,5 @@
 <script>
-	import { Input, TopicView } from '$lib/components';
+	import { Input, TopicView, Pagination } from '$lib/components';
 	import Search from 'svelte-material-icons/Magnify.svelte';
 	import ArrowDown from 'svelte-material-icons/ChevronDown.svelte';
 	import ArrowUp from 'svelte-material-icons/ChevronUp.svelte';
@@ -106,7 +106,21 @@
 
 <div class="card shadow-xl bg-base-100 p-3 md:p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
+	<div class="m-2 flex justify-center">
+		<Pagination
+			pageCount={data.pageCount}
+			currentIndex={data.pageIndex}
+			url="/overview"
+			param="page" />
+	</div>
 	<TopicView data={data.topics} favorites={data.favorites} showFavoriteIcon={true} />
+	<div class="m-2 flex justify-center">
+		<Pagination
+			pageCount={data.pageCount}
+			currentIndex={data.pageIndex}
+			url="/overview"
+			param="page" />
+	</div>
 </div>
 
 <style lang="scss">

@@ -1,10 +1,11 @@
 <script>
-	import { Input, TopicView } from '$lib/components';
+	import { Input, TopicView, Pagination } from '$lib/components';
 	import Search from 'svelte-material-icons/Magnify.svelte';
 	import ArrowDown from 'svelte-material-icons/ChevronDown.svelte';
 	import ArrowUp from 'svelte-material-icons/ChevronUp.svelte';
 	import Close from 'svelte-material-icons/Close.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	export let data;
 
@@ -31,6 +32,12 @@
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
 	];
+	let sanitizedSearchParams = $page.url.searchParams;
+	$: {
+		sanitizedSearchParams = $page.url.searchParams;
+		sanitizedSearchParams.delete('page');
+	}
+	const url = `/search?${sanitizedSearchParams.toString()}`;
 </script>
 
 <form action="/search" method="GET" id="search" class="card shadow-xl bg-base-100 p-5 m-5">
@@ -106,7 +113,21 @@
 
 <div class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Themenübersicht</h2>
+	<div class="m-2 flex justify-center">
+		<Pagination
+			pageCount={data.pageCount}
+			currentIndex={data.pageIndex}
+			url="/search?{$page.url.searchParams.toString()}"
+			param="page" />
+	</div>
 	<TopicView data={data.topics} favorites={data.favorites} showFavoriteIcon={true} />
+	<div class="m-2 flex justify-center">
+		<Pagination
+			pageCount={data.pageCount}
+			currentIndex={data.pageIndex}
+			url="/overview"
+			param="page" />
+	</div>
 </div>
 
 <style lang="scss">

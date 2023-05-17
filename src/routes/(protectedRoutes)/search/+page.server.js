@@ -10,6 +10,7 @@ export const load = async ({ locals, url }) => {
 	)[0].result;
 
 	const formData = Object.fromEntries(url.searchParams);
+	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * 25;
 	formData.thesisType = [];
 	for (const [key, value] of Object.entries(formData)) {
 		if (key.startsWith('thesisType_')) {
@@ -39,7 +40,41 @@ export const load = async ({ locals, url }) => {
 				technologies CONTAINS $query OR
 				supervisor CONTAINS $query
 			)
-		)
+		) ORDER BY createdAt DESC LIMIT 25 START $offset
+		`,
+		{
+			query: formData.query.trim(),
+			thesisType: formData.thesisType,
+			specialization: formData.specialization.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			areaOfExpertise: formData.areaOfExpertise,
+			person: formData.person.trim(),
+			technologies: formData.technologies.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			offset
+		}
+	);
+	let topicCount = await db.query(
+		`SELECT count() as count, draft FROM topics WHERE 
+			draft = false AND (archived = undefined OR archived = false) AND (
+			(array::len($thesisType) == 0 OR thesisType CONTAINSANY $thesisType) AND
+			(array::len($specialization) == 0 OR specialization CONTAINSANY $specialization) AND
+			(string::len($areaOfExpertise) == 0 OR 
+				string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)) AND
+			(string::len($person) == 0 OR 
+				string::lowercase(professor) CONTAINS string::lowercase($person) OR
+				supervisor CONTAINS $person) AND
+			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
+			(string::len($query) == 0 OR 
+				string::lowercase(title) CONTAINS string::lowercase($query) OR
+				string::lowercase(description) CONTAINS string::lowercase($query) OR
+				thesisType CONTAINS $query OR
+				specialization CONTAINS $query OR
+				string::lowercase(subjectArea) CONTAINS string::lowercase($query) OR
+				string::lowercase(areaOfExpertise) CONTAINS string::lowercase($query) OR
+				string::lowercase(professor) CONTAINS string::lowercase($query) OR
+				technologies CONTAINS $query OR
+				supervisor CONTAINS $query
+			)
+		) GROUP BY draft
 		`,
 		{
 			query: formData.query.trim(),
@@ -54,7 +89,9 @@ export const load = async ({ locals, url }) => {
 	return {
 		topics: data[0].result,
 		searchData: formData,
-		favorites
+		favorites,
+		pageCount: Math.ceil((topicCount[0].result[0]?.count ?? 1) / 25),
+		pageIndex: Math.max(1, Number(url.searchParams.get('page') ?? 1))
 	};
 };
 

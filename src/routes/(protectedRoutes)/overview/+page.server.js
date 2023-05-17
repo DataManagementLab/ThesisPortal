@@ -1,21 +1,25 @@
 import { db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ locals }) => {
+export const load = async ({ locals, url }) => {
 	if (!locals.session.cas) throw redirect(302, '/');
-	let favorites = (
+	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * 25;
+	const favorites = (
 		await db.query('SELECT * FROM favorite WHERE student = $student', {
 			student: `student:${locals.session.cas.user}`
 		})
 	)[0].result;
-	let query =
-		'SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) LIMIT 25';
 
-	let data = await db.query(query);
+	const data = await db.query('SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) ORDER BY createdAt DESC LIMIT 25 START $offset', {
+		offset
+	});
+	const topicCount = await db.query('SELECT count() AS count, draft FROM topics WHERE draft=false AND (archived = undefined OR archived = false) GROUP BY draft');
 	
 	return {
 		topics: data[0].result,
-		favorites
+		favorites,
+		pageCount: Math.ceil((topicCount[0].result[0]?.count ?? 1) / 25),
+		pageIndex: Math.max(1, Number(url.searchParams.get('page') ?? 1))
 	};
 };
 
