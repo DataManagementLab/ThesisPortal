@@ -45,10 +45,16 @@ export const load = async ({ locals, url }) => {
 		{
 			query: formData.query.trim(),
 			thesisType: formData.thesisType,
-			specialization: formData.specialization.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			specialization: formData.specialization
+				.split(',')
+				.map((x) => x.trim())
+				.filter((x) => x.length > 0),
 			areaOfExpertise: formData.areaOfExpertise,
 			person: formData.person.trim(),
-			technologies: formData.technologies.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			technologies: formData.technologies
+				.split(',')
+				.map((x) => x.trim())
+				.filter((x) => x.length > 0),
 			offset
 		}
 	);
@@ -79,10 +85,16 @@ export const load = async ({ locals, url }) => {
 		{
 			query: formData.query.trim(),
 			thesisType: formData.thesisType,
-			specialization: formData.specialization.split(',').map(x => x.trim()).filter((x) => x.length > 0),
+			specialization: formData.specialization
+				.split(',')
+				.map((x) => x.trim())
+				.filter((x) => x.length > 0),
 			areaOfExpertise: formData.areaOfExpertise,
 			person: formData.person.trim(),
-			technologies: formData.technologies.split(',').map(x => x.trim()).filter((x) => x.length > 0)
+			technologies: formData.technologies
+				.split(',')
+				.map((x) => x.trim())
+				.filter((x) => x.length > 0)
 		}
 	);
 

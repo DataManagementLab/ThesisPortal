@@ -6,4 +6,9 @@
 </script>
 
 <h2 class="card-title">Einstellungen</h2>
-<Settings user={data.user} {form} tab={form?.openSettings} accountSuccess={form?.accountSuccess} researchSuccess={form?.researchSuccess}/>
+<Settings
+	user={data.user}
+	{form}
+	tab={form?.openSettings}
+	accountSuccess={form?.accountSuccess}
+	researchSuccess={form?.researchSuccess} />

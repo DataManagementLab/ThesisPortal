@@ -53,20 +53,24 @@
 		<img src="/tud_logo.png" alt="TU Darmstadt Logo" height="50px" id="tud-logo" />
 		<b>Thesisfinder der TU-Darmstadt</b>
 		Finde hier ein Thema für deine Thesis!
-	</div> 
+	</div>
 	<div>
 		<span class="footer-title">Quick links</span>
 		<a class="link link-hover" href="/overview">Themenübersicht</a>
 		<a class="link link-hover" href="/profile">Profil</a>
-	</div> 
+	</div>
 	<div>
-		<span class="footer-title">Ressourcen</span> 
+		<span class="footer-title">Ressourcen</span>
 		<a class="link link-hover" href="/">Thesis guide</a>
-	</div> 
+	</div>
 	<div>
 		<span class="footer-title">Kontakt</span>
-		<a class="link link-hover" href="mailto:liane.vogel@cs.tu-darmstadt.de">Hauptansprechpartner: Liane Vogel</a>
-		<a class="link link-hover" href="mailto:benedict.mondini@stud.tu-darmstadt.de">Entwickler: Benedict Mondini</a>
+		<a class="link link-hover" href="mailto:liane.vogel@cs.tu-darmstadt.de">
+			Hauptansprechpartner: Liane Vogel
+		</a>
+		<a class="link link-hover" href="mailto:benedict.mondini@stud.tu-darmstadt.de">
+			Entwickler: Benedict Mondini
+		</a>
 		<a class="link link-hover" href="//github.com/DataManagementLab/ThesisPortal">GitHub</a>
 	</div>
 </footer>

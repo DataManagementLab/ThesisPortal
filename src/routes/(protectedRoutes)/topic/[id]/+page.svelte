@@ -70,7 +70,10 @@
 						</button>
 					</form>
 					{#if data.isEmployee && data.topic.author == data.user}
-						<a title="edit" href="/edit/{data.topic.id.split(':')[1]}" class="btn btn-primary btn-sm btn-circle" >
+						<a
+							title="edit"
+							href="/edit/{data.topic.id.split(':')[1]}"
+							class="btn btn-primary btn-sm btn-circle">
 							<Pencil />
 						</a>
 					{/if}

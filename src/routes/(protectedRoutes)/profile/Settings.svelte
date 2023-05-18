@@ -39,7 +39,7 @@
 								id="name"
 								name="name"
 								class="input input-bordered bg-base-300 max-w-sm"
-								value={user?.name ?? ""} />
+								value={user?.name ?? ''} />
 						</div>
 						<div class="form-control mt-2">
 							<label class="label" for="email">
@@ -50,7 +50,7 @@
 								id="name"
 								name="email"
 								class="input input-bordered bg-base-300 max-w-sm"
-								value={user?.email ?? ""} />
+								value={user?.email ?? ''} />
 						</div>
 						<input type="submit" class="btn btn-primary mt-4" value="Speichern" />
 					</form>

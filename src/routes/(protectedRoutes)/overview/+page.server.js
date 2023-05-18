@@ -10,11 +10,16 @@ export const load = async ({ locals, url }) => {
 		})
 	)[0].result;
 
-	const data = await db.query('SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) ORDER BY createdAt DESC LIMIT 25 START $offset', {
-		offset
-	});
-	const topicCount = await db.query('SELECT count() AS count, draft FROM topics WHERE draft=false AND (archived = undefined OR archived = false) GROUP BY draft');
-	
+	const data = await db.query(
+		'SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) ORDER BY createdAt DESC LIMIT 25 START $offset',
+		{
+			offset
+		}
+	);
+	const topicCount = await db.query(
+		'SELECT count() AS count, draft FROM topics WHERE draft=false AND (archived = undefined OR archived = false) GROUP BY draft'
+	);
+
 	return {
 		topics: data[0].result,
 		favorites,
