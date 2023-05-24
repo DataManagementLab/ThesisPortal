@@ -5,9 +5,18 @@
 	import FilePlus from 'svelte-material-icons/FilePlus.svelte';
 	import ViewDashboard from 'svelte-material-icons/ViewDashboard.svelte';
 	import Logout from 'svelte-material-icons/LogoutVariant.svelte';
+	import Sun from 'svelte-material-icons/WhiteBalanceSunny.svelte';
+	import Moon from 'svelte-material-icons/MoonWaningCrescent.svelte';
 	import { page } from '$app/stores';
+	import { themeChange } from 'theme-change';
+	import { onMount } from 'svelte';
 
 	export let data;
+	let darkMode;
+	onMount(() => {
+		themeChange(false);
+		darkMode = (localStorage.getItem('theme')=='dark');
+	});
 </script>
 
 <div class="min-h-full">
@@ -16,6 +25,12 @@
 			<img src="/tud_logo.png" alt="TU Darmstadt Logo" height="50px" id="tud-logo" />
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<label class="btn btn-circle swap swap-rotate text-2xl" data-toggle-theme="light,dark" on:click={() => themeChange(false)}>
+			<input type="checkbox" bind:checked={darkMode}/>
+			<div class="swap-on fill-current" title="Helles Theme"><Sun /></div>
+			<div class="swap-off fill-current" title="Dunkles Theme"><Moon /></div>
+		</label>
 		{#if data.loggedIn}
 			<a
 				href="/overview"
