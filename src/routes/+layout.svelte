@@ -26,7 +26,7 @@
 			<a href="/" class="btn btn-ghost normal-case text-xl">Thesisfinder</a>
 		</div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<label class="btn btn-circle swap swap-rotate text-2xl" data-toggle-theme="light,dark" on:click={() => themeChange(false)}>
+		<label class="btn btn-circle swap swap-rotate text-2xl mr-2" data-toggle-theme="light,dark" on:click={() => themeChange(false)}>
 			<input type="checkbox" bind:checked={darkMode}/>
 			<div class="swap-on fill-current" title="Helles Theme"><Sun /></div>
 			<div class="swap-off fill-current" title="Dunkles Theme"><Moon /></div>
