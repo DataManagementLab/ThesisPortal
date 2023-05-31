@@ -4,6 +4,8 @@
 	import Person from 'svelte-material-icons/AccountCircle.svelte';
 	import Star from 'svelte-material-icons/Star.svelte';
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
+	import CalendarMonth from 'svelte-material-icons/CalendarMonth.svelte';
+	import CalendarSync from 'svelte-material-icons/CalendarSync.svelte';
 	import { enhance } from '$app/forms';
 	import md from 'markdown-it';
 	import hljs from 'highlight.js';
@@ -89,6 +91,8 @@
 				</div>
 			</div>
 			<div class="card bg-base-200 p-3 w-full lg:w-max mt-3 lg:mt-0">
+				<div class="icon-text" title="Veröffentlichungsdatum"><CalendarMonth /> {new Date(data.topic.createdAt).toLocaleDateString('de-DE')}</div>
+				{#if data.topic.lastUpdatedAt} <div class="icon-text" title="Datum der letzten Änderung"><CalendarSync /> {new Date(data.topic.lastUpdatedAt).toLocaleDateString('de-DE')}</div> {/if}
 				<div class="icon-text"><Person /> {data.topic.professor}</div>
 				{#each data.topic.supervisor as supervisor}
 					<div class="icon-text"><Person /> {supervisor}</div>

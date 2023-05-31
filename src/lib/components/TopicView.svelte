@@ -141,6 +141,7 @@
 						</form>
 					{/if}
 				{/if}
+				<span class="text-sm text-neutral-content flex-1 text-right">Erstellt am {new Date(topic.createdAt).toLocaleDateString('de-DE')}</span>
 			</h2>
 			<div>
 				{#each topic.thesisType as tt}
