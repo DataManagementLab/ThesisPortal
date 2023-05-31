@@ -20,8 +20,8 @@ export const load = async ({ locals, url }) => {
 		topics: topics[0].result,
 		pageCount: Math.ceil((topicCount[0].result[0]?.count ?? 1) / 25),
 		pageIndex: Math.max(1, Number(url.searchParams.get('page') ?? 1))
-	}
-}
+	};
+};
 
 export const actions = {
 	deleteTopic: async ({ request }) => {
