@@ -129,8 +129,8 @@
 		label="Sonstiges"
 		placeholder="Sonstige Informationen"
 		value={data.data.other} />
-	<input type="hidden" name="createdAt" value={data.createdAt} />
-	<input type="hidden" name="lastUpdatedAt" value={data.lastUpdatedAt} />
+	<input type="hidden" name="createdAt" value={data.data.createdAt} />
+	<input type="hidden" name="lastUpdatedAt" value={data.data.lastUpdatedAt} />
 	<div class="flex justify-end">
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
 			Entwurf speichern
