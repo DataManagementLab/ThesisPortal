@@ -7,7 +7,7 @@ export const load = async ({ locals }) => {
 			student: `student:${locals.session.cas.user}`
 		})
 	)[0].result;
-	favorites = favorites.filter((x) => x != null).map((elem) => elem.topic);
+	favorites = favorites.filter((x) => x != null && x.topic != null).map((elem) => elem.topic);
 
 	return {
 		favorites,
