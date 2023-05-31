@@ -36,7 +36,7 @@
 		<div class="flex justify-between items-start flex-wrap lg:flex-nowrap">
 			<div class="flex flex-wrap w-full">
 				<h1 class="text-5xl m-2 w-full">
-					{data.topic.title}
+					{data.topic.title} {#if data.isEmployee}({data.topic.views ?? 0} mal angesehen){/if}
 					<form
 						action="?/markUnmarkFavorite"
 						method="POST"

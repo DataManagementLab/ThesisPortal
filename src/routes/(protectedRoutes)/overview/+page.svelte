@@ -113,7 +113,7 @@
 			url="/overview"
 			param="page" />
 	</div>
-	<TopicView data={data.topics} favorites={data.favorites} showFavoriteIcon={true} />
+	<TopicView data={data.topics} favorites={data.favorites} showFavoriteIcon={true} showViewCounter={data.isEmployee}/>
 	<div class="m-2 flex justify-center">
 		<Pagination
 			pageCount={data.pageCount}
