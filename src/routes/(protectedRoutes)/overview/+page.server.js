@@ -1,9 +1,10 @@
 import { db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
+import { PUBLIC_ITEMS_PER_PAGE } from '$env/static/public';
 
 export const load = async ({ locals, url }) => {
 	if (!locals.session.cas) throw redirect(302, '/');
-	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * 25;
+	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * PUBLIC_ITEMS_PER_PAGE;
 	const favorites = (
 		await db.query('SELECT * FROM favorite WHERE student = $student', {
 			student: `student:${locals.session.cas.user}`
@@ -11,7 +12,7 @@ export const load = async ({ locals, url }) => {
 	)[0].result;
 
 	const data = await db.query(
-		'SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) ORDER BY createdAt DESC LIMIT 25 START $offset',
+		`SELECT * FROM topics WHERE draft=false AND (archived = undefined OR archived = false) ORDER BY createdAt DESC LIMIT ${PUBLIC_ITEMS_PER_PAGE} START $offset`,
 		{
 			offset
 		}
@@ -23,7 +24,7 @@ export const load = async ({ locals, url }) => {
 	return {
 		topics: data[0].result,
 		favorites,
-		pageCount: Math.ceil((topicCount[0].result[0]?.count ?? 1) / 25),
+		pageCount: Math.ceil((topicCount[0].result[0]?.count ?? 1) / PUBLIC_ITEMS_PER_PAGE),
 		pageIndex: Math.max(1, Number(url.searchParams.get('page') ?? 1))
 	};
 };
