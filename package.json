@@ -28,7 +28,7 @@
 		"prettier": "^2.8.4",
 		"prettier-plugin-svelte": "^2.10.1",
 		"sass": "^1.62.0",
-		"surrealdb.js": "^0.7.3",
+		"surrealdb.js": "^0.8.0",
 		"svelte": "^3.59.1",
 		"svelte-check": "^3.4.3",
 		"svelte-material-icons": "^3.0.4",
