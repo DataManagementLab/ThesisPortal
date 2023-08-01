@@ -43,7 +43,7 @@
 		"dotenv": "^16.3.1",
 		"highlight.js": "^11.7.0",
 		"markdown-it": "^13.0.1",
-		"playwright": "^1.36.1",
+		"playwright": "^1.36.2",
 		"theme-change": "^2.5.0"
 	}
 }
