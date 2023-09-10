@@ -26,7 +26,7 @@
 		}
 	};
 
-	let filterOpen = false;
+	let filterOpen = innerWidth > 768;
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
