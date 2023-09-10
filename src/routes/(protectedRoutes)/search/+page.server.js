@@ -29,21 +29,21 @@ export const load = async ({ locals, url }) => {
 				string::lowercase(professor) CONTAINS string::lowercase($person) OR
 				supervisor CONTAINS $person) AND
 			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
-			(string::len($query) == 0 OR 
-				string::lowercase(title) CONTAINS string::lowercase($query) OR
-				string::lowercase(description) CONTAINS string::lowercase($query) OR
-				thesisType CONTAINS $query OR
-				specialization CONTAINS $query OR
-				string::lowercase(subjectArea) CONTAINS string::lowercase($query) OR
-				string::lowercase(areaOfExpertise) CONTAINS string::lowercase($query) OR
-				string::lowercase(professor) CONTAINS string::lowercase($query) OR
-				technologies CONTAINS $query OR
-				supervisor CONTAINS $query
+			(array::len($query) == 0 OR 
+				$query ?~ string::lowercase(title) OR
+				$query ?~ string::lowercase(description) OR
+				$query ?~ thesisType OR
+				$query ?~ specialization OR
+				$query ?~ string::lowercase(subjectArea) OR
+				$query ?~ string::lowercase(areaOfExpertise) OR
+				$query ?~ string::lowercase(professor) OR
+				$query ?~ technologies OR
+				$query ?~ string::lowercase(supervisor)
 			)
 		) ORDER BY createdAt DESC LIMIT 25 START $offset
 		`,
 		{
-			query: formData.query.trim(),
+			query: formData.query.trim().split(',').map(e => e.trim().toLowerCase()).filter(e => e.length > 0),
 			thesisType: formData.thesisType,
 			specialization: formData.specialization
 				.split(',')
@@ -69,21 +69,21 @@ export const load = async ({ locals, url }) => {
 				string::lowercase(professor) CONTAINS string::lowercase($person) OR
 				supervisor CONTAINS $person) AND
 			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
-			(string::len($query) == 0 OR 
-				string::lowercase(title) CONTAINS string::lowercase($query) OR
-				string::lowercase(description) CONTAINS string::lowercase($query) OR
-				thesisType CONTAINS $query OR
-				specialization CONTAINS $query OR
-				string::lowercase(subjectArea) CONTAINS string::lowercase($query) OR
-				string::lowercase(areaOfExpertise) CONTAINS string::lowercase($query) OR
-				string::lowercase(professor) CONTAINS string::lowercase($query) OR
-				technologies CONTAINS $query OR
-				supervisor CONTAINS $query
+			(array::len($query) == 0 OR 
+				$query ?~ string::lowercase(title) OR
+				$query ?~ string::lowercase(description) OR
+				$query ?~ thesisType OR
+				$query ?~ specialization OR
+				$query ?~ string::lowercase(subjectArea) OR
+				$query ?~ string::lowercase(areaOfExpertise) OR
+				$query ?~ string::lowercase(professor) OR
+				$query ?~ technologies OR
+				$query ?~ string::lowercase(supervisor)
 			)
 		) GROUP BY draft
 		`,
 		{
-			query: formData.query.trim(),
+			query: formData.query.trim().split(',').map(e => e.trim().toLowerCase()).filter(e => e.length > 0),
 			thesisType: formData.thesisType,
 			specialization: formData.specialization
 				.split(',')
