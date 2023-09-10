@@ -16,7 +16,7 @@ export const actions = {
 		});
 
 		if (schema.safeParse(formData).success === true) {
-			db.change(`student:${locals.session.cas.user}`, {
+			db.merge(`student:${locals.session.cas.user}`, {
 				name: formData.name,
 				email: formData.email
 			});
@@ -50,7 +50,7 @@ export const actions = {
 
 		try {
 			const data = schema.parse(formData);
-			await db.change(`student:${locals.session.cas.user}`, data);
+			await db.merge(`student:${locals.session.cas.user}`, data);
 			return {
 				formData,
 				openSettings: 1,

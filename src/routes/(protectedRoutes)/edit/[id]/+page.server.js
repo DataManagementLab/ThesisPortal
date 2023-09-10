@@ -95,10 +95,10 @@ export const actions = {
 			if (!formData.draft) {
 				filterSchema.parse(formData);
 			}
-			db.change(`topics:${params.id}`, formData);
+			db.merge(`topics:${params.id}`, formData);
 		} catch (error) {
 			formData.draft = 'true';
-			db.change(`topics:${params.id}`, formData);
+			db.merge(`topics:${params.id}`, formData);
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
 				returnError = errors;

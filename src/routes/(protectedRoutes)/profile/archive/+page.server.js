@@ -40,7 +40,7 @@ export const actions = {
 		const formData = Object.fromEntries(await request.formData());
 
 		if (formData.unarchiveTopicId) {
-			db.change(formData.unarchiveTopicId, {
+			db.merge(formData.unarchiveTopicId, {
 				archived: false
 			});
 		}

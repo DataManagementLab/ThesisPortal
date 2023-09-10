@@ -40,7 +40,7 @@ export const actions = {
 		const formData = Object.fromEntries(await request.formData());
 
 		if (formData.archiveTopicId) {
-			db.change(formData.archiveTopicId, {
+			db.merge(formData.archiveTopicId, {
 				archived: true
 			});
 			throw redirect(302, '/profile/topics');

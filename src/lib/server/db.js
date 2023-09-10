@@ -11,7 +11,7 @@ const getDatabase = () => {
 			pass: DB_PASSWORD
 		});
 
-		database.use(DB_NAMESPACE, DB_DATABASE);
+		database.use({ ns: DB_NAMESPACE, db: DB_DATABASE });
 		initialized = true;
 	}
 	return database;
