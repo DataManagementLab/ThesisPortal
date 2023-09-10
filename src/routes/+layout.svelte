@@ -16,7 +16,7 @@
 	onMount(() => {
 		themeChange(false);
 		darkMode = localStorage.getItem('theme') == 'dark';
-	});
+			});
 </script>
 
 <div class="min-h-full">
@@ -38,7 +38,7 @@
 			<a
 				href="/overview"
 				class="btn btn-ghost btn-md"
-				selected={$page.route.id.startsWith('/overview')}>
+				selected={$page.route.id.startsWith('/(protectedRoutes)/overview')}>
 				<ViewDashboard />
 				<span>Themenübersicht</span>
 			</a>
@@ -46,7 +46,7 @@
 				<a
 					href="/create"
 					class="btn btn-ghost btn-md"
-					selected={$page.route.id.startsWith('/created')}>
+					selected={$page.route.id.startsWith('/(protectedRoutes)/create')}>
 					<FilePlus />
 					<span>Thema erstellen</span>
 				</a>
@@ -54,7 +54,7 @@
 			<a
 				href="/profile"
 				class="btn btn-ghost btn-md"
-				selected={$page.route.id.startsWith('/profile')}>
+				selected={$page.route.id.startsWith('/(protectedRoutes)/profile')}>
 				<AccountCircle />
 				<span>Profil</span>
 			</a>
