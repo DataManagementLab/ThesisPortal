@@ -38,9 +38,15 @@
 		sanitizedSearchParams.delete('page');
 	}
 	const url = `/search?${sanitizedSearchParams.toString()}`;
+
+	function submit(e) {
+		if (e.key === 'Enter') {
+			e.target.closest('form').submit();
+		}
+	}
 </script>
 
-<form action="/search" method="GET" id="search" class="card shadow-xl bg-base-100 p-5 m-5">
+<form action="/search" method="GET" id="search" class="card shadow-xl bg-base-100 p-5 m-5" on:keydown={submit}>
 	<div class="flex input-group" id="search-bar">
 		<input
 			type="search"
