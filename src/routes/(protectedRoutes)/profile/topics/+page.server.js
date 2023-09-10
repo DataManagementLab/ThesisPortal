@@ -3,7 +3,8 @@ import { redirect } from '@sveltejs/kit';
 import { PUBLIC_ITEMS_PER_PAGE } from '$env/static/public';
 
 export const load = async ({ locals, url }) => {
-	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * PUBLIC_ITEMS_PER_PAGE;
+	const offset =
+		(Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * PUBLIC_ITEMS_PER_PAGE;
 	let topics = await db.query(
 		`SELECT * FROM topics WHERE draft = false AND (archived = undefined OR archived = false) AND author = $author ORDER BY createdAt DESC LIMIT ${PUBLIC_ITEMS_PER_PAGE} START $offset`,
 		{

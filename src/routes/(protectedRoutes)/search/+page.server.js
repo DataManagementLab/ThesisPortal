@@ -43,7 +43,11 @@ export const load = async ({ locals, url }) => {
 		) ORDER BY createdAt DESC LIMIT 25 START $offset
 		`,
 		{
-			query: formData.query.trim().split(',').map(e => e.trim().toLowerCase()).filter(e => e.length > 0),
+			query: formData.query
+				.trim()
+				.split(',')
+				.map((e) => e.trim().toLowerCase())
+				.filter((e) => e.length > 0),
 			thesisType: formData.thesisType,
 			specialization: formData.specialization
 				.split(',')
@@ -83,7 +87,11 @@ export const load = async ({ locals, url }) => {
 		) GROUP BY draft
 		`,
 		{
-			query: formData.query.trim().split(',').map(e => e.trim().toLowerCase()).filter(e => e.length > 0),
+			query: formData.query
+				.trim()
+				.split(',')
+				.map((e) => e.trim().toLowerCase())
+				.filter((e) => e.length > 0),
 			thesisType: formData.thesisType,
 			specialization: formData.specialization
 				.split(',')

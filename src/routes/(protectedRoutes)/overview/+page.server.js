@@ -4,7 +4,8 @@ import { PUBLIC_ITEMS_PER_PAGE } from '$env/static/public';
 
 export const load = async ({ locals, url }) => {
 	if (!locals.session.cas) throw redirect(302, '/');
-	const offset = (Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * PUBLIC_ITEMS_PER_PAGE;
+	const offset =
+		(Math.max(1, Number(url.searchParams.get('page') ?? 1)) - 1) * PUBLIC_ITEMS_PER_PAGE;
 	const favorites = (
 		await db.query('SELECT * FROM favorite WHERE student = $student', {
 			student: `student:${locals.session.cas.user}`

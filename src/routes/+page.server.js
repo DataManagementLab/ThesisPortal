@@ -15,7 +15,7 @@ export const load = async ({ locals }) => {
 
 async function checkAddStudent(tuid) {
 	const user = await db.select(`student:${tuid.user}`);
-	if(user) return;
+	if (user) return;
 	let affiliation =
 		tuid.attributes.eduPersonAffiliation[0]._text == 'member'
 			? tuid.attributes.eduPersonAffiliation[1]._text
