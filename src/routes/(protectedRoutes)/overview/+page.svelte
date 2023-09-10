@@ -5,6 +5,7 @@
 	import ArrowUp from 'svelte-material-icons/ChevronUp.svelte';
 	import Close from 'svelte-material-icons/Close.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -26,7 +27,10 @@
 		}
 	};
 
-	let filterOpen = innerWidth > 768;
+	let filterOpen = false;
+	onMount(() => {
+		filterOpen = innerWidth > 768;
+	});
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
