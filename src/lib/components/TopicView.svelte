@@ -3,6 +3,7 @@
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
 	import Delete from 'svelte-material-icons/Delete.svelte';
 	import Archive from 'svelte-material-icons/Archive.svelte';
+	import { getLanguageIcon } from '$lib/utils';
 	import { enhance } from '$app/forms';
 
 	export let data;
@@ -144,6 +145,7 @@
 				<span class="text-sm text-neutral-content flex-1 text-right">Erstellt am {new Date(topic.createdAt).toLocaleDateString('de-DE')}</span>
 			</h2>
 			<div>
+				<span class="badge badge-primary">{getLanguageIcon(topic.language ?? 'de')}</span>
 				{#each topic.thesisType as tt}
 					<span class="badge badge-primary">{tt}</span>
 				{/each}

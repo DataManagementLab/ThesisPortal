@@ -67,7 +67,7 @@
 	<input
 		type="text"
 		{id}
-		class="input w-full mb-0 outline-0 bg-base-200 min-w-[25rem]"
+		class="input w-full mb-0 outline-0 bg-base-200"
 		{placeholder}
 		disabled={readonly}
 		bind:value

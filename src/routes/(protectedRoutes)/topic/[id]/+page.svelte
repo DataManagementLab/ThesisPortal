@@ -6,6 +6,7 @@
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
 	import CalendarMonth from 'svelte-material-icons/CalendarMonth.svelte';
 	import CalendarSync from 'svelte-material-icons/CalendarSync.svelte';
+	import { getLanguageIcon } from '$lib/utils';
 	import { enhance } from '$app/forms';
 	import md from 'markdown-it';
 	import hljs from 'highlight.js';
@@ -82,6 +83,7 @@
 					{/if}
 				</h1>
 				<div>
+					<span class="badge badge-primary">{getLanguageIcon(data.topic.language ?? 'de')}</span>
 					{#each data.topic.thesisType as tt}
 						<span class="badge badge-primary badge-lg mb-2">{tt}</span>
 					{/each}

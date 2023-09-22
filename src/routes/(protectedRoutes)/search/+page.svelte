@@ -1,5 +1,5 @@
 <script>
-	import { Input, TopicView, Pagination } from '$lib/components';
+	import { Input, TopicView, Pagination, MultiSelect } from '$lib/components';
 	import Search from 'svelte-material-icons/Magnify.svelte';
 	import ArrowDown from 'svelte-material-icons/ChevronDown.svelte';
 	import ArrowUp from 'svelte-material-icons/ChevronUp.svelte';
@@ -15,7 +15,8 @@
 		areaOfExpertise: data.searchData?.areaOfExpertise ?? '',
 		specialization: data.searchData?.specialization ?? '',
 		person: data.searchData?.person ?? '',
-		technologies: data.searchData?.technologies ?? ''
+		technologies: data.searchData?.technologies ?? '',
+		language: data.searchData?.language ?? []
 	};
 
 	export const snapshot = {
@@ -113,6 +114,9 @@
 				placeholder="Java, Python, C++ ..."
 				suggestions
 				bind:value={formData.technologies} />
+		</div>
+		<div class="w-48">
+			<MultiSelect id="language" label="Sprache" data={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de_en'}]} bind:value={formData.language}/>
 		</div>
 	</div>
 </form>

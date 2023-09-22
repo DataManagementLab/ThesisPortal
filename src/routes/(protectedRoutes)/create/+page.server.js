@@ -14,6 +14,7 @@ const filterSchema = z.object({
 	specialization: z
 		.array(z.string({ required_error: 'Eine Spezialisierung wird benötigt' }).trim())
 		.min(1, { message: 'Eine Spezialisierung wird benötigt' }),
+	language: z.string(),
 	thesisType: z
 		.array(z.string({ required_error: 'Thesistyp(en) wird benötigt' }))
 		.min(1, { message: 'Thesistyp(en) wird benötigt' })

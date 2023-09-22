@@ -8,7 +8,7 @@ export async function POST({ request }) {
 	for (let sub of query) {
 		if (sub.length == 0 && query != '') continue;
 		let result = await db.query(
-			`SELECT * FROM topics WHERE string::lowercase($value) INSIDE string::lowercase(${field}) LIMIT 5`,
+			`SELECT * FROM topics WHERE ${field} ?~ $value LIMIT 5`,
 			{
 				value: sub
 			}

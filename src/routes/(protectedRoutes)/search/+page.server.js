@@ -18,29 +18,28 @@ export const load = async ({ locals, url }) => {
 			delete formData[key];
 		}
 	}
+	formData.language = formData.language.split(',').map((x) => x.trim()).filter((x) => x.length > 0);
 	let data = await db.query(
 		`SELECT * FROM topics WHERE 
-			draft = false AND (archived = undefined OR archived = false) AND (
-			(array::len($thesisType) == 0 OR thesisType CONTAINSANY $thesisType) AND
-			(array::len($specialization) == 0 OR specialization CONTAINSANY $specialization) AND
-			(string::len($areaOfExpertise) == 0 OR 
-				string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)) AND
-			(string::len($person) == 0 OR 
-				string::lowercase(professor) CONTAINS string::lowercase($person) OR
-				supervisor CONTAINS $person) AND
-			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
-			(array::len($query) == 0 OR 
-				$query ?~ string::lowercase(title) OR
-				$query ?~ string::lowercase(description) OR
-				$query ?~ thesisType OR
-				$query ?~ specialization OR
-				$query ?~ string::lowercase(subjectArea) OR
-				$query ?~ string::lowercase(areaOfExpertise) OR
-				$query ?~ string::lowercase(professor) OR
-				$query ?~ technologies OR
-				$query ?~ string::lowercase(supervisor)
-			)
-		) ORDER BY createdAt DESC LIMIT 25 START $offset
+			draft = false AND (archived = undefined OR archived = false)
+			${formData.thesisType.length > 0 ? 'AND thesisType CONTAINSANY $thesisType' : ''}
+			${formData.specialization.length > 0 ? 'AND specialization CONTAINSANY $specialization' : ''}
+			${formData.areaOfExpertise.length > 0 ? 'AND string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)' : ''}
+			${formData.person.length > 0 ? 'AND (string::lowercase(professor) CONTAINS string::lowercase($person) OR supervisor CONTAINS $person)' : ''}
+			${formData.technologies.length > 0 ? 'AND technologies CONTAINSANY $technologies' : ''}
+			${formData.language.length > 0 ? 'AND $language CONTAINS language' : ''}
+			${formData.query.length > 0 ? `AND ( 
+				$query ANYINSIDE string::words(title) OR
+				$query ANYINSIDE string::words(description) OR
+				$query ANYINSIDE thesisType OR
+				$query ANYINSIDE specialization OR
+				$query ?~ subjectArea OR
+				$query ?~ areaOfExpertise OR
+				$query ANYINSIDE string::words(professor) OR
+				$query ANYINSIDE technologies OR
+				$query ?~ supervisor
+			)` : ''}
+		ORDER BY createdAt DESC LIMIT 25 START $offset
 		`,
 		{
 			query: formData.query
@@ -59,32 +58,31 @@ export const load = async ({ locals, url }) => {
 				.split(',')
 				.map((x) => x.trim())
 				.filter((x) => x.length > 0),
+			language: formData.language,
 			offset
 		}
 	);
 	let topicCount = await db.query(
 		`SELECT count() as count, draft FROM topics WHERE 
-			draft = false AND (archived = undefined OR archived = false) AND (
-			(array::len($thesisType) == 0 OR thesisType CONTAINSANY $thesisType) AND
-			(array::len($specialization) == 0 OR specialization CONTAINSANY $specialization) AND
-			(string::len($areaOfExpertise) == 0 OR 
-				string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)) AND
-			(string::len($person) == 0 OR 
-				string::lowercase(professor) CONTAINS string::lowercase($person) OR
-				supervisor CONTAINS $person) AND
-			(array::len($technologies) == 0 OR technologies CONTAINSANY $technologies) AND
-			(array::len($query) == 0 OR 
-				$query ?~ string::lowercase(title) OR
-				$query ?~ string::lowercase(description) OR
-				$query ?~ thesisType OR
-				$query ?~ specialization OR
-				$query ?~ string::lowercase(subjectArea) OR
-				$query ?~ string::lowercase(areaOfExpertise) OR
-				$query ?~ string::lowercase(professor) OR
-				$query ?~ technologies OR
-				$query ?~ string::lowercase(supervisor)
-			)
-		) GROUP BY draft
+			draft = false AND (archived = undefined OR archived = false)
+			${formData.thesisType.length > 0 ? 'AND thesisType CONTAINSANY $thesisType' : ''}
+			${formData.specialization.length > 0 ? 'AND specialization CONTAINSANY $specialization' : ''}
+			${formData.areaOfExpertise.length > 0 ? 'AND string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)' : ''}
+			${formData.person.length > 0 ? 'AND (string::lowercase(professor) CONTAINS string::lowercase($person) OR supervisor CONTAINS $person)' : ''}
+			${formData.technologies.length > 0 ? 'AND technologies CONTAINSANY $technologies' : ''}
+			${formData.language.length > 0 ? 'AND $language CONTAINS language' : ''}
+			${formData.query.length > 0 ? `AND ( 
+				$query ANYINSIDE string::words(title) OR
+				$query ANYINSIDE string::words(description) OR
+				$query ANYINSIDE thesisType OR
+				$query ANYINSIDE specialization OR
+				$query ?~ subjectArea OR
+				$query ?~ areaOfExpertise OR
+				$query ANYINSIDE string::words(professor) OR
+				$query ANYINSIDE technologies OR
+				$query ?~ supervisor
+			)` : ''}
+		GROUP BY draft
 		`,
 		{
 			query: formData.query
@@ -102,7 +100,8 @@ export const load = async ({ locals, url }) => {
 			technologies: formData.technologies
 				.split(',')
 				.map((x) => x.trim())
-				.filter((x) => x.length > 0)
+				.filter((x) => x.length > 0),
+			language: formData.language,
 		}
 	);
 

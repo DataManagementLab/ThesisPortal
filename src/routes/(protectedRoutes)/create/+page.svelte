@@ -2,7 +2,7 @@
 	export let data;
 	export let form;
 
-	import { Input, Textarea } from '$lib/components';
+	import { Input, Textarea, Select } from '$lib/components';
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
@@ -59,7 +59,7 @@
 				errorMsg={form?.errors?.areaOfExpertise ?? ''}
 				required />
 		</div>
-		<div>
+		<div class="mr-5">
 			<Input
 				id="specialization"
 				label="Keywords"
@@ -69,6 +69,9 @@
 				value={form?.formData?.specialization ?? data.userData?.specialization ?? ''}
 				errorMsg={form?.errors?.specialization ?? ''}
 				required />
+		</div>
+		<div>
+			<Select id="language" label="Sprache" options={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de_en'}]}/>
 		</div>
 	</div>
 
