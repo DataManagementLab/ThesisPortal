@@ -3,16 +3,20 @@
 	export let form;
 
 	import { Input, Textarea, Select } from '$lib/components';
+	import Close from 'svelte-material-icons/Close.svelte';
 
 	let thesisType = [
 		{ id: 'Bachelor', text: 'Bachelor Thesis' },
 		{ id: 'Master', text: 'Master Thesis' }
 	];
+
+	let files;
 </script>
 
 <form
 	action="?/createTopic"
 	method="POST"
+	enctype="multipart/form-data"
 	id="createTopic"
 	class="card shadow-xl bg-base-100 p-5 m-5">
 	<h2 class="text-3xl font-bold mx-5 my-3">Thema erstellen</h2>
@@ -134,6 +138,22 @@
 				value={form?.formData?.email ?? data.userData?.email ?? ''}
 				errorMsg={form?.errors?.email ?? ''}
 				required />
+		</div>
+	</div>
+	<div class="mb-3">
+		<div class="form-control w-full max-w-xs">
+			<label class="label" for="pdfUpload">
+				<span class="label-text">PDF Dateien hochladen</span>
+			</label>
+			<input bind:files name="files" id="pdfUpload" type="file" multiple class="file-input file-input-bordered w-full max-w-xs" accept="application/pdf"/>
+			{#if files && files.length > 0}
+				<h2>Ausgewählte Dateien:</h2>
+				{#each files as file}
+					<div class="flex justify-between mb-1">
+						<span>{file.name}</span>
+					</div>
+				{/each}
+			{/if}
 		</div>
 	</div>
 

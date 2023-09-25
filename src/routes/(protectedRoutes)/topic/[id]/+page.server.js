@@ -1,4 +1,6 @@
 import { db } from '$lib/server/db';
+import path from 'path';
+import fs from 'fs/promises';
 
 export const load = async ({ locals, params }) => {
 	let id = params.id;
@@ -13,8 +15,11 @@ export const load = async ({ locals, params }) => {
 			student: `student:${locals.session.cas.user}`
 		})
 	)[0].result;
+	const directoryPath = path.join(process.cwd(), 'static', 'uploads', id);
+	let files = await fs.readdir(directoryPath);
 	return {
 		topic: data[0].result[0],
+		files,
 		favorites
 	};
 };

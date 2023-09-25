@@ -6,6 +6,7 @@
 	import StarOutline from 'svelte-material-icons/StarOutline.svelte';
 	import CalendarMonth from 'svelte-material-icons/CalendarMonth.svelte';
 	import CalendarSync from 'svelte-material-icons/CalendarSync.svelte';
+	import PDFIcon from 'svelte-material-icons/FilePdfBox.svelte';
 	import { getLanguageIcon } from '$lib/utils';
 	import { enhance } from '$app/forms';
 	import md from 'markdown-it';
@@ -119,6 +120,17 @@
 				</div>
 			</div>
 		{/if}
+		<div>
+			{#each data.files as file}
+				<a
+					href="/uploads/{data.topic.id.split(":")[1]}/{file}"
+					class="btn btn-primary btn-sm mr-2"
+					title="Datei herunterladen">
+					<span class="text-3xl"><PDFIcon /></span>
+					{file}
+				</a>
+			{/each}
+		</div>
 	</div>
 </div>
 

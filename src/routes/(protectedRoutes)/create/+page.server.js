@@ -1,6 +1,8 @@
 import { db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 import { z } from 'zod';
+import fs from 'fs/promises';
+import path from 'path';
 
 const filterSchema = z.object({
 	subjectArea: z
@@ -44,7 +46,8 @@ const filterSchema = z.object({
 			/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
 		),
 	draft: z.boolean(),
-	createdAt: z.date()
+	createdAt: z.date(),
+	files: z.any(),
 });
 
 export const load = async ({ locals }) => {
@@ -63,7 +66,8 @@ export const actions = {
 		const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
 		if (!isEmployee) throw redirect(303, '/');
 
-		const formData = Object.fromEntries(await request.formData());
+		const rawFormData = await request.formData();
+		const formData = Object.fromEntries(rawFormData);
 
 		// Convert thesisType_* fields to single array 'thesisType: []'
 		formData.thesisType = [];
@@ -91,9 +95,27 @@ export const actions = {
 			}
 			result.author = locals.session.cas.user;
 			createdTopic = (await db.create('topics', result))[0];
+			const files = rawFormData.getAll('files');
+			const cwd = process.cwd();
+			for(const file of files) {
+				const filePath = path.join(
+					cwd,
+					'static',
+					'uploads',
+					createdTopic.id.split(':')[1],
+					file.name
+				);
+				try	{
+					await fs.mkdir(path.dirname(filePath), { recursive: true });
+					await fs.writeFile(filePath, Buffer.from(await file.arrayBuffer()));
+				} catch (error) {
+					console.error(error);
+				}
+			}
 		} catch (error) {
 			if (error.errors != null) {
 				const { fieldErrors: errors } = error.flatten();
+				delete formData.files;
 				return {
 					formData,
 					errors

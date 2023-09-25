@@ -1,6 +1,8 @@
 import { db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 import { PUBLIC_ITEMS_PER_PAGE } from '$env/static/public';
+import path from 'path';
+import fs from 'fs';
 
 export const load = async ({ locals, url }) => {
 	const offset =
@@ -34,6 +36,8 @@ export const actions = {
 			await db.query('DELETE favorite WHERE topic=$topicID', {
 				topicID: formData.deleteTopicId
 			});
+			const dir = path.join(process.cwd(), 'static', 'uploads', formData.deleteTopicId.split(':')[1]);
+			fs.rmSync(dir, { recursive: true, force: true });
 		}
 	},
 	archiveTopic: async ({ request }) => {
