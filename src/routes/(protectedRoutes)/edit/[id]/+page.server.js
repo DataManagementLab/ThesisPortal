@@ -1,6 +1,9 @@
 import { db } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
+import path from 'path';
+import fs from 'fs/promises';
+import fsSync from 'fs';
 
 const filterSchema = z.object({
 	subjectArea: z
@@ -63,10 +66,12 @@ export async function load({ params, locals }) {
 	if (data[0].author !== locals.session.cas.user) {
 		throw error(403, 'Nicht authorisiert');
 	}
-
+	const directoryPath = path.join(process.cwd(), 'static', 'uploads', params.id);
+	let files = await fsSync.existsSync(directoryPath) ? await fs.readdir(directoryPath) : [];
 	return {
 		data: data[0],
-		errors: returnError
+		errors: returnError,
+		files
 	};
 }
 
@@ -75,7 +80,9 @@ export const actions = {
 		const affiliation = locals.session.cas.attributes.eduPersonAffiliation;
 		const isEmployee = affiliation[0]._text == 'employee' || affiliation[1]._text == 'employee';
 		if (!isEmployee) throw redirect(303, '/');
-		const formData = Object.fromEntries(await request.formData());
+
+		const rawFormData = await request.formData();
+		const formData = Object.fromEntries(rawFormData);
 
 		// Convert thesisType_* fields to single array 'thesisType: []'
 		formData.thesisType = [];
@@ -91,11 +98,29 @@ export const actions = {
 		formData.supervisor = parseCSV(formData.supervisor);
 		formData.lastUpdatedAt = new Date();
 		formData.createdAt = new Date(formData.createdAt);
+		delete formData.files;
 		try {
 			if (!formData.draft) {
 				filterSchema.parse(formData);
 			}
 			db.merge(`topics:${params.id}`, formData);
+			const files = rawFormData.getAll('files');
+			const cwd = process.cwd();
+			for(const file of files) {
+				const filePath = path.join(
+					cwd,
+					'static',
+					'uploads',
+					params.id,
+					file.name
+				);
+				try	{
+					await fs.mkdir(path.dirname(filePath), { recursive: true });
+					await fs.writeFile(filePath, Buffer.from(await file.arrayBuffer()));
+				} catch (error) {
+					console.error(error);
+				}
+			}
 		} catch (error) {
 			formData.draft = 'true';
 			db.merge(`topics:${params.id}`, formData);
@@ -110,6 +135,12 @@ export const actions = {
 		} else {
 			throw redirect(303, '/profile/topics');
 		}
+	},
+	deleteFile: async ({ params, request }) => {
+		const directoryPath = path.join(process.cwd(), 'static', 'uploads', params.id);
+		const { file } = Object.fromEntries(await request.formData());
+		await fs.unlink(path.join(directoryPath, file));
+		throw redirect(303, `/edit/${params.id}`);
 	}
 };
 
