@@ -3,14 +3,33 @@
 	export let form;
 
 	import { Input, Textarea, Select } from '$lib/components';
-	import Close from 'svelte-material-icons/Close.svelte';
-
-	let thesisType = [
-		{ id: 'Bachelor', text: 'Bachelor Thesis' },
-		{ id: 'Master', text: 'Master Thesis' }
-	];
 
 	let files;
+
+	let bachelorChecked = form?.formData.thesisType.includes('Bachelor') ?? false;
+	let masterChecked = form?.formData.thesisType.includes('Master') ?? false;
+	let subjectArea = form?.formData?.subjectArea ?? data.userData?.subjectArea ?? '';
+	let areaOfExpertise = form?.formData?.areaOfExpertise ?? data.userData?.areaOfExpertise ?? '';
+	let specializationFilledIn = false;
+	let title = form?.formData?.title ?? '';
+	let description = form?.formData?.description ?? '';
+	let professor = form?.formData?.professor ?? '';
+	let supervisorFilledIn = false;
+	let technologiesFilledIn = false;
+	let email = form?.formData?.email ?? data.userData?.email ?? '';
+
+	let allRequiredFieldsFilled = false;
+
+	$: allRequiredFieldsFilled = (bachelorChecked || masterChecked) && 
+		subjectArea.length > 0 && 
+		areaOfExpertise.length > 0 && 
+		specializationFilledIn &&
+		title.length > 0 && 
+		description.length > 0 && 
+		professor.length > 0 && 
+		supervisorFilledIn && 
+		technologiesFilledIn && 
+		email.length > 0;
 </script>
 
 <form
@@ -24,18 +43,26 @@
 	<div class="w-full flex flex-wrap justify-start">
 		<div class="mr-5">
 			<div>
-				{#each thesisType as tType}
-					<div class="form-control">
-						<label class="label justify-start cursor-pointer">
-							<input
-								type="checkbox"
-								class="checkbox"
-								name="thesisType_{tType.id}"
-								checked={form?.formData.thesisType.includes(tType.id) ?? false} />
-							<span class="label-text ml-2">{tType.text}</span>
-						</label>
-					</div>
-				{/each}
+				<div class="form-control">
+					<label class="label justify-start cursor-pointer">
+						<input
+							type="checkbox"
+							class="checkbox"
+							name="thesisType_Backelor"
+							bind:checked={bachelorChecked} />
+						<span class="label-text ml-2">Bachelor Thesis</span>
+					</label>
+				</div>
+				<div class="form-control">
+					<label class="label justify-start cursor-pointer">
+						<input
+							type="checkbox"
+							class="checkbox"
+							name="thesisType_Master"
+							bind:checked={masterChecked} />
+						<span class="label-text ml-2">Master Thesis</span>
+					</label>
+				</div>
 				<label class="label font-medium pb-1" for="thesisType">
 					{#if form?.errors?.thesisType}
 						<span class="label-text-alt text-error">* {form?.errors?.thesisType} *</span>
@@ -49,7 +76,7 @@
 				label="Fachbereich"
 				suggestions
 				placeholder="Fachbereich"
-				value={form?.formData?.subjectArea ?? data.userData?.subjectArea ?? ''}
+				bind:value={subjectArea}
 				errorMsg={form?.errors?.subjectArea ?? ''}
 				required />
 		</div>
@@ -59,7 +86,7 @@
 				label="Fachgebiet"
 				suggestions
 				placeholder="Fachgebiet"
-				value={form?.formData?.areaOfExpertise ?? data.userData?.areaOfExpertise ?? ''}
+				bind:value={areaOfExpertise}
 				errorMsg={form?.errors?.areaOfExpertise ?? ''}
 				required />
 		</div>
@@ -72,6 +99,7 @@
 				csv
 				value={form?.formData?.specialization ?? data.userData?.specialization ?? ''}
 				errorMsg={form?.errors?.specialization ?? ''}
+				bind:filledIn={specializationFilledIn}
 				required />
 		</div>
 		<div>
@@ -83,14 +111,14 @@
 		id="title"
 		label="Titel"
 		placeholder="Titel"
-		value={form?.formData?.title ?? ''}
+		bind:value={title}
 		errorMsg={form?.errors?.title ?? ''}
 		required />
 	<Textarea
 		id="description"
 		label="Beschreibung (Markdown unterstützt)"
 		placeholder="Beschreibung des Themas (inkl. Voraussetzungen, Aufgabenstellung, etc.)"
-		value={form?.formData?.description ?? ''}
+		bind:value={description}
 		errorMsg={form?.errors?.description ?? ''}
 		required />
 
@@ -101,7 +129,7 @@
 				label="Leitende(r) Professor*in"
 				placeholder="Leitende(r) Professor*in"
 				suggestions
-				value={form?.formData?.professor ?? ''}
+				bind:value={professor}
 				errorMsg={form?.errors?.professor ?? ''}
 				required />
 		</div>
@@ -114,6 +142,7 @@
 				csv
 				value={form?.formData?.supervisor ?? data.userData?.name ?? ''}
 				errorMsg={form?.errors?.supervisor ?? ''}
+				bind:filledIn={supervisorFilledIn}
 				required />
 		</div>
 
@@ -126,6 +155,7 @@
 				csv
 				value={form?.formData?.technologies ?? ''}
 				errorMsg={form?.errors?.technologies ?? ''}
+				bind:filledIn={technologiesFilledIn}
 				required />
 		</div>
 		<div>
@@ -135,7 +165,7 @@
 				placeholder="me@tu-darmstadt.de"
 				type="mail"
 				suggestions
-				value={form?.formData?.email ?? data.userData?.email ?? ''}
+				bind:value={email}
 				errorMsg={form?.errors?.email ?? ''}
 				required />
 		</div>
@@ -167,6 +197,6 @@
 		<button type="submit" class="btn btn-outline mr-5" name="draft" value="true">
 			Entwurf speichern
 		</button>
-		<button type="submit" class="btn btn-primary">Hochladen</button>
+		<button type="submit" class:hidden={!allRequiredFieldsFilled} class="btn btn-primary">Hochladen</button>
 	</div>
 </form>

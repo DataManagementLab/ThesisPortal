@@ -13,9 +13,11 @@
 	export let suggestions = undefined;
 	export let csv = undefined;
 	export let errorMsg = '';
+	export let filledIn = false;
 
 	let loadedSuggestions = [];
 	let inputValue = '';
+	$: filledIn = inputValue && inputValue.length > 1;
 
 	onMount(() => {
 		loadSuggestions();
