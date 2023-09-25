@@ -48,7 +48,7 @@
 						<input
 							type="checkbox"
 							class="checkbox"
-							name="thesisType_Backelor"
+							name="thesisType_Bachelor"
 							bind:checked={bachelorChecked} />
 						<span class="label-text ml-2">Bachelor Thesis</span>
 					</label>

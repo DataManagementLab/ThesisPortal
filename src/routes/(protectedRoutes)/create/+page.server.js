@@ -84,6 +84,7 @@ export const actions = {
 		formData.createdAt = new Date();
 		formData.lastUpdatedAt = new Date();
 		formData.views = 0;
+		delete formData.files;
 
 		let createdTopic;
 		try {
