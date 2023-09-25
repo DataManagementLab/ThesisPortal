@@ -18,6 +18,13 @@
 {#each data as topic}
 	<div class="card card-compact md:card-normal bg-base-200 mb-3">
 		<div class="card-body">
+			<div class="text-sm breadcrumbs w-full pt-0 pb-0">
+				<ul class="ml-3">
+					<li>{topic.subjectArea}</li>
+					<li>{topic.areaOfExpertise}</li>
+					<li>{topic.specialization}</li>
+				</ul>
+			</div>
 			<h2 class="card-title text-primary">
 				<a href="/{draft ? 'edit' : 'topic'}/{topic.id.split(':')[1]}">{topic.title}</a>
 				<span class="right font-normal text-sm">
