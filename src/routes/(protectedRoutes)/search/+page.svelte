@@ -47,6 +47,7 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <form action="/search" method="GET" id="search" class="card shadow-xl bg-base-100 p-5 m-5" on:keydown={submit}>
 	<div class="flex input-group" id="search-bar">
 		<input
@@ -116,7 +117,7 @@
 				bind:value={formData.technologies} />
 		</div>
 		<div class="w-48">
-			<MultiSelect id="language" label="Sprache" data={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de_en'}]} bind:value={formData.language}/>
+			<MultiSelect id="language" label="Sprache" data={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}]} bind:value={formData.language}/>
 		</div>
 	</div>
 </form>

@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import Close from 'svelte-material-icons/Close.svelte';
 
 	export let id = '';
@@ -11,9 +12,12 @@
 	let selected = new Set();
 
 	function selectOption(elem) {
-		selected = selected.add(data.filter((x) => x.id == elem)[0]);
-		value = '';
-		reset();
+		const elemToAdd = data.filter((x) => x.id == elem);
+		if(elemToAdd.length > 0) {
+			selected = selected.add(data.filter((x) => x.id == elem)[0]);
+			value = '';
+			reset();
+		}
 	}
 	function selectCustom(e) {
 		if (e.charCode === 13) {
@@ -37,6 +41,9 @@
 		reset();
 	}
 	function reset() {
+		if(Array.isArray(value)){
+			value = '';
+		}
 		let searchTerm = value.toLowerCase().replaceAll(/[,.-]/g, ' ');
 		for (let option of data) {
 			let text = option.text.toLowerCase().replaceAll(/[,.-]/g, ' ');
@@ -47,11 +54,23 @@
 			}
 		}
 	}
+	onMount(() => {
+		if(value.length > 0){
+			if(Array.isArray(value)){
+				for(let val of value){
+					selectOption(val);
+				}
+			} else {
+				selectOption(value);
+			}
+		}
+		reset();
+	});
 </script>
 
 <div class="multiselect" bind:this={component}>
 	<label for={id} class="label">{label}</label>
-	<input type="hidden" name={id} value={[...selected].map((x) => x.id).join(',')} />
+	<input type="hidden" name={id} value={[...selected].filter(x => x != undefined && x.hasOwnProperty('id')).map((x) => x.id).join(',')} />
 	<div id="{id}_selections" class="selections">
 		{#each Array.from(selected) as sel}
 			<div>

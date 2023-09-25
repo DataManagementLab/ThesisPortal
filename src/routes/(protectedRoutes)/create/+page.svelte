@@ -103,7 +103,7 @@
 				required />
 		</div>
 		<div>
-			<Select id="language" label="Sprache" options={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de_en'}]}/>
+			<Select id="language" label="Sprache" options={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de,en'}]}/>
 		</div>
 	</div>
 

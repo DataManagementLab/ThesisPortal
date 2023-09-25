@@ -1,5 +1,5 @@
 <script>
-	import { Input, TopicView, Pagination, Select } from '$lib/components';
+	import { Input, TopicView, Pagination, MultiSelect } from '$lib/components';
 	import Search from 'svelte-material-icons/Magnify.svelte';
 	import ArrowDown from 'svelte-material-icons/ChevronDown.svelte';
 	import ArrowUp from 'svelte-material-icons/ChevronUp.svelte';
@@ -105,8 +105,8 @@
 				suggestions
 				bind:value={formData.technologies} />
 		</div>
-		<div>
-			<Select id="language" label="Sprache" options={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}, { text: '🇩🇪/🇬🇧', id: 'de_en'}]}/>
+		<div class="w-48">
+			<MultiSelect id="language" label="Sprache" data={[{ text: '🇩🇪', id: 'de'}, { text: '🇬🇧', id: 'en'}]}/>
 		</div>
 	</div>
 </form>

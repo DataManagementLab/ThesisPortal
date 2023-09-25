@@ -27,7 +27,7 @@ export const load = async ({ locals, url }) => {
 			${formData.areaOfExpertise.length > 0 ? 'AND string::lowercase(areaOfExpertise) = string::lowercase($areaOfExpertise)' : ''}
 			${formData.person.length > 0 ? 'AND (string::lowercase(professor) CONTAINS string::lowercase($person) OR supervisor CONTAINS $person)' : ''}
 			${formData.technologies.length > 0 ? 'AND technologies CONTAINSANY $technologies' : ''}
-			${formData.language.length > 0 ? 'AND $language CONTAINS language' : ''}
+			${formData.language.length > 0 ? 'AND ($language CONTAINS language OR language == \'de,en\')' : ''}
 			${formData.query.length > 0 ? `AND ( 
 				$query ANYINSIDE string::words(title) OR
 				$query ANYINSIDE string::words(description) OR
