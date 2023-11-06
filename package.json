@@ -41,7 +41,7 @@
 	"type": "module",
 	"dependencies": {
 		"dotenv": "^16.3.1",
-		"highlight.js": "^11.7.0",
+		"highlight.js": "^11.9.0",
 		"markdown-it": "^13.0.2",
 		"playwright": "^1.38.1",
 		"theme-change": "^2.5.0"
